@@ -52,7 +52,7 @@ function SectionHeader({ title, icon: Icon, link, color = '#2874F0' }: { title: 
         <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
                 <Icon size={22} style={{ color }} />
-                <h2 className="text-lg md:text-xl font-bold text-gray-800">{title}</h2>
+                <h2 className="text-lg md:text-xl font-bold text-gray-800 dark:text-gray-100">{title}</h2>
             </div>
             {link && (
                 <Link
@@ -90,7 +90,7 @@ export default async function HomePage() {
 
             {/* Deal of the Day */}
             <section className="max-w-7xl mx-auto px-4 mt-4">
-                <div className="bg-white rounded-sm p-4 shadow-sm">
+                <div className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-sm border border-gray-100 dark:border-gray-700">
                     <SectionHeader title="Deal of the Day" icon={Zap} link="/search?q=deals" color="#FB641B" />
                     <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-3 md:gap-4">
                         {displayDeals.map((product: typeof DEMO_PRODUCTS[0]) => (
@@ -102,7 +102,7 @@ export default async function HomePage() {
 
             {/* Mid Banner */}
             <section className="max-w-7xl mx-auto px-4 mt-4">
-                <div className="bg-gradient-to-r from-[#2874F0] to-[#6C63FF] rounded-sm p-6 md:p-10 text-white text-center shadow-sm">
+                <div className="bg-gradient-to-r from-[#2874F0] to-[#6C63FF] rounded-lg p-6 md:p-10 text-white text-center shadow-sm">
                     <h3 className="text-xl md:text-2xl font-bold mb-2">💰 Cash on Delivery Available</h3>
                     <p className="text-blue-100 text-sm md:text-base">Pay when your order arrives at your doorstep. No prepayment needed!</p>
                 </div>
@@ -110,7 +110,7 @@ export default async function HomePage() {
 
             {/* Featured Products */}
             <section className="max-w-7xl mx-auto px-4 mt-4">
-                <div className="bg-white rounded-sm p-4 shadow-sm">
+                <div className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-sm border border-gray-100 dark:border-gray-700">
                     <SectionHeader title="Featured Products" icon={Star} link="/search?q=featured" color="#FFB300" />
                     <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
                         {displayFeatured.map((product: typeof DEMO_PRODUCTS[0]) => (
@@ -122,7 +122,7 @@ export default async function HomePage() {
 
             {/* Best Sellers */}
             <section className="max-w-7xl mx-auto px-4 mt-4">
-                <div className="bg-white rounded-sm p-4 shadow-sm">
+                <div className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-sm border border-gray-100 dark:border-gray-700">
                     <SectionHeader title="Best Sellers" icon={TrendingUp} link="/search?q=best" color="#388E3C" />
                     <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-3 md:gap-4">
                         {displayBest.map((product: typeof DEMO_PRODUCTS[0]) => (
@@ -134,7 +134,7 @@ export default async function HomePage() {
 
             {/* New Arrivals */}
             <section className="max-w-7xl mx-auto px-4 mt-4 mb-6">
-                <div className="bg-white rounded-sm p-4 shadow-sm">
+                <div className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-sm border border-gray-100 dark:border-gray-700">
                     <SectionHeader title="New Arrivals" icon={Clock} link="/search?q=new" color="#9C27B0" />
                     <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-3 md:gap-4">
                         {displayNew.map((product: typeof DEMO_PRODUCTS[0]) => (
