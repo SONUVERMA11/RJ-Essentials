@@ -47,22 +47,22 @@ export default function ProductCard({ product }: ProductCardProps) {
 
     return (
         <Link href={`/product/${product.slug}`} className="block">
-            <div className="product-card bg-white dark:bg-gray-800 rounded-lg overflow-hidden relative group border border-gray-100 dark:border-gray-700 hover:border-[#2874F0] dark:hover:border-[#5a9cf5] hover:shadow-lg transition-all duration-300">
+            <div className="product-card bg-white dark:bg-gray-800 rounded-3xl overflow-hidden relative group border border-gray-100 dark:border-gray-700 hover:border-[#2874F0] dark:hover:border-[#5a9cf5] hover:shadow-xl transition-all duration-300 h-full flex flex-col">
                 {/* Image */}
-                <div className="relative aspect-square bg-gray-50 dark:bg-gray-900 p-4 flex items-center justify-center overflow-hidden">
+                <div className="relative aspect-square bg-gray-50/50 dark:bg-gray-900/50 p-4 flex items-center justify-center overflow-hidden rounded-2xl mx-1.5 mt-1.5">
                     <img
                         src={product.images?.[0]?.url || '/placeholder.png'}
                         alt={product.name}
-                        className="max-h-full max-w-full object-contain transition-all duration-500 ease-out group-hover:scale-105 group-hover:opacity-90"
+                        className="max-h-full max-w-full object-contain transition-all duration-500 ease-out group-hover:scale-105 group-hover:opacity-90 rounded-xl"
                         loading="lazy"
                     />
                     {isOutOfStock && (
                         <div className="absolute inset-0 bg-white/70 dark:bg-black/60 flex items-center justify-center">
-                            <span className="bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-900 text-xs font-bold px-3 py-1 rounded">OUT OF STOCK</span>
+                            <span className="bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-900 text-xs font-bold px-3 py-1 rounded-full">OUT OF STOCK</span>
                         </div>
                     )}
                     {discount > 0 && !isOutOfStock && (
-                        <span className="absolute top-2 left-2 bg-gradient-to-r from-[#FB641B] to-[#ff8534] text-white text-xs font-bold px-2.5 py-1 rounded-md shadow-sm">
+                        <span className="absolute top-2 left-2 bg-gradient-to-r from-[#FB641B] to-[#ff8534] text-white text-[10px] uppercase font-black px-2.5 py-1 rounded-full shadow-sm">
                             {discount}% OFF
                         </span>
                     )}

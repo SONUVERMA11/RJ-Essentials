@@ -9,7 +9,7 @@ export default function AnnouncementBar() {
     if (!visible) return null;
 
     return (
-        <div className="w-full bg-[#FFE500] text-gray-900 text-center py-1.5 px-4 text-[10px] md:text-xs font-bold uppercase tracking-widest shadow-sm">
+        <div className="relative w-full bg-[#FFE500] text-gray-900 text-center py-1.5 px-4 text-[10px] md:text-xs font-bold uppercase tracking-widest shadow-sm">
             <span>🚚 Free Delivery on orders above ₹499 | Cash on Delivery Available!</span>
             <button
                 onClick={() => setVisible(false)}

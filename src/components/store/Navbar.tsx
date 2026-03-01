@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import UserMenu from './UserMenu';
 import ThemeToggle from './ThemeToggle';
 import Logo from './Logo';
+import AnnouncementBar from './AnnouncementBar';
 
 const CATEGORIES = [
     'Electronics', 'Fashion', 'Home & Kitchen', 'Beauty', 'Toys', 'Sports', 'Books', 'Grocery'
@@ -183,6 +184,7 @@ export default function Navbar() {
                     </div>
                 </div>
             )}
+            <AnnouncementBar />
         </header>
     );
 }
