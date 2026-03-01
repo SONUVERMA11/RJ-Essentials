@@ -19,18 +19,24 @@ export default function AdminLoginPage() {
         setLoading(true);
         setError('');
 
-        const result = await signIn('admin-login', {
-            email,
-            password,
-            redirect: false,
-        });
+        try {
+            const result = await signIn('admin-login', {
+                email,
+                password,
+                redirect: false,
+            });
 
-        if (result?.error) {
-            setError('Invalid email or password');
-        } else {
-            router.push('/admin/dashboard');
+            if (result?.error) {
+                setError('Invalid email or password');
+                setLoading(false);
+            } else {
+                // Hard redirect to ensure cookies are properly set before middleware runs
+                window.location.href = '/admin/dashboard';
+            }
+        } catch {
+            setError('Something went wrong. Please try again.');
+            setLoading(false);
         }
-        setLoading(false);
     };
 
     return (

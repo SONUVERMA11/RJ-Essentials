@@ -2,41 +2,60 @@ import ProductCard from '@/components/store/ProductCard';
 import Link from 'next/link';
 import { ChevronRight, SlidersHorizontal } from 'lucide-react';
 import { Metadata } from 'next';
+import dbConnect from '@/lib/mongodb';
+import Product from '@/models/Product';
 
 interface Props {
     params: Promise<{ slug: string }>;
     searchParams: Promise<{ sort?: string; minPrice?: string; maxPrice?: string; page?: string }>;
 }
 
-const DEMO_PRODUCTS = Array.from({ length: 8 }, (_, i) => ({
-    _id: `cat-demo-${i}`,
-    name: `Product ${i + 1} — Quality Item`,
-    slug: `product-${i + 1}`,
-    images: [{ url: '' }],
-    mrp: 999 + i * 200,
-    sellingPrice: 499 + i * 100,
-    ratings: { average: 3.8 + (i % 5) * 0.2, count: 50 + i * 30 },
-    stock: 20,
-}));
-
 async function getProducts(category: string, searchParams: { sort?: string; minPrice?: string; maxPrice?: string; page?: string }) {
     try {
-        const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
-        const params = new URLSearchParams({
-            category: category === 'all' ? '' : category.replace(/-/g, ' '),
-            status: 'active',
-            limit: '20',
-            page: searchParams.page || '1',
-            ...(searchParams.sort && { sort: searchParams.sort }),
-            ...(searchParams.minPrice && { minPrice: searchParams.minPrice }),
-            ...(searchParams.maxPrice && { maxPrice: searchParams.maxPrice }),
-        });
-        const res = await fetch(`${baseUrl}/api/products?${params}`, { cache: 'no-store' });
-        if (!res.ok) throw new Error('Failed');
-        const data = await res.json();
-        return data.products?.length > 0 ? data : { products: DEMO_PRODUCTS, pagination: { page: 1, pages: 1, total: 8 } };
-    } catch {
-        return { products: DEMO_PRODUCTS, pagination: { page: 1, pages: 1, total: 8 } };
+        await dbConnect();
+
+        const page = parseInt(searchParams.page || '1');
+        const limit = 20;
+        const skip = (page - 1) * limit;
+
+        // Build filter — case-insensitive category match
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const filter: any = { status: 'active' };
+
+        if (category !== 'all') {
+            const categoryName = category.replace(/-/g, ' ');
+            filter.category = new RegExp(`^${categoryName}$`, 'i');
+        }
+
+        if (searchParams.minPrice || searchParams.maxPrice) {
+            filter.sellingPrice = {};
+            if (searchParams.minPrice) filter.sellingPrice.$gte = parseInt(searchParams.minPrice);
+            if (searchParams.maxPrice) filter.sellingPrice.$lte = parseInt(searchParams.maxPrice);
+        }
+
+        // Build sort
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        let sortObj: any = { createdAt: -1 };
+        switch (searchParams.sort) {
+            case 'price-low': sortObj = { sellingPrice: 1 }; break;
+            case 'price-high': sortObj = { sellingPrice: -1 }; break;
+            case 'popularity': sortObj = { soldCount: -1 }; break;
+            case 'rating': sortObj = { 'ratings.average': -1 }; break;
+            default: sortObj = { createdAt: -1 };
+        }
+
+        const [products, total] = await Promise.all([
+            Product.find(filter).sort(sortObj).skip(skip).limit(limit).lean(),
+            Product.countDocuments(filter),
+        ]);
+
+        return {
+            products: JSON.parse(JSON.stringify(products)),
+            pagination: { page, limit, total, pages: Math.ceil(total / limit) },
+        };
+    } catch (error) {
+        console.error('Category page error:', error);
+        return { products: [], pagination: { page: 1, limit: 20, total: 0, pages: 0 } };
     }
 }
 
@@ -141,7 +160,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
                     </div>
 
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                        {data.products.map((product: typeof DEMO_PRODUCTS[0]) => (
+                        {data.products.map((product: { _id: string; name: string; slug: string; images: { url: string }[]; mrp: number; sellingPrice: number; ratings: { average: number; count: number }; stock: number }) => (
                             <ProductCard key={product._id} product={product} />
                         ))}
                     </div>
