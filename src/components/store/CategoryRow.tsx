@@ -30,7 +30,7 @@ export default function CategoryRow({ categories }: CategoryRowProps) {
         : DEFAULT_CATEGORIES;
 
     return (
-        <div className="bg-white py-4 shadow-sm">
+        <div className="bg-white dark:bg-gray-800 py-4 shadow-sm border-b border-gray-100 dark:border-gray-700">
             <div className="max-w-7xl mx-auto px-4">
                 <div className="flex items-center gap-4 md:gap-8 overflow-x-auto scrollbar-hide py-2">
                     {items.map((cat) => {
@@ -51,7 +51,7 @@ export default function CategoryRow({ categories }: CategoryRowProps) {
                                         <Icon size={24} style={{ color: cat.color }} />
                                     )}
                                 </div>
-                                <span className="text-[11px] md:text-xs text-gray-700 font-medium text-center whitespace-nowrap group-hover:text-[#2874F0] transition-colors">
+                                <span className="text-[11px] md:text-xs text-gray-700 dark:text-gray-300 font-medium text-center whitespace-nowrap group-hover:text-[#2874F0] transition-colors">
                                     {cat.name}
                                 </span>
                             </Link>
