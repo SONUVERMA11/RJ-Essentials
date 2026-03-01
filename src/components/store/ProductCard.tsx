@@ -47,22 +47,22 @@ export default function ProductCard({ product }: ProductCardProps) {
 
     return (
         <Link href={`/product/${product.slug}`} className="block">
-            <div className="product-card bg-white rounded-sm overflow-hidden relative group border border-transparent hover:border-gray-200">
+            <div className="product-card bg-white dark:bg-gray-800 rounded-lg overflow-hidden relative group border border-gray-100 dark:border-gray-700 hover:border-[#2874F0] dark:hover:border-[#5a9cf5] hover:shadow-lg transition-all duration-300">
                 {/* Image */}
-                <div className="relative aspect-square bg-gray-50 p-4 flex items-center justify-center overflow-hidden">
+                <div className="relative aspect-square bg-gray-50 dark:bg-gray-900 p-4 flex items-center justify-center overflow-hidden">
                     <img
                         src={product.images?.[0]?.url || '/placeholder.png'}
                         alt={product.name}
-                        className="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-105"
+                        className="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-110"
                         loading="lazy"
                     />
                     {isOutOfStock && (
-                        <div className="absolute inset-0 bg-white/70 flex items-center justify-center">
-                            <span className="bg-gray-800 text-white text-xs font-bold px-3 py-1 rounded">OUT OF STOCK</span>
+                        <div className="absolute inset-0 bg-white/70 dark:bg-black/60 flex items-center justify-center">
+                            <span className="bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-900 text-xs font-bold px-3 py-1 rounded">OUT OF STOCK</span>
                         </div>
                     )}
                     {discount > 0 && !isOutOfStock && (
-                        <span className="absolute top-2 left-2 bg-[#FB641B] text-white text-xs font-bold px-2 py-0.5 rounded-sm">
+                        <span className="absolute top-2 left-2 bg-gradient-to-r from-[#FB641B] to-[#ff8534] text-white text-xs font-bold px-2.5 py-1 rounded-md shadow-sm">
                             {discount}% OFF
                         </span>
                     )}
@@ -70,7 +70,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                     {!isOutOfStock && (
                         <button
                             onClick={handleAddToCart}
-                            className="absolute bottom-2 right-2 bg-white shadow-md rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity hover:bg-[#2874F0] hover:text-white text-gray-700"
+                            className="absolute bottom-2 right-2 bg-white dark:bg-gray-700 shadow-md rounded-full p-2.5 opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-[#2874F0] hover:text-white text-gray-700 dark:text-gray-200 hover:scale-110"
                         >
                             <ShoppingCart size={16} />
                         </button>
@@ -78,8 +78,8 @@ export default function ProductCard({ product }: ProductCardProps) {
                 </div>
 
                 {/* Info */}
-                <div className="p-3 space-y-1">
-                    <h3 className="text-sm text-gray-800 font-medium line-clamp-2 leading-tight min-h-[2.5rem]">
+                <div className="p-3.5 space-y-1.5">
+                    <h3 className="text-sm text-gray-800 dark:text-gray-100 font-medium line-clamp-2 leading-tight min-h-[2.5rem]">
                         {product.name}
                     </h3>
 
@@ -89,16 +89,16 @@ export default function ProductCard({ product }: ProductCardProps) {
                             <span className="inline-flex items-center gap-0.5 bg-[#388E3C] text-white text-xs font-bold px-1.5 py-0.5 rounded-sm">
                                 {product.ratings.average.toFixed(1)} <Star size={10} fill="white" />
                             </span>
-                            <span className="text-xs text-gray-500">({product.ratings.count.toLocaleString()})</span>
+                            <span className="text-xs text-gray-500 dark:text-gray-400">({product.ratings.count.toLocaleString()})</span>
                         </div>
                     )}
 
                     {/* Price */}
                     <div className="flex items-baseline gap-2 flex-wrap">
-                        <span className="text-base font-bold text-gray-900">{formatPrice(product.sellingPrice)}</span>
+                        <span className="text-base font-bold text-gray-900 dark:text-white">{formatPrice(product.sellingPrice)}</span>
                         {discount > 0 && (
                             <>
-                                <span className="text-sm text-gray-400 line-through">{formatPrice(product.mrp)}</span>
+                                <span className="text-sm text-gray-400 dark:text-gray-500 line-through">{formatPrice(product.mrp)}</span>
                                 <span className="text-xs text-[#388E3C] font-medium">{discount}% off</span>
                             </>
                         )}
