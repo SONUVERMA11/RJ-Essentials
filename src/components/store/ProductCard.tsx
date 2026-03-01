@@ -53,7 +53,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                     <img
                         src={product.images?.[0]?.url || '/placeholder.png'}
                         alt={product.name}
-                        className="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-110"
+                        className="max-h-full max-w-full object-contain transition-all duration-500 ease-out group-hover:scale-105 group-hover:opacity-90"
                         loading="lazy"
                     />
                     {isOutOfStock && (
@@ -70,7 +70,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                     {!isOutOfStock && (
                         <button
                             onClick={handleAddToCart}
-                            className="absolute bottom-2 right-2 bg-white dark:bg-gray-700 shadow-md rounded-full p-2.5 opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-[#2874F0] hover:text-white text-gray-700 dark:text-gray-200 hover:scale-110"
+                            className="absolute bottom-2 right-2 bg-white dark:bg-gray-700 shadow-md rounded-full p-2.5 opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-[#2874F0] hover:text-white text-gray-700 dark:text-gray-200 hover:scale-110"
                         >
                             <ShoppingCart size={16} />
                         </button>
@@ -79,7 +79,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
                 {/* Info */}
                 <div className="p-3.5 space-y-1.5">
-                    <h3 className="text-sm text-gray-800 dark:text-gray-100 font-medium line-clamp-2 leading-tight min-h-[2.5rem]">
+                    <h3 className="text-sm text-gray-800 dark:text-gray-100 font-bold truncate leading-tight" title={product.name}>
                         {product.name}
                     </h3>
 
