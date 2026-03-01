@@ -50,14 +50,16 @@ async function getProducts() {
 function SectionHeader({ title, icon: Icon, link, color = '#2874F0' }: { title: string; icon: React.ElementType; link?: string; color?: string }) {
     return (
         <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-                <Icon size={22} style={{ color }} />
+            <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: `${color}15` }}>
+                    <Icon size={18} style={{ color }} />
+                </div>
                 <h2 className="text-lg md:text-xl font-bold text-gray-800 dark:text-gray-100">{title}</h2>
             </div>
             {link && (
                 <Link
                     href={link}
-                    className="flex items-center gap-1 text-[#2874F0] text-sm font-medium hover:underline"
+                    className="flex items-center gap-1 text-[#2874F0] text-sm font-medium hover:underline transition-colors"
                 >
                     View All <ChevronRight size={16} />
                 </Link>
@@ -74,73 +76,58 @@ export default async function HomePage() {
     const newArrivals = products.filter((p: { isNewArrival?: boolean }) => p.isNewArrival).slice(0, 8);
     const bestSellers = [...products].sort((a: { soldCount?: number }, b: { soldCount?: number }) => (b.soldCount || 0) - (a.soldCount || 0)).slice(0, 8);
 
-    // If filters don't produce results, slice from all products
     const displayFeatured = featured.length > 0 ? featured : products.slice(0, 4);
     const displayDeals = deals.length > 0 ? deals : products.slice(4, 8);
     const displayNew = newArrivals.length > 0 ? newArrivals : products.slice(8, 12);
     const displayBest = bestSellers.length > 0 ? bestSellers : products.slice(0, 4);
 
     return (
-        <div>
-            {/* Hero Carousel */}
+        <div className="space-y-5 pb-6">
+            {/* Hero Banner Slider — Admin manageable */}
             <HeroCarousel />
 
-            {/* Category Row */}
-            <CategoryRow />
-
-            {/* Deal of the Day */}
-            <section className="max-w-7xl mx-auto px-4 mt-4">
-                <div className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-sm border border-gray-100 dark:border-gray-700">
-                    <SectionHeader title="Deal of the Day" icon={Zap} link="/search?q=deals" color="#FB641B" />
-                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-3 md:gap-4">
-                        {displayDeals.map((product: typeof DEMO_PRODUCTS[0]) => (
-                            <ProductCard key={product._id} product={product} />
-                        ))}
-                    </div>
-                </div>
+            {/* Category Grid */}
+            <section className="max-w-7xl mx-auto px-4">
+                <CategoryRow />
             </section>
 
-            {/* Mid Banner */}
-            <section className="max-w-7xl mx-auto px-4 mt-4">
-                <div className="bg-gradient-to-r from-[#2874F0] to-[#6C63FF] rounded-lg p-6 md:p-10 text-white text-center shadow-sm">
-                    <h3 className="text-xl md:text-2xl font-bold mb-2">💰 Cash on Delivery Available</h3>
-                    <p className="text-blue-100 text-sm md:text-base">Pay when your order arrives at your doorstep. No prepayment needed!</p>
+            {/* Deal of the Day */}
+            <section className="max-w-7xl mx-auto px-4">
+                <SectionHeader title="Deal of the Day" icon={Zap} link="/search?q=deals" color="#FB641B" />
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+                    {displayDeals.map((product: typeof DEMO_PRODUCTS[0]) => (
+                        <ProductCard key={product._id} product={product} />
+                    ))}
                 </div>
             </section>
 
             {/* Featured Products */}
-            <section className="max-w-7xl mx-auto px-4 mt-4">
-                <div className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-sm border border-gray-100 dark:border-gray-700">
-                    <SectionHeader title="Featured Products" icon={Star} link="/search?q=featured" color="#FFB300" />
-                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
-                        {displayFeatured.map((product: typeof DEMO_PRODUCTS[0]) => (
-                            <ProductCard key={product._id} product={product} />
-                        ))}
-                    </div>
+            <section className="max-w-7xl mx-auto px-4">
+                <SectionHeader title="Featured Products" icon={Star} link="/search?q=featured" color="#FFB300" />
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
+                    {displayFeatured.map((product: typeof DEMO_PRODUCTS[0]) => (
+                        <ProductCard key={product._id} product={product} />
+                    ))}
                 </div>
             </section>
 
             {/* Best Sellers */}
-            <section className="max-w-7xl mx-auto px-4 mt-4">
-                <div className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-sm border border-gray-100 dark:border-gray-700">
-                    <SectionHeader title="Best Sellers" icon={TrendingUp} link="/search?q=best" color="#388E3C" />
-                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-3 md:gap-4">
-                        {displayBest.map((product: typeof DEMO_PRODUCTS[0]) => (
-                            <ProductCard key={product._id} product={product} />
-                        ))}
-                    </div>
+            <section className="max-w-7xl mx-auto px-4">
+                <SectionHeader title="Best Sellers" icon={TrendingUp} link="/search?q=best" color="#388E3C" />
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+                    {displayBest.map((product: typeof DEMO_PRODUCTS[0]) => (
+                        <ProductCard key={product._id} product={product} />
+                    ))}
                 </div>
             </section>
 
             {/* New Arrivals */}
-            <section className="max-w-7xl mx-auto px-4 mt-4 mb-6">
-                <div className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-sm border border-gray-100 dark:border-gray-700">
-                    <SectionHeader title="New Arrivals" icon={Clock} link="/search?q=new" color="#9C27B0" />
-                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-3 md:gap-4">
-                        {displayNew.map((product: typeof DEMO_PRODUCTS[0]) => (
-                            <ProductCard key={product._id} product={product} />
-                        ))}
-                    </div>
+            <section className="max-w-7xl mx-auto px-4">
+                <SectionHeader title="New Arrivals" icon={Clock} link="/search?q=new" color="#9C27B0" />
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+                    {displayNew.map((product: typeof DEMO_PRODUCTS[0]) => (
+                        <ProductCard key={product._id} product={product} />
+                    ))}
                 </div>
             </section>
         </div>

@@ -1,47 +1,47 @@
 import Link from 'next/link';
-import { Mail, Phone, MapPin, Instagram, Facebook, Youtube, Heart, Shield, Truck, RotateCcw } from 'lucide-react';
+import { Mail, Phone, Instagram, Facebook, Youtube, Heart, Shield, Truck, RotateCcw } from 'lucide-react';
 
 export default function Footer() {
     return (
-        <footer className="bg-gray-900 dark:bg-[#0a0a0f] text-white pb-20 md:pb-0">
+        <footer className="bg-black text-white pb-20 md:pb-0 font-sans tracking-tight">
             {/* Trust Badges */}
-            <div className="border-b border-gray-800 dark:border-gray-800">
-                <div className="max-w-7xl mx-auto px-4 py-6">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div className="flex items-center gap-3 p-3 rounded-xl bg-gray-800/50 dark:bg-gray-800/30">
-                            <div className="p-2 bg-[#2874F0]/20 rounded-lg">
-                                <Truck size={22} className="text-[#2874F0]" />
+            <div className="border-b border-white/10">
+                <div className="max-w-7xl mx-auto px-4 py-8">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                        <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all duration-300 group">
+                            <div className="p-2.5 bg-[#2874F0]/20 rounded-xl group-hover:scale-110 transition-transform">
+                                <Truck size={24} className="text-[#2874F0]" />
                             </div>
                             <div>
-                                <p className="text-sm font-semibold text-white">Free Delivery</p>
-                                <p className="text-xs text-gray-400">On orders above ₹499</p>
+                                <p className="text-sm font-bold text-white uppercase tracking-wider">Free Delivery</p>
+                                <p className="text-xs text-gray-400">Above ₹499</p>
                             </div>
                         </div>
-                        <div className="flex items-center gap-3 p-3 rounded-xl bg-gray-800/50 dark:bg-gray-800/30">
-                            <div className="p-2 bg-green-500/20 rounded-lg">
-                                <Shield size={22} className="text-green-400" />
+                        <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all duration-300 group">
+                            <div className="p-2.5 bg-green-500/20 rounded-xl group-hover:scale-110 transition-transform">
+                                <Shield size={24} className="text-green-400" />
                             </div>
                             <div>
-                                <p className="text-sm font-semibold text-white">COD Available</p>
-                                <p className="text-xs text-gray-400">Pay on delivery</p>
+                                <p className="text-sm font-bold text-white uppercase tracking-wider">COD Available</p>
+                                <p className="text-xs text-gray-400">Direct Payment</p>
                             </div>
                         </div>
-                        <div className="flex items-center gap-3 p-3 rounded-xl bg-gray-800/50 dark:bg-gray-800/30">
-                            <div className="p-2 bg-orange-500/20 rounded-lg">
-                                <RotateCcw size={22} className="text-orange-400" />
+                        <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all duration-300 group">
+                            <div className="p-2.5 bg-orange-500/20 rounded-xl group-hover:scale-110 transition-transform">
+                                <RotateCcw size={24} className="text-orange-400" />
                             </div>
                             <div>
-                                <p className="text-sm font-semibold text-white">Easy Returns</p>
-                                <p className="text-xs text-gray-400">7-day return policy</p>
+                                <p className="text-sm font-bold text-white uppercase tracking-wider">Easy Returns</p>
+                                <p className="text-xs text-gray-400">7-Day Window</p>
                             </div>
                         </div>
-                        <div className="flex items-center gap-3 p-3 rounded-xl bg-gray-800/50 dark:bg-gray-800/30">
-                            <div className="p-2 bg-purple-500/20 rounded-lg">
-                                <Heart size={22} className="text-purple-400" />
+                        <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all duration-300 group">
+                            <div className="p-2.5 bg-purple-500/20 rounded-xl group-hover:scale-110 transition-transform">
+                                <Heart size={24} className="text-purple-400" />
                             </div>
                             <div>
-                                <p className="text-sm font-semibold text-white">Quality Products</p>
-                                <p className="text-xs text-gray-400">Handpicked for you</p>
+                                <p className="text-sm font-bold text-white uppercase tracking-wider">Top Quality</p>
+                                <p className="text-xs text-gray-400">Handpicked</p>
                             </div>
                         </div>
                     </div>
@@ -49,74 +49,77 @@ export default function Footer() {
             </div>
 
             {/* Main Footer Content */}
-            <div className="max-w-7xl mx-auto px-4 py-10">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="max-w-7xl mx-auto px-4 py-16">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-12">
                     {/* About */}
                     <div>
-                        <h3 className="text-sm font-bold text-white uppercase mb-4 tracking-wider">About</h3>
-                        <ul className="space-y-2.5">
-                            <li><Link href="/about" className="text-sm text-gray-400 hover:text-[#2874F0] transition-colors">About Us</Link></li>
-                            <li><Link href="/contact" className="text-sm text-gray-400 hover:text-[#2874F0] transition-colors">Contact Us</Link></li>
-                            <li><Link href="/about" className="text-sm text-gray-400 hover:text-[#2874F0] transition-colors">Careers</Link></li>
+                        <h3 className="text-xs font-black text-white uppercase mb-6 tracking-[0.2em] border-l-2 border-[#2874F0] pl-3">Company</h3>
+                        <ul className="space-y-4">
+                            <li><Link href="/about" className="text-sm text-gray-300 hover:text-white hover:translate-x-1 inline-block transition-all">About Us</Link></li>
+                            <li><Link href="/contact" className="text-sm text-gray-300 hover:text-white hover:translate-x-1 inline-block transition-all">Contact Us</Link></li>
+                            <li><Link href="/about" className="text-sm text-gray-300 hover:text-white hover:translate-x-1 inline-block transition-all">Careers</Link></li>
                         </ul>
                     </div>
 
                     {/* Help */}
                     <div>
-                        <h3 className="text-sm font-bold text-white uppercase mb-4 tracking-wider">Help</h3>
-                        <ul className="space-y-2.5">
-                            <li><Link href="/track-order" className="text-sm text-gray-400 hover:text-[#2874F0] transition-colors">Track Order</Link></li>
-                            <li><Link href="/return-policy" className="text-sm text-gray-400 hover:text-[#2874F0] transition-colors">Return Policy</Link></li>
-                            <li><Link href="/contact" className="text-sm text-gray-400 hover:text-[#2874F0] transition-colors">FAQ</Link></li>
+                        <h3 className="text-xs font-black text-white uppercase mb-6 tracking-[0.2em] border-l-2 border-[#2874F0] pl-3">Support</h3>
+                        <ul className="space-y-4">
+                            <li><Link href="/track-order" className="text-sm text-gray-300 hover:text-white hover:translate-x-1 inline-block transition-all">Track Order</Link></li>
+                            <li><Link href="/return-policy" className="text-sm text-gray-300 hover:text-white hover:translate-x-1 inline-block transition-all">Return Policy</Link></li>
+                            <li><Link href="/contact" className="text-sm text-gray-300 hover:text-white hover:translate-x-1 inline-block transition-all">FAQ</Link></li>
                         </ul>
                     </div>
 
                     {/* Policy */}
                     <div>
-                        <h3 className="text-sm font-bold text-white uppercase mb-4 tracking-wider">Policy</h3>
-                        <ul className="space-y-2.5">
-                            <li><Link href="/return-policy" className="text-sm text-gray-400 hover:text-[#2874F0] transition-colors">Return Policy</Link></li>
-                            <li><Link href="/privacy-policy" className="text-sm text-gray-400 hover:text-[#2874F0] transition-colors">Privacy Policy</Link></li>
-                            <li><Link href="/terms" className="text-sm text-gray-400 hover:text-[#2874F0] transition-colors">Terms of Use</Link></li>
+                        <h3 className="text-xs font-black text-white uppercase mb-6 tracking-[0.2em] border-l-2 border-[#2874F0] pl-3">Legal</h3>
+                        <ul className="space-y-4">
+                            <li><Link href="/return-policy" className="text-sm text-gray-300 hover:text-white hover:translate-x-1 inline-block transition-all">Return Policy</Link></li>
+                            <li><Link href="/privacy-policy" className="text-sm text-gray-300 hover:text-white hover:translate-x-1 inline-block transition-all">Privacy Policy</Link></li>
+                            <li><Link href="/terms" className="text-sm text-gray-300 hover:text-white hover:translate-x-1 inline-block transition-all">Terms & Conditions</Link></li>
                         </ul>
                     </div>
 
                     {/* Store Info */}
-                    <div>
-                        <div className="flex items-center gap-2.5 mb-4">
-                            <svg width="36" height="36" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="0" y="0" width="120" height="120" rx="10" fill="#FFE500" />
-                                <rect x="5" y="5" width="110" height="110" rx="4" stroke="#2874F0" strokeWidth="3" fill="none" />
-                                <rect x="11" y="11" width="98" height="98" rx="3" stroke="#2874F0" strokeWidth="2" fill="none" />
-                                <text x="60" y="72" textAnchor="middle" fontFamily="'Arial Black', 'Impact', sans-serif" fontWeight="900" fontSize="54" fill="#2874F0" letterSpacing="-2">RJ</text>
-                                <text x="60" y="96" textAnchor="middle" fontFamily="'Arial', 'Helvetica', sans-serif" fontWeight="800" fontSize="14" fill="#2874F0" letterSpacing="1">ESSENTIALS</text>
-                            </svg>
+                    <div className="col-span-2 lg:col-span-1">
+                        <div className="flex items-center gap-3 mb-8">
+                            <div className="bg-white p-1 rounded-lg">
+                                <svg width="32" height="32" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="0" y="0" width="120" height="120" rx="10" fill="#FFE500" />
+                                    <rect x="5" y="5" width="110" height="110" rx="4" stroke="#2874F0" strokeWidth="3" fill="none" />
+                                    <text x="60" y="72" textAnchor="middle" fontFamily="'Arial Black', 'Impact', sans-serif" fontWeight="900" fontSize="54" fill="#2874F0" letterSpacing="-2">RJ</text>
+                                    <text x="60" y="96" textAnchor="middle" fontFamily="'Arial', 'Helvetica', sans-serif" fontWeight="800" fontSize="14" fill="#2874F0" letterSpacing="1">ESSENTIALS</text>
+                                </svg>
+                            </div>
                             <div>
-                                <h3 className="text-sm font-bold text-white">RJ ESSENTIALS</h3>
-                                <p className="text-[10px] text-gray-400 italic">Quality at Your Doorstep</p>
+                                <h3 className="text-lg font-black text-white tracking-tight">RJ ESSENTIALS</h3>
+                                <p className="text-[10px] text-gray-400 uppercase tracking-widest font-bold">Quality First</p>
                             </div>
                         </div>
 
                         {/* Contact Info */}
-                        <div className="space-y-2 mb-4">
-                            <a href="mailto:support@rjessentials.com" className="flex items-center gap-2 text-sm text-gray-400 hover:text-[#2874F0] transition-colors">
-                                <Mail size={14} /> support@rjessentials.com
+                        <div className="space-y-3 mb-8">
+                            <a href="mailto:support@rjessentials.com" className="flex items-center gap-3 text-sm text-gray-300 hover:text-white transition-colors">
+                                <div className="p-2 bg-white/5 rounded-lg"><Mail size={16} /></div>
+                                support@rjessentials.com
                             </a>
-                            <a href="tel:+918287386760" className="flex items-center gap-2 text-sm text-gray-400 hover:text-[#2874F0] transition-colors">
-                                <Phone size={14} /> +91 82873 86760
+                            <a href="tel:+918287386760" className="flex items-center gap-3 text-sm text-gray-300 hover:text-white transition-colors">
+                                <div className="p-2 bg-white/5 rounded-lg"><Phone size={16} /></div>
+                                +91 82873 86760
                             </a>
                         </div>
 
                         {/* Social Links */}
-                        <div className="flex items-center gap-3">
-                            <a href="#" className="p-2 bg-gray-800 hover:bg-[#E1306C] rounded-lg transition-colors" aria-label="Instagram">
-                                <Instagram size={16} />
+                        <div className="flex items-center gap-4">
+                            <a href="#" className="p-3 bg-white/5 hover:bg-[#E1306C] rounded-xl transition-all hover:-translate-y-1" aria-label="Instagram">
+                                <Instagram size={20} />
                             </a>
-                            <a href="#" className="p-2 bg-gray-800 hover:bg-[#1877F2] rounded-lg transition-colors" aria-label="Facebook">
-                                <Facebook size={16} />
+                            <a href="#" className="p-3 bg-white/5 hover:bg-[#1877F2] rounded-xl transition-all hover:-translate-y-1" aria-label="Facebook">
+                                <Facebook size={20} />
                             </a>
-                            <a href="#" className="p-2 bg-gray-800 hover:bg-[#FF0000] rounded-lg transition-colors" aria-label="YouTube">
-                                <Youtube size={16} />
+                            <a href="#" className="p-3 bg-white/5 hover:bg-[#FF0000] rounded-xl transition-all hover:-translate-y-1" aria-label="YouTube">
+                                <Youtube size={20} />
                             </a>
                         </div>
                     </div>
@@ -124,13 +127,13 @@ export default function Footer() {
             </div>
 
             {/* Bottom Bar */}
-            <div className="border-t border-gray-800">
-                <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-3">
-                    <p className="text-xs text-gray-500">© 2026 RJ ESSENTIALS. All rights reserved.</p>
-                    <div className="flex items-center gap-4 text-xs text-gray-500">
-                        <span>🇮🇳 Made in India</span>
-                        <span>•</span>
-                        <span>Powered by Next.js</span>
+            <div className="border-t border-white/5 bg-white/[0.02]">
+                <div className="max-w-7xl mx-auto px-4 py-8 flex flex-col md:flex-row items-center justify-between gap-6">
+                    <p className="text-xs text-gray-500 font-medium">© 2026 RJ ESSENTIALS. All rights reserved.</p>
+                    <div className="flex items-center gap-6 text-[10px] text-gray-500 font-bold uppercase tracking-widest">
+                        <span className="flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-green-500"></span> 🇮🇳 Made in India</span>
+                        <span className="hidden md:inline text-gray-800">•</span>
+                        <span>Next.js Architecture</span>
                     </div>
                 </div>
             </div>
