@@ -1,4 +1,10 @@
 import { FileText, ShieldCheck, CreditCard, RotateCcw, Scale, Mail } from 'lucide-react';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Terms & Conditions — RJ ESSENTIALS',
+    description: 'Terms and conditions for shopping at RJ ESSENTIALS. COD, pricing, and return policies.',
+};
 
 const sections = [
     {

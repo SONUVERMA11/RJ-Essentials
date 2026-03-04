@@ -19,7 +19,8 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "RJ ESSENTIALS",
   },
-  icons: { icon: '/favicon.ico' },
+  icons: { icon: '/icon.svg' },
+  manifest: '/manifest.json',
 };
 
 export default function RootLayout({
@@ -35,6 +36,11 @@ export default function RootLayout({
             {children}
           </ThemeProvider>
         </AuthSessionProvider>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('/sw.js')})}`
+          }}
+        />
       </body>
     </html>
   );

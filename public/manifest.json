@@ -1,0 +1,22 @@
+{
+    "name": "RJ ESSENTIALS",
+    "short_name": "RJ Essentials",
+    "description": "Quality products at your doorstep. Shop Electronics, Fashion, Home & Kitchen, Beauty and more. Cash on Delivery available across India.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#000000",
+    "theme_color": "#2874F0",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "/icon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "any maskable"
+        }
+    ],
+    "categories": ["shopping", "lifestyle"],
+    "lang": "en-IN",
+    "scope": "/",
+    "prefer_related_applications": false
+}

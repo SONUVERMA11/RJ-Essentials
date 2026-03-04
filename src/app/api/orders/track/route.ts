@@ -1,9 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '@/lib/mongodb';
 import Order from '@/models/Order';
+import { checkRateLimit, getClientIp } from '@/lib/rateLimit';
 
 export async function POST(req: NextRequest) {
     try {
+        // Rate limit: 10 track requests per minute per IP
+        const rateLimited = checkRateLimit(`track:${getClientIp(req)}`, { maxRequests: 10, windowSeconds: 60 });
+        if (rateLimited) return rateLimited;
+
         await dbConnect();
         const { orderId, phone } = await req.json();
 

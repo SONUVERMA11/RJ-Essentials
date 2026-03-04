@@ -1,4 +1,10 @@
 import { ShieldCheck, Eye, Database, Lock, Mail } from 'lucide-react';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Privacy Policy — RJ ESSENTIALS',
+    description: 'Read our privacy policy to understand how RJ ESSENTIALS collects, uses, and protects your personal information.',
+};
 
 const sections = [
     {

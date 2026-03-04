@@ -1,5 +1,11 @@
 import { Store, Target, CheckCircle, Truck, Shield, RotateCcw, CreditCard, MessageCircle } from 'lucide-react';
 import Link from 'next/link';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'About Us — RJ ESSENTIALS',
+    description: 'Learn about RJ ESSENTIALS — your one-stop destination for quality products at unbeatable prices. Cash on Delivery available across India.',
+};
 
 const benefits = [
     { icon: CreditCard, title: 'Cash on Delivery', desc: 'Pay only when your order arrives. No prepayment hassle.', color: 'text-[#2874F0]', bg: 'bg-[#2874F0]/10' },

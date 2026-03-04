@@ -39,7 +39,7 @@ function OrderSuccessContent() {
                         <ShoppingBag size={18} /> Continue Shopping
                     </Link>
                     <a
-                        href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '919999999999'}?text=${encodeURIComponent(`Hi, I just placed order ${orderId}. Can you confirm?`)}`}
+                        href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '918287386760'}?text=${encodeURIComponent(`Hi, I just placed order ${orderId}. Can you confirm?`)}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="w-full flex items-center justify-center gap-2 bg-[#25D366] text-white py-3 rounded-sm font-bold hover:bg-green-600"

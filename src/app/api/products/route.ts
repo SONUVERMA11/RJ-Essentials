@@ -93,7 +93,34 @@ export async function POST(req: NextRequest) {
 
         await dbConnect();
         const body = await req.json();
-        const product = await Product.create(body);
+
+        // Whitelist allowed fields to prevent mass assignment
+        const product = await Product.create({
+            name: body.name,
+            slug: body.slug,
+            category: body.category,
+            brand: body.brand,
+            description: body.description,
+            highlights: body.highlights,
+            specifications: body.specifications,
+            images: body.images,
+            mediaLinks: body.mediaLinks,
+            mrp: body.mrp,
+            sellingPrice: body.sellingPrice,
+            stock: body.stock,
+            variants: body.variants,
+            tags: body.tags,
+            meeshoLink: body.meeshoLink,
+            meeshoNotes: body.meeshoNotes,
+            returnDays: body.returnDays,
+            status: body.status,
+            isFeatured: body.isFeatured,
+            isDealOfDay: body.isDealOfDay,
+            isNewArrival: body.isNewArrival,
+            isBestSeller: body.isBestSeller,
+            metaTitle: body.metaTitle,
+            metaDescription: body.metaDescription,
+        });
         return NextResponse.json(product, { status: 201 });
     } catch (error) {
         console.error('Products POST error:', error);

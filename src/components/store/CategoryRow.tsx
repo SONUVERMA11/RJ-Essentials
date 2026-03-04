@@ -14,7 +14,7 @@ const ALL_CATEGORIES: Array<{ name: string; slug: string; icon: typeof Smartphon
     { name: 'Home & Kitchen', slug: 'home-kitchen', icon: Home, color: '#388E3C', image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=120&h=120&fit=crop&auto=format' },
     { name: 'Beauty', slug: 'beauty', icon: Sparkles, color: '#E91E63', image: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=120&h=120&fit=crop&auto=format' },
     { name: 'Toys & Baby', slug: 'toys', icon: Baby, color: '#9C27B0', image: 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=120&h=120&fit=crop&auto=format' },
-    { name: 'Sports', slug: 'sports', icon: Dumbbell, color: '#FF5722', image: 'https://images.unsplash.com/photo-1461896836934-bd45ba8a0a23?w=120&h=120&fit=crop&auto=format' },
+    { name: 'Sports', slug: 'sports', icon: Dumbbell, color: '#FF5722', image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=120&h=120&fit=crop&auto=format' },
     { name: 'Books', slug: 'books', icon: BookOpen, color: '#795548', image: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=120&h=120&fit=crop&auto=format' },
     { name: 'Grocery', slug: 'grocery', icon: ShoppingBasket, color: '#4CAF50', image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=120&h=120&fit=crop&auto=format' },
     { name: 'Mobiles', slug: 'mobiles', icon: Headphones, color: '#00BCD4', image: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=120&h=120&fit=crop&auto=format' },
@@ -24,7 +24,7 @@ const ALL_CATEGORIES: Array<{ name: string; slug: string; icon: typeof Smartphon
     { name: 'Furniture', slug: 'furniture', icon: Sofa, color: '#8D6E63', image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=120&h=120&fit=crop&auto=format' },
     { name: 'Art & Craft', slug: 'art-craft', icon: Palette, color: '#AB47BC', image: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=120&h=120&fit=crop&auto=format' },
     { name: 'Gaming', slug: 'gaming', icon: Gamepad2, color: '#7C4DFF', image: 'https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?w=120&h=120&fit=crop&auto=format' },
-    { name: 'Tools', slug: 'tools', icon: Wrench, color: '#546E7A', image: 'https://images.unsplash.com/photo-1581147036324-c47a03a81d48?w=120&h=120&fit=crop&auto=format' },
+    { name: 'Tools', slug: 'tools', icon: Wrench, color: '#546E7A', image: 'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=120&h=120&fit=crop&auto=format' },
 ];
 
 interface CategoryRowProps {

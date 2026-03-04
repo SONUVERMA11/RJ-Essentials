@@ -5,6 +5,9 @@ import Product from '@/models/Product';
 import { generateOrderId, getEstimatedDelivery } from '@/lib/utils';
 import { sendOrderConfirmation, sendAdminOrderNotification } from '@/lib/email';
 import { requireAdmin, escapeRegex } from '@/lib/adminAuth';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
+import { checkRateLimit, getClientIp } from '@/lib/rateLimit';
 
 export async function GET(req: NextRequest) {
     try {
@@ -61,6 +64,16 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
     try {
+        // Require authenticated user to place orders
+        const session = await getServerSession(authOptions);
+        if (!session) {
+            return NextResponse.json({ error: 'Please sign in to place an order' }, { status: 401 });
+        }
+
+        // Rate limit: 5 orders per minute per IP
+        const rateLimited = checkRateLimit(`orders:${getClientIp(req)}`, { maxRequests: 5, windowSeconds: 60 });
+        if (rateLimited) return rateLimited;
+
         await dbConnect();
         const body = await req.json();
 
@@ -69,6 +82,41 @@ export async function POST(req: NextRequest) {
 
         if (!customer || !items || !Array.isArray(items) || items.length === 0) {
             return NextResponse.json({ error: 'Customer and items are required' }, { status: 400 });
+        }
+
+        // Input length validation
+        if (items.length > 50) {
+            return NextResponse.json({ error: 'Maximum 50 items per order' }, { status: 400 });
+        }
+        if (!customer.name || customer.name.trim().length > 100) {
+            return NextResponse.json({ error: 'Valid name is required (max 100 chars)' }, { status: 400 });
+        }
+        if (!customer.phone || !/^\d{10}$/.test(customer.phone)) {
+            return NextResponse.json({ error: 'Valid 10-digit phone number is required' }, { status: 400 });
+        }
+        if (!customer.address?.line1 || customer.address.line1.trim().length > 200) {
+            return NextResponse.json({ error: 'Valid address is required (max 200 chars)' }, { status: 400 });
+        }
+        if (!customer.address?.pincode || !/^\d{6}$/.test(customer.address.pincode)) {
+            return NextResponse.json({ error: 'Valid 6-digit pincode is required' }, { status: 400 });
+        }
+
+        // Stock validation — check all items have sufficient stock
+        const productIds = items.map((i: { productId: string }) => i.productId);
+        const products = await Product.find({ _id: { $in: productIds } }).lean();
+        const productMap = new Map(products.map((p: { _id: { toString: () => string }; stock: number; name: string }) => [p._id.toString(), p]));
+
+        for (const item of items) {
+            const product = productMap.get(item.productId) as { stock: number; name: string } | undefined;
+            if (!product) {
+                return NextResponse.json({ error: `Product not found: ${item.name || item.productId}` }, { status: 400 });
+            }
+            if (product.stock < item.quantity) {
+                return NextResponse.json(
+                    { error: `"${product.name}" is out of stock (only ${product.stock} available)` },
+                    { status: 400 }
+                );
+            }
         }
 
         const orderId = generateOrderId(body.orderIdPrefix || 'RJE');

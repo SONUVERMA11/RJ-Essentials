@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '@/lib/mongodb';
 import Message from '@/models/Message';
 import { requireAdmin } from '@/lib/adminAuth';
+import { checkRateLimit, getClientIp } from '@/lib/rateLimit';
 
 export async function GET(req: NextRequest) {
     try {
@@ -27,6 +28,10 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
     try {
+        // Rate limit: 10 messages per minute per IP
+        const rateLimited = checkRateLimit(`messages:${getClientIp(req)}`, { maxRequests: 10, windowSeconds: 60 });
+        if (rateLimited) return rateLimited;
+
         await dbConnect();
         const body = await req.json();
 

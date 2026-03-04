@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Mail, Phone, Instagram, Facebook, Youtube } from 'lucide-react';
+import { Mail, Phone, Instagram, Facebook } from 'lucide-react';
 
 export default function Footer() {
     return (
@@ -56,9 +56,9 @@ export default function Footer() {
 
                         {/* Contact Info */}
                         <div className="space-y-3 mb-8">
-                            <a href="mailto:support@rjessentials.com" className="flex items-center gap-3 text-sm text-gray-300 hover:text-white transition-colors">
+                            <a href="mailto:support@rjessentials.app" className="flex items-center gap-3 text-sm text-gray-300 hover:text-white transition-colors">
                                 <div className="p-2 bg-white/5 rounded-lg"><Mail size={16} /></div>
-                                support@rjessentials.com
+                                support@rjessentials.app
                             </a>
                             <a href="tel:+918287386760" className="flex items-center gap-3 text-sm text-gray-300 hover:text-white transition-colors">
                                 <div className="p-2 bg-white/5 rounded-lg"><Phone size={16} /></div>
@@ -68,14 +68,14 @@ export default function Footer() {
 
                         {/* Social Links */}
                         <div className="flex items-center gap-4">
-                            <a href="#" className="p-3 bg-white/5 hover:bg-[#E1306C] rounded-xl transition-all hover:-translate-y-1" aria-label="Instagram">
+                            <a href="https://www.instagram.com/therjessentials?igsh=MTI2ZHd6MWs1cW5meA==" target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 hover:bg-[#E1306C] rounded-xl transition-all hover:-translate-y-1" aria-label="Instagram">
                                 <Instagram size={20} />
                             </a>
-                            <a href="#" className="p-3 bg-white/5 hover:bg-[#1877F2] rounded-xl transition-all hover:-translate-y-1" aria-label="Facebook">
+                            <a href="https://www.facebook.com/share/1LRsr9VzDt/" target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 hover:bg-[#1877F2] rounded-xl transition-all hover:-translate-y-1" aria-label="Facebook">
                                 <Facebook size={20} />
                             </a>
-                            <a href="#" className="p-3 bg-white/5 hover:bg-[#FF0000] rounded-xl transition-all hover:-translate-y-1" aria-label="YouTube">
-                                <Youtube size={20} />
+                            <a href="mailto:support@rjessentials.app" className="p-3 bg-white/5 hover:bg-[#2874F0] rounded-xl transition-all hover:-translate-y-1" aria-label="Email">
+                                <Mail size={20} />
                             </a>
                         </div>
                     </div>

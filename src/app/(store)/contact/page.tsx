@@ -78,7 +78,7 @@ export default function ContactPage() {
                     {/* Contact Methods */}
                     <div className="border border-border rounded-xl p-6 space-y-5">
                         <h2 className="text-sm font-bold text-muted-foreground uppercase tracking-wider">Get in Touch</h2>
-                        <a href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '919999999999'}`} className="flex items-center gap-3 text-foreground hover:text-[#25D366] transition-colors group">
+                        <a href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '918287386760'}`} className="flex items-center gap-3 text-foreground hover:text-[#25D366] transition-colors group">
                             <div className="p-2 bg-[#25D366]/10 rounded-lg group-hover:scale-110 transition-transform">
                                 <MessageCircle size={18} className="text-[#25D366]" />
                             </div>
@@ -92,7 +92,7 @@ export default function ContactPage() {
                                 <Mail size={18} className="text-[#2874F0]" />
                             </div>
                             <div>
-                                <p className="text-sm font-medium">support@rjessentials.com</p>
+                                <p className="text-sm font-medium">support@rjessentials.app</p>
                                 <p className="text-xs text-muted-foreground">Email support</p>
                             </div>
                         </div>
@@ -101,7 +101,7 @@ export default function ContactPage() {
                                 <Phone size={18} className="text-orange-500" />
                             </div>
                             <div>
-                                <p className="text-sm font-medium">+91 99999 99999</p>
+                                <p className="text-sm font-medium">+91 82873 86760</p>
                                 <p className="text-xs text-muted-foreground">Phone support</p>
                             </div>
                         </div>

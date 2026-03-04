@@ -1,4 +1,10 @@
 import { RotateCcw, Clock, ListOrdered, XCircle, Banknote } from 'lucide-react';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Return & Refund Policy — RJ ESSENTIALS',
+    description: '7-day return policy on most items. Learn how to return products and get refunds at RJ ESSENTIALS.',
+};
 
 const sections = [
     {

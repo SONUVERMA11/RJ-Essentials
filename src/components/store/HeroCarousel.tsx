@@ -96,17 +96,17 @@ export default function HeroCarousel({ banners: initialBanners }: { banners?: Ba
 
     if (!isLoaded) {
         return (
-            <div className="max-w-7xl mx-auto px-4 pt-4">
-                <div className="h-[160px] sm:h-[220px] md:h-[300px] lg:h-[360px] rounded-2xl bg-muted animate-pulse" />
+            <div className="max-w-7xl mx-auto">
+                <div className="h-[180px] sm:h-[240px] md:h-[320px] lg:h-[400px] bg-muted animate-pulse" />
             </div>
         );
     }
 
     return (
-        <section className="max-w-7xl mx-auto px-4 pt-4">
-            <div className="relative w-full overflow-hidden rounded-2xl group">
+        <section className="w-full">
+            <div className="relative w-full overflow-hidden group">
                 {/* Slides */}
-                <div className="relative h-[160px] sm:h-[220px] md:h-[300px] lg:h-[360px]">
+                <div className="relative h-[180px] sm:h-[240px] md:h-[320px] lg:h-[400px]">
                     {slides.map((slide, index) => (
                         <div
                             key={slide._id}

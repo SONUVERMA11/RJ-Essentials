@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '@/lib/mongodb';
 import Review from '@/models/Review';
 import Product from '@/models/Product';
+import { checkRateLimit, getClientIp } from '@/lib/rateLimit';
 
 export async function GET(req: NextRequest) {
     try {
@@ -32,9 +33,31 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
     try {
+        // Rate limit: 10 reviews per minute per IP
+        const rateLimited = checkRateLimit(`reviews:${getClientIp(req)}`, { maxRequests: 10, windowSeconds: 60 });
+        if (rateLimited) return rateLimited;
+
         await dbConnect();
         const body = await req.json();
-        const review = await Review.create(body);
+
+        // Whitelist fields — force isApproved to false to prevent self-approval
+        const { productId, name, rating, comment } = body;
+
+        if (!productId || !name || !rating) {
+            return NextResponse.json({ error: 'productId, name, and rating are required' }, { status: 400 });
+        }
+
+        if (typeof rating !== 'number' || rating < 1 || rating > 5) {
+            return NextResponse.json({ error: 'Rating must be between 1 and 5' }, { status: 400 });
+        }
+
+        const review = await Review.create({
+            productId,
+            name: name.trim().slice(0, 100),
+            rating,
+            comment: (comment || '').trim().slice(0, 2000),
+            isApproved: false,
+        });
 
         // Update product ratings
         const reviews = await Review.find({ productId: body.productId, isApproved: true });

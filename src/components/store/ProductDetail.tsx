@@ -466,14 +466,16 @@ export default function ProductDetailClient({ product, relatedProducts, reviews 
             </div>
 
             {/* Mobile Sticky Bottom Bar */}
-            <div className="md:hidden fixed bottom-[60px] left-0 right-0 z-50 bg-card/95 backdrop-blur-lg border-t border-border shadow-[0_-2px_20px_rgba(0,0,0,0.15)]">
-                <div className="flex gap-2 p-2">
+            <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-lg border-t border-border/30 shadow-[0_-2px_20px_rgba(0,0,0,0.15)]">
+                <div className="flex gap-3 p-3 px-4 justify-center">
                     <button onClick={handleAddToCart} disabled={isOutOfStock}
-                        className="flex-1 flex items-center justify-center gap-2 py-3 bg-[#2874F0] text-white font-bold text-sm rounded-lg active:bg-blue-600 disabled:opacity-50 transition-colors">
+                        className="flex items-center justify-center gap-2 py-3 px-6 text-white font-bold text-sm rounded-full active:scale-95 disabled:opacity-50 transition-all shadow-lg"
+                        style={{ background: 'linear-gradient(135deg, #2874F0, #6C63FF)' }}>
                         <ShoppingCart size={16} /> ADD TO CART
                     </button>
                     <button onClick={handleBuyNow} disabled={isOutOfStock}
-                        className="flex-1 flex items-center justify-center gap-2 py-3 bg-[#FB641B] text-white font-bold text-sm rounded-lg active:bg-orange-600 disabled:opacity-50 transition-colors">
+                        className="flex items-center justify-center gap-2 py-3 px-6 text-white font-bold text-sm rounded-full active:scale-95 disabled:opacity-50 transition-all shadow-lg"
+                        style={{ background: 'linear-gradient(135deg, #FB641B, #FF2D55)' }}>
                         <Zap size={16} /> BUY NOW
                     </button>
                 </div>
