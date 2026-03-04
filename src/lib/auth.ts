@@ -36,12 +36,12 @@ export const authOptions: NextAuthOptions = {
                     return null;
                 }
 
-                let isValid = false;
-                if (adminPassword.startsWith('$2')) {
-                    isValid = await bcrypt.compare(credentials.password, adminPassword);
-                } else {
-                    isValid = credentials.password === adminPassword;
+                // Only bcrypt hashes are accepted — no plaintext fallback
+                if (!adminPassword.startsWith('$2')) {
+                    console.error('ADMIN_PASSWORD must be a bcrypt hash');
+                    return null;
                 }
+                const isValid = await bcrypt.compare(credentials.password, adminPassword);
 
                 if (!isValid) {
                     return null;

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '@/lib/mongodb';
 import Setting, { DEFAULT_SETTINGS } from '@/models/Setting';
+import { requireAdmin } from '@/lib/adminAuth';
 
 export async function GET() {
     try {
@@ -16,6 +17,9 @@ export async function GET() {
 
 export async function PUT(req: NextRequest) {
     try {
+        const authError = await requireAdmin();
+        if (authError) return authError;
+
         await dbConnect();
         const body = await req.json();
 

@@ -1,12 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '@/lib/mongodb';
 import Category from '@/models/Category';
+import { requireAdmin } from '@/lib/adminAuth';
 
 export async function PUT(
     req: NextRequest,
     { params }: { params: Promise<{ id: string }> }
 ) {
     try {
+        const authError = await requireAdmin();
+        if (authError) return authError;
+
         await dbConnect();
         const { id } = await params;
         const body = await req.json();
@@ -24,6 +28,9 @@ export async function DELETE(
     { params }: { params: Promise<{ id: string }> }
 ) {
     try {
+        const authError = await requireAdmin();
+        if (authError) return authError;
+
         await dbConnect();
         const { id } = await params;
         await Category.findByIdAndDelete(id);

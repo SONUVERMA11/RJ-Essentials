@@ -1,6 +1,6 @@
 import ProductCard from '@/components/store/ProductCard';
 import Link from 'next/link';
-import { Search } from 'lucide-react';
+import { Search, ChevronRight } from 'lucide-react';
 import { Metadata } from 'next';
 
 interface Props {
@@ -33,17 +33,56 @@ export default async function SearchPage({ searchParams }: Props) {
     const query = sp.q || '';
     const products = query ? await searchProducts(query, sp.sort) : [];
 
+    const sortOptions = [
+        { value: 'newest', label: 'Newest' },
+        { value: 'popularity', label: 'Popular' },
+        { value: 'price-low', label: 'Price: Low' },
+        { value: 'price-high', label: 'Price: High' },
+    ];
+
     return (
         <div className="max-w-7xl mx-auto px-4 py-4">
-            <div className="bg-white rounded-sm p-4 shadow-sm mb-4">
-                <h1 className="text-base font-bold text-gray-800">
+            {/* Breadcrumb */}
+            <div className="flex items-center gap-1.5 text-xs text-muted-foreground mb-4">
+                <Link href="/" className="hover:text-[#2874F0] transition-colors">Home</Link>
+                <ChevronRight size={12} />
+                <span className="text-foreground font-medium">Search</span>
+                {query && (
+                    <>
+                        <ChevronRight size={12} />
+                        <span className="text-foreground font-medium truncate max-w-[200px]">&quot;{query}&quot;</span>
+                    </>
+                )}
+            </div>
+
+            {/* Header */}
+            <div className="bg-card rounded-xl border border-border p-4 mb-4">
+                <h1 className="text-base md:text-lg font-bold text-foreground">
                     {query ? (
-                        <>Search results for &quot;<span className="text-[#2874F0]">{query}</span>&quot; — {products.length} results</>
+                        <>Search results for &quot;<span className="text-[#2874F0]">{query}</span>&quot; — <span className="text-muted-foreground font-normal">{products.length} results</span></>
                     ) : (
                         'Search Products'
                     )}
                 </h1>
             </div>
+
+            {/* Sort pills when we have results */}
+            {products.length > 0 && (
+                <div className="flex gap-2 mb-4 overflow-x-auto scrollbar-hide pb-1">
+                    {sortOptions.map((opt) => (
+                        <Link
+                            key={opt.value}
+                            href={`/search?q=${encodeURIComponent(query)}&sort=${opt.value}`}
+                            className={`px-4 py-2 rounded-full text-xs font-medium whitespace-nowrap border transition-all ${sp.sort === opt.value
+                                ? 'border-[#2874F0] text-[#2874F0] bg-[#2874F0]/10'
+                                : 'border-border text-muted-foreground hover:border-foreground/30 hover:text-foreground'
+                                }`}
+                        >
+                            {opt.label}
+                        </Link>
+                    ))}
+                </div>
+            )}
 
             {products.length > 0 ? (
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
@@ -52,16 +91,26 @@ export default async function SearchPage({ searchParams }: Props) {
                     ))}
                 </div>
             ) : query ? (
-                <div className="text-center py-16 bg-white rounded-sm shadow-sm">
-                    <Search size={48} className="mx-auto text-gray-300 mb-4" />
-                    <h3 className="text-lg font-bold text-gray-700 mb-2">No results found</h3>
-                    <p className="text-gray-500 mb-4">Try different keywords or browse categories</p>
-                    <Link href="/" className="text-[#2874F0] font-medium hover:underline">Go to Homepage</Link>
+                <div className="text-center py-20 bg-card rounded-xl border border-border">
+                    <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mx-auto mb-4">
+                        <Search size={28} className="text-muted-foreground" />
+                    </div>
+                    <h3 className="text-lg font-bold text-foreground mb-2">No results found</h3>
+                    <p className="text-sm text-muted-foreground mb-6">Try different keywords or browse categories</p>
+                    <Link href="/" className="inline-block bg-[#2874F0] text-white px-6 py-2.5 rounded-lg font-medium hover:bg-blue-600 transition-colors">
+                        Go to Homepage
+                    </Link>
                 </div>
             ) : (
-                <div className="text-center py-16 bg-white rounded-sm shadow-sm">
-                    <Search size={48} className="mx-auto text-gray-300 mb-4" />
-                    <p className="text-gray-500">Enter a search term to find products</p>
+                <div className="text-center py-20 bg-card rounded-xl border border-border">
+                    <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mx-auto mb-4">
+                        <Search size={28} className="text-muted-foreground" />
+                    </div>
+                    <h3 className="text-lg font-bold text-foreground mb-2">Search for products</h3>
+                    <p className="text-sm text-muted-foreground mb-6">Use the search bar above to find products, brands, and more</p>
+                    <Link href="/category/all" className="inline-block bg-[#2874F0] text-white px-6 py-2.5 rounded-lg font-medium hover:bg-blue-600 transition-colors">
+                        Browse All Products
+                    </Link>
                 </div>
             )}
         </div>

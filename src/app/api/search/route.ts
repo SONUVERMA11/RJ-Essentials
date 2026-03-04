@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '@/lib/mongodb';
 import Product from '@/models/Product';
+import { escapeRegex } from '@/lib/adminAuth';
 
 export async function GET(req: NextRequest) {
     try {
@@ -12,13 +13,15 @@ export async function GET(req: NextRequest) {
             return NextResponse.json({ suggestions: [] });
         }
 
+        const escapedQ = escapeRegex(q);
+
         const products = await Product.find({
             status: 'active',
             $or: [
-                { name: { $regex: q, $options: 'i' } },
-                { tags: { $regex: q, $options: 'i' } },
-                { brand: { $regex: q, $options: 'i' } },
-                { category: { $regex: q, $options: 'i' } },
+                { name: { $regex: escapedQ, $options: 'i' } },
+                { tags: { $regex: escapedQ, $options: 'i' } },
+                { brand: { $regex: escapedQ, $options: 'i' } },
+                { category: { $regex: escapedQ, $options: 'i' } },
             ],
         })
             .select('name slug images sellingPrice category')

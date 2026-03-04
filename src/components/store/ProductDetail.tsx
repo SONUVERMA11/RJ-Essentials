@@ -201,7 +201,7 @@ export default function ProductDetailClient({ product, relatedProducts, reviews 
                     </div>
 
                     {/* ===== RIGHT: DETAILS ===== */}
-                    <div className="bg-card">
+                    <div className="bg-card md:relative">
                         {/* Variants (Color / Size etc) */}
                         {product.variants?.length > 0 && product.variants.map((v, vi) => (
                             <div key={vi} className="px-4 py-3 border-b border-border">
@@ -450,8 +450,8 @@ export default function ProductDetailClient({ product, relatedProducts, reviews 
                             </div>
                         </div>
 
-                        {/* Desktop Buttons — Bottom of right column */}
-                        <div className="hidden md:flex gap-3 p-4 border-t border-border bg-card">
+                        {/* Desktop Buttons — Sticky at bottom of right column */}
+                        <div className="hidden md:flex gap-3 p-4 border-t border-border bg-card/95 backdrop-blur-lg sticky bottom-0 z-30 shadow-[0_-2px_20px_rgba(0,0,0,0.1)]">
                             <button onClick={handleAddToCart} disabled={isOutOfStock}
                                 className="flex-1 flex items-center justify-center gap-2 bg-[#2874F0] text-white py-3.5 rounded-lg font-bold text-sm hover:bg-blue-600 disabled:opacity-50 transition-colors">
                                 <ShoppingCart size={18} /> Add to Cart
@@ -466,7 +466,7 @@ export default function ProductDetailClient({ product, relatedProducts, reviews 
             </div>
 
             {/* Mobile Sticky Bottom Bar */}
-            <div className="md:hidden fixed bottom-14 left-0 right-0 z-50 bg-card/95 backdrop-blur-lg border-t border-border shadow-[0_-2px_20px_rgba(0,0,0,0.15)]">
+            <div className="md:hidden fixed bottom-[60px] left-0 right-0 z-50 bg-card/95 backdrop-blur-lg border-t border-border shadow-[0_-2px_20px_rgba(0,0,0,0.15)]">
                 <div className="flex gap-2 p-2">
                     <button onClick={handleAddToCart} disabled={isOutOfStock}
                         className="flex-1 flex items-center justify-center gap-2 py-3 bg-[#2874F0] text-white font-bold text-sm rounded-lg active:bg-blue-600 disabled:opacity-50 transition-colors">

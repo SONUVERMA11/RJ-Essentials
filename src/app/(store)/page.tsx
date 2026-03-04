@@ -93,7 +93,7 @@ export default async function HomePage() {
 
             {/* Deal of the Day */}
             <section className="max-w-7xl mx-auto px-4">
-                <SectionHeader title="Deal of the Day" icon={Zap} link="/search?q=deals" color="#FB641B" />
+                <SectionHeader title="Deal of the Day" icon={Zap} link="/category/all?sort=popularity" color="#FB641B" />
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
                     {displayDeals.map((product: typeof DEMO_PRODUCTS[0]) => (
                         <ProductCard key={product._id} product={product} />
@@ -103,7 +103,7 @@ export default async function HomePage() {
 
             {/* Featured Products */}
             <section className="max-w-7xl mx-auto px-4">
-                <SectionHeader title="Featured Products" icon={Star} link="/search?q=featured" color="#FFB300" />
+                <SectionHeader title="Featured Products" icon={Star} link="/category/all" color="#FFB300" />
                 <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
                     {displayFeatured.map((product: typeof DEMO_PRODUCTS[0]) => (
                         <ProductCard key={product._id} product={product} />
@@ -113,7 +113,7 @@ export default async function HomePage() {
 
             {/* Best Sellers */}
             <section className="max-w-7xl mx-auto px-4">
-                <SectionHeader title="Best Sellers" icon={TrendingUp} link="/search?q=best" color="#388E3C" />
+                <SectionHeader title="Best Sellers" icon={TrendingUp} link="/category/all?sort=popularity" color="#388E3C" />
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
                     {displayBest.map((product: typeof DEMO_PRODUCTS[0]) => (
                         <ProductCard key={product._id} product={product} />
@@ -123,7 +123,7 @@ export default async function HomePage() {
 
             {/* New Arrivals */}
             <section className="max-w-7xl mx-auto px-4">
-                <SectionHeader title="New Arrivals" icon={Clock} link="/search?q=new" color="#9C27B0" />
+                <SectionHeader title="New Arrivals" icon={Clock} link="/category/all?sort=newest" color="#9C27B0" />
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
                     {displayNew.map((product: typeof DEMO_PRODUCTS[0]) => (
                         <ProductCard key={product._id} product={product} />

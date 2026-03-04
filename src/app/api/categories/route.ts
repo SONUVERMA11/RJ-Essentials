@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '@/lib/mongodb';
 import Category from '@/models/Category';
+import { requireAdmin } from '@/lib/adminAuth';
 
 export async function GET() {
     try {
@@ -15,6 +16,9 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
     try {
+        const authError = await requireAdmin();
+        if (authError) return authError;
+
         await dbConnect();
         const body = await req.json();
         const category = await Category.create(body);

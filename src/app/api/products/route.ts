@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '@/lib/mongodb';
 import Product from '@/models/Product';
+import { requireAdmin } from '@/lib/adminAuth';
 
 export async function GET(req: NextRequest) {
     try {
@@ -8,7 +9,7 @@ export async function GET(req: NextRequest) {
         const { searchParams } = new URL(req.url);
 
         const page = parseInt(searchParams.get('page') || '1');
-        const limit = parseInt(searchParams.get('limit') || '20');
+        const limit = Math.min(parseInt(searchParams.get('limit') || '20'), 100);
         const category = searchParams.get('category');
         const brand = searchParams.get('brand');
         const status = searchParams.get('status') || 'active';
@@ -87,6 +88,9 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
     try {
+        const authError = await requireAdmin();
+        if (authError) return authError;
+
         await dbConnect();
         const body = await req.json();
         const product = await Product.create(body);

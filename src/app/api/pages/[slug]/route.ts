@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '@/lib/mongodb';
 import Page from '@/models/Page';
+import { requireAdmin } from '@/lib/adminAuth';
 
 export async function GET(
     req: NextRequest,
@@ -25,6 +26,9 @@ export async function PUT(
     { params }: { params: Promise<{ slug: string }> }
 ) {
     try {
+        const authError = await requireAdmin();
+        if (authError) return authError;
+
         await dbConnect();
         const { slug } = await params;
         const body = await req.json();
