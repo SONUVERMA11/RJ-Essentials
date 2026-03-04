@@ -34,36 +34,36 @@ export default function AdminSEOPage() {
 
     return (
         <div className="max-w-3xl">
-            <h1 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+            <h1 className="text-2xl font-bold text-foreground mb-6 flex items-center gap-2">
                 <Search size={24} /> SEO Settings
             </h1>
 
             <div className="space-y-6">
-                <div className="bg-white rounded-lg p-6 shadow-sm space-y-4">
-                    <h2 className="font-bold text-gray-800 flex items-center gap-2"><Globe size={18} /> Global SEO</h2>
+                <div className="bg-card rounded-lg p-6 shadow-sm space-y-4">
+                    <h2 className="font-bold text-foreground flex items-center gap-2"><Globe size={18} /> Global SEO</h2>
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Site Title</label>
+                        <label className="block text-sm font-medium text-foreground mb-1">Site Title</label>
                         <input value={settings.siteTitle} onChange={(e) => setSettings({ ...settings, siteTitle: e.target.value })}
-                            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm" />
-                        <p className="text-xs text-gray-400 mt-1">{settings.siteTitle.length}/60 characters</p>
+                            className="w-full border border-border rounded-md px-3 py-2 text-sm" />
+                        <p className="text-xs text-muted-foreground mt-1">{settings.siteTitle.length}/60 characters</p>
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Site Description</label>
+                        <label className="block text-sm font-medium text-foreground mb-1">Site Description</label>
                         <textarea value={settings.siteDescription} onChange={(e) => setSettings({ ...settings, siteDescription: e.target.value })}
-                            rows={3} className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm resize-none" />
-                        <p className="text-xs text-gray-400 mt-1">{settings.siteDescription.length}/160 characters</p>
+                            rows={3} className="w-full border border-border rounded-md px-3 py-2 text-sm resize-none" />
+                        <p className="text-xs text-muted-foreground mt-1">{settings.siteDescription.length}/160 characters</p>
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Keywords</label>
+                        <label className="block text-sm font-medium text-foreground mb-1">Keywords</label>
                         <input value={settings.siteKeywords} onChange={(e) => setSettings({ ...settings, siteKeywords: e.target.value })}
-                            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm" />
+                            className="w-full border border-border rounded-md px-3 py-2 text-sm" />
                     </div>
                 </div>
 
-                <div className="bg-white rounded-lg p-6 shadow-sm space-y-4">
-                    <h2 className="font-bold text-gray-800 flex items-center gap-2"><FileText size={18} /> robots.txt</h2>
+                <div className="bg-card rounded-lg p-6 shadow-sm space-y-4">
+                    <h2 className="font-bold text-foreground flex items-center gap-2"><FileText size={18} /> robots.txt</h2>
                     <textarea value={settings.robotsTxt} onChange={(e) => setSettings({ ...settings, robotsTxt: e.target.value })}
-                        rows={6} className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm font-mono resize-none" />
+                        rows={6} className="w-full border border-border rounded-md px-3 py-2 text-sm font-mono resize-none" />
                 </div>
 
                 <div className="bg-blue-50 rounded-lg p-4 text-sm text-blue-800">

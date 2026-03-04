@@ -44,9 +44,9 @@ export default function AdminLoginPage() {
             {/* Left Panel — Branding */}
             <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-[#2874F0] via-[#1e5bbf] to-[#143d8a] flex-col justify-between p-12 relative overflow-hidden">
                 {/* Background decorations */}
-                <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2" />
-                <div className="absolute bottom-0 left-0 w-72 h-72 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2" />
-                <div className="absolute top-1/2 left-1/2 w-48 h-48 bg-white/3 rounded-full -translate-x-1/2 -translate-y-1/2" />
+                <div className="absolute top-0 right-0 w-96 h-96 bg-card/5 rounded-full -translate-y-1/2 translate-x-1/2" />
+                <div className="absolute bottom-0 left-0 w-72 h-72 bg-card/5 rounded-full translate-y-1/2 -translate-x-1/2" />
+                <div className="absolute top-1/2 left-1/2 w-48 h-48 bg-card/3 rounded-full -translate-x-1/2 -translate-y-1/2" />
 
                 <div className="relative z-10">
                     <Link href="/" className="inline-flex items-center gap-3">
@@ -67,7 +67,7 @@ export default function AdminLoginPage() {
                 <div className="relative z-10 space-y-8">
                     <div className="space-y-4">
                         <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center backdrop-blur-sm">
+                            <div className="w-12 h-12 bg-card/10 rounded-xl flex items-center justify-center backdrop-blur-sm">
                                 <ShieldCheck className="text-white" size={24} />
                             </div>
                             <div>
@@ -84,7 +84,7 @@ export default function AdminLoginPage() {
                             { label: 'Analytics', desc: 'Revenue insights' },
                             { label: 'Customers', desc: 'Reviews & messages' },
                         ].map((item) => (
-                            <div key={item.label} className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/10">
+                            <div key={item.label} className="bg-card/10 backdrop-blur-sm rounded-xl p-4 border border-white/10">
                                 <p className="text-white font-medium text-sm">{item.label}</p>
                                 <p className="text-blue-200 text-xs mt-0.5">{item.desc}</p>
                             </div>
@@ -98,7 +98,7 @@ export default function AdminLoginPage() {
             </div>
 
             {/* Right Panel — Login Form */}
-            <div className="w-full lg:w-1/2 flex items-center justify-center bg-gray-50 dark:bg-gray-950 px-6">
+            <div className="w-full lg:w-1/2 flex items-center justify-center bg-muted/50 dark:bg-gray-950 px-6">
                 <div className="w-full max-w-md">
                     {/* Mobile branding */}
                     <div className="lg:hidden mb-8">
@@ -112,20 +112,20 @@ export default function AdminLoginPage() {
                             </svg>
                             <div>
                                 <h1 className="text-2xl font-bold text-[#2874F0]">RJ ESSENTIALS</h1>
-                                <p className="text-gray-400 text-xs italic">Quality at Your Doorstep</p>
+                                <p className="text-muted-foreground text-xs italic">Quality at Your Doorstep</p>
                             </div>
                         </Link>
                     </div>
 
-                    <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-800 p-8 md:p-10">
+                    <div className="bg-card dark:bg-gray-900 rounded-2xl shadow-xl border border-border dark:border-gray-800 p-8 md:p-10">
                         {/* Header */}
                         <div className="flex items-center gap-3 mb-8">
                             <div className="w-11 h-11 bg-[#2874F0] rounded-xl flex items-center justify-center">
                                 <ShieldCheck className="text-white" size={22} />
                             </div>
                             <div>
-                                <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100">Admin Login</h2>
-                                <p className="text-sm text-gray-400">Enter your credentials to continue</p>
+                                <h2 className="text-xl font-bold text-foreground dark:text-gray-100">Admin Login</h2>
+                                <p className="text-sm text-muted-foreground">Enter your credentials to continue</p>
                             </div>
                         </div>
 
@@ -137,34 +137,34 @@ export default function AdminLoginPage() {
 
                         <form onSubmit={handleSubmit} className="space-y-5">
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email Address</label>
+                                <label className="block text-sm font-medium text-foreground dark:text-gray-300 mb-2">Email Address</label>
                                 <div className="relative group">
-                                    <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#2874F0] transition-colors" />
+                                    <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-[#2874F0] transition-colors" />
                                     <input
                                         type="email"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
                                         placeholder="admin@rjessentials.com"
-                                        className="w-full pl-12 pr-4 py-3.5 border-2 border-gray-200 dark:border-gray-700 rounded-xl text-sm bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:border-[#2874F0] focus:bg-white dark:focus:bg-gray-900 outline-none transition-all placeholder:text-gray-400"
+                                        className="w-full pl-12 pr-4 py-3.5 border-2 border-border dark:border-gray-700 rounded-xl text-sm bg-muted/50 dark:bg-gray-800 text-foreground dark:text-gray-100 focus:border-[#2874F0] focus:bg-card dark:focus:bg-gray-900 outline-none transition-all placeholder:text-muted-foreground"
                                         required
                                     />
                                 </div>
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Password</label>
+                                <label className="block text-sm font-medium text-foreground dark:text-gray-300 mb-2">Password</label>
                                 <div className="relative group">
-                                    <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#2874F0] transition-colors" />
+                                    <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-[#2874F0] transition-colors" />
                                     <input
                                         type={showPassword ? 'text' : 'password'}
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
                                         placeholder="••••••••"
-                                        className="w-full pl-12 pr-12 py-3.5 border-2 border-gray-200 dark:border-gray-700 rounded-xl text-sm bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:border-[#2874F0] focus:bg-white dark:focus:bg-gray-900 outline-none transition-all placeholder:text-gray-400"
+                                        className="w-full pl-12 pr-12 py-3.5 border-2 border-border dark:border-gray-700 rounded-xl text-sm bg-muted/50 dark:bg-gray-800 text-foreground dark:text-gray-100 focus:border-[#2874F0] focus:bg-card dark:focus:bg-gray-900 outline-none transition-all placeholder:text-muted-foreground"
                                         required
                                     />
                                     <button type="button" onClick={() => setShowPassword(!showPassword)}
-                                        className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
+                                        className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-muted-foreground dark:hover:text-gray-300 transition-colors">
                                         {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                                     </button>
                                 </div>
@@ -189,7 +189,7 @@ export default function AdminLoginPage() {
 
                     {/* Footer */}
                     <div className="mt-6 text-center space-y-3">
-                        <Link href="/" className="text-sm text-gray-400 hover:text-[#2874F0] transition-colors inline-flex items-center gap-1">
+                        <Link href="/" className="text-sm text-muted-foreground hover:text-[#2874F0] transition-colors inline-flex items-center gap-1">
                             ← Back to Store
                         </Link>
                     </div>

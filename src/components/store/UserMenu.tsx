@@ -63,7 +63,12 @@ export default function UserMenu() {
                         <p className="text-xs text-muted-foreground truncate mt-0.5">{session.user?.email}</p>
                     </div>
 
-                    <Link href="/track-order" onClick={() => setOpen(false)}
+                    <Link href="/account" onClick={() => setOpen(false)}
+                        className="flex items-center gap-3 px-4 py-2.5 text-sm text-foreground/80 hover:bg-[#2874F0]/10 font-medium">
+                        <User size={18} className="text-[#2874F0]" />
+                        My Account
+                    </Link>
+                    <Link href="/account?tab=orders" onClick={() => setOpen(false)}
                         className="flex items-center gap-3 px-4 py-2.5 text-sm text-foreground/80 hover:bg-[#2874F0]/10 font-medium">
                         <Package size={18} className="text-[#2874F0]" />
                         My Orders

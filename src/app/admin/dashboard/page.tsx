@@ -47,12 +47,12 @@ export default function AdminDashboard() {
     return (
         <div>
             <div className="flex items-center justify-between mb-6">
-                <h1 className="text-2xl font-bold text-gray-800">Dashboard</h1>
+                <h1 className="text-2xl font-bold text-foreground">Dashboard</h1>
                 <div className="flex gap-2">
                     <Link href="/admin/products/new" className="flex items-center gap-2 bg-[#2874F0] text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-600">
                         <Plus size={16} /> Add Product
                     </Link>
-                    <Link href="/admin/orders" className="flex items-center gap-2 bg-gray-100 text-gray-700 px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-200">
+                    <Link href="/admin/orders" className="flex items-center gap-2 bg-muted text-foreground px-4 py-2 rounded-md text-sm font-medium hover:bg-muted">
                         <Eye size={16} /> View Orders
                     </Link>
                 </div>
@@ -68,14 +68,14 @@ export default function AdminDashboard() {
                 ].map((stat) => {
                     const Icon = stat.icon;
                     return (
-                        <div key={stat.label} className="bg-white rounded-lg p-4 shadow-sm border border-gray-100">
+                        <div key={stat.label} className="bg-card rounded-lg p-4 shadow-sm border border-border">
                             <div className="flex items-center justify-between mb-2">
                                 <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ backgroundColor: stat.bg }}>
                                     <Icon size={20} style={{ color: stat.color }} />
                                 </div>
                             </div>
-                            <p className="text-2xl font-bold text-gray-800">{loading ? '...' : stat.value}</p>
-                            <p className="text-xs text-gray-500 mt-1">{stat.label}</p>
+                            <p className="text-2xl font-bold text-foreground">{loading ? '...' : stat.value}</p>
+                            <p className="text-xs text-muted-foreground mt-1">{stat.label}</p>
                         </div>
                     );
                 })}
@@ -88,47 +88,47 @@ export default function AdminDashboard() {
                     { label: 'This Month', value: stats.monthOrders },
                     { label: 'All Time', value: stats.totalOrders },
                 ].map((s) => (
-                    <div key={s.label} className="bg-white rounded-lg p-4 shadow-sm text-center">
-                        <p className="text-xl font-bold text-gray-800">{loading ? '...' : s.value}</p>
-                        <p className="text-xs text-gray-500">{s.label} Orders</p>
+                    <div key={s.label} className="bg-card rounded-lg p-4 shadow-sm text-center">
+                        <p className="text-xl font-bold text-foreground">{loading ? '...' : s.value}</p>
+                        <p className="text-xs text-muted-foreground">{s.label} Orders</p>
                     </div>
                 ))}
             </div>
 
             {/* Recent Orders */}
-            <div className="bg-white rounded-lg shadow-sm border border-gray-100">
-                <div className="p-4 border-b border-gray-100 flex items-center justify-between">
-                    <h2 className="font-bold text-gray-800">Recent Orders</h2>
+            <div className="bg-card rounded-lg shadow-sm border border-border">
+                <div className="p-4 border-b border-border flex items-center justify-between">
+                    <h2 className="font-bold text-foreground">Recent Orders</h2>
                     <Link href="/admin/orders" className="text-[#2874F0] text-sm font-medium hover:underline">View All</Link>
                 </div>
                 <div className="overflow-x-auto">
                     <table className="w-full text-sm">
-                        <thead className="bg-gray-50">
+                        <thead className="bg-muted/50">
                             <tr>
-                                <th className="text-left px-4 py-3 font-medium text-gray-500">Order ID</th>
-                                <th className="text-left px-4 py-3 font-medium text-gray-500">Customer</th>
-                                <th className="text-left px-4 py-3 font-medium text-gray-500">Items</th>
-                                <th className="text-left px-4 py-3 font-medium text-gray-500">Total</th>
-                                <th className="text-left px-4 py-3 font-medium text-gray-500">Status</th>
-                                <th className="text-left px-4 py-3 font-medium text-gray-500">Date</th>
+                                <th className="text-left px-4 py-3 font-medium text-muted-foreground">Order ID</th>
+                                <th className="text-left px-4 py-3 font-medium text-muted-foreground">Customer</th>
+                                <th className="text-left px-4 py-3 font-medium text-muted-foreground">Items</th>
+                                <th className="text-left px-4 py-3 font-medium text-muted-foreground">Total</th>
+                                <th className="text-left px-4 py-3 font-medium text-muted-foreground">Status</th>
+                                <th className="text-left px-4 py-3 font-medium text-muted-foreground">Date</th>
                             </tr>
                         </thead>
                         <tbody>
                             {loading ? (
-                                <tr><td colSpan={6} className="px-4 py-8 text-center text-gray-400">Loading...</td></tr>
+                                <tr><td colSpan={6} className="px-4 py-8 text-center text-muted-foreground">Loading...</td></tr>
                             ) : recentOrders.length === 0 ? (
-                                <tr><td colSpan={6} className="px-4 py-8 text-center text-gray-400">No orders yet</td></tr>
+                                <tr><td colSpan={6} className="px-4 py-8 text-center text-muted-foreground">No orders yet</td></tr>
                             ) : (
                                 recentOrders.map((order) => (
-                                    <tr key={order._id} className="border-b border-gray-50 hover:bg-gray-50">
+                                    <tr key={order._id} className="border-b border-gray-50 hover:bg-muted/50">
                                         <td className="px-4 py-3">
                                             <Link href={`/admin/orders/${order._id}`} className="text-[#2874F0] font-medium hover:underline">{order.orderId}</Link>
                                         </td>
                                         <td className="px-4 py-3">
-                                            <p className="font-medium text-gray-800">{order.customer.name}</p>
-                                            <p className="text-xs text-gray-500">{order.customer.address?.city}</p>
+                                            <p className="font-medium text-foreground">{order.customer.name}</p>
+                                            <p className="text-xs text-muted-foreground">{order.customer.address?.city}</p>
                                         </td>
-                                        <td className="px-4 py-3 text-gray-600">{order.items?.length || 0} items</td>
+                                        <td className="px-4 py-3 text-muted-foreground">{order.items?.length || 0} items</td>
                                         <td className="px-4 py-3 font-medium">{formatPrice(order.total)}</td>
                                         <td className="px-4 py-3">
                                             <span className={`px-2 py-1 rounded-full text-xs font-medium ${order.status === 'delivered' ? 'bg-green-100 text-green-700' :
@@ -139,7 +139,7 @@ export default function AdminDashboard() {
                                                 {order.status}
                                             </span>
                                         </td>
-                                        <td className="px-4 py-3 text-gray-500">{new Date(order.createdAt).toLocaleDateString('en-IN')}</td>
+                                        <td className="px-4 py-3 text-muted-foreground">{new Date(order.createdAt).toLocaleDateString('en-IN')}</td>
                                     </tr>
                                 ))
                             )}

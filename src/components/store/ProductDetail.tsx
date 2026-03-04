@@ -50,7 +50,12 @@ export default function ProductDetailClient({ product, relatedProducts, reviews 
     const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
     const [liked, setLiked] = useState(false);
     const touchStartX = useRef(0);
-    const touchEndX = useRef(0);
+    const touchStartY = useRef(0);
+    const [dragOffset, setDragOffset] = useState(0);
+    const [isSwiping, setIsSwiping] = useState(false);
+    const swipeDirectionLocked = useRef<'h' | 'v' | null>(null);
+    const sliderRef = useRef<HTMLDivElement>(null);
+    const thumbnailStripRef = useRef<HTMLDivElement>(null);
 
     const discount = calculateDiscount(product.mrp, product.sellingPrice);
     const isOutOfStock = product.stock <= 0;
@@ -71,6 +76,20 @@ export default function ProductDetailClient({ product, relatedProducts, reviews 
         document.body.style.overflow = fullscreenOpen ? 'hidden' : '';
         return () => { document.body.style.overflow = ''; };
     }, [fullscreenOpen]);
+
+    // Auto-scroll thumbnails to keep active one visible
+    useEffect(() => {
+        if (thumbnailStripRef.current) {
+            const strip = thumbnailStripRef.current;
+            const activeThumb = strip.children[selectedImage] as HTMLElement;
+            if (activeThumb) {
+                const stripRect = strip.getBoundingClientRect();
+                const thumbRect = activeThumb.getBoundingClientRect();
+                const offset = thumbRect.left - stripRect.left - (stripRect.width / 2) + (thumbRect.width / 2);
+                strip.scrollBy({ left: offset, behavior: 'smooth' });
+            }
+        }
+    }, [selectedImage]);
 
     const handleAddToCart = () => {
         if (isOutOfStock) return;
@@ -106,11 +125,55 @@ export default function ProductDetailClient({ product, relatedProducts, reviews 
     // Image navigation
     const nextImage = () => setSelectedImage((p) => (p + 1) % product.images.length);
     const prevImage = () => setSelectedImage((p) => (p - 1 + product.images.length) % product.images.length);
-    const handleTouchStart = (e: React.TouchEvent) => { touchStartX.current = e.touches[0].clientX; };
-    const handleTouchMove = (e: React.TouchEvent) => { touchEndX.current = e.touches[0].clientX; };
+
+    // Drag-controlled touch handlers — image follows finger in real-time
+    const handleTouchStart = (e: React.TouchEvent) => {
+        touchStartX.current = e.touches[0].clientX;
+        touchStartY.current = e.touches[0].clientY;
+        swipeDirectionLocked.current = null;
+        setIsSwiping(true);
+        setDragOffset(0);
+    };
+
+    const handleTouchMove = (e: React.TouchEvent) => {
+        if (!isSwiping) return;
+        const dx = e.touches[0].clientX - touchStartX.current;
+        const dy = e.touches[0].clientY - touchStartY.current;
+
+        // Lock direction on first significant movement
+        if (!swipeDirectionLocked.current) {
+            if (Math.abs(dx) > 8 || Math.abs(dy) > 8) {
+                swipeDirectionLocked.current = Math.abs(dx) > Math.abs(dy) ? 'h' : 'v';
+            }
+            return;
+        }
+
+        // Only handle horizontal swipes
+        if (swipeDirectionLocked.current === 'v') return;
+
+        e.preventDefault(); // Prevent vertical scroll during horizontal swipe
+
+        // Clamp drag at edges with rubber-band resistance
+        let clampedDx = dx;
+        if ((selectedImage === 0 && dx > 0) || (selectedImage === product.images.length - 1 && dx < 0)) {
+            clampedDx = dx * 0.3; // Rubber band effect
+        }
+        setDragOffset(clampedDx);
+    };
+
     const handleTouchEnd = () => {
-        const diff = touchStartX.current - touchEndX.current;
-        if (Math.abs(diff) > 50) { diff > 0 ? nextImage() : prevImage(); }
+        if (!isSwiping) return;
+        setIsSwiping(false);
+
+        const containerWidth = sliderRef.current?.offsetWidth || 400;
+        const threshold = containerWidth * 0.25; // 25% drag = change image
+
+        if (dragOffset < -threshold && selectedImage < product.images.length - 1) {
+            setSelectedImage(selectedImage + 1);
+        } else if (dragOffset > threshold && selectedImage > 0) {
+            setSelectedImage(selectedImage - 1);
+        }
+        setDragOffset(0);
     };
 
     const openFullscreen = (i: number) => { setFullscreenImage(i); setFullscreenOpen(true); setZoomScale(1); setZoomOffset({ x: 0, y: 0 }); };
@@ -134,20 +197,34 @@ export default function ProductDetailClient({ product, relatedProducts, reviews 
                 <div className="md:grid md:grid-cols-2 md:gap-0">
                     {/* ===== LEFT: IMAGE SECTION ===== */}
                     <div className="md:sticky md:top-[130px] md:self-start">
-                        {/* Main Image */}
+                        {/* Main Image with Drag-Controlled Slide */}
                         <div
-                            className="relative aspect-square bg-muted/20 flex items-center justify-center cursor-pointer group overflow-hidden rounded-2xl"
+                            ref={sliderRef}
+                            className="relative aspect-square bg-muted/20 cursor-pointer group overflow-hidden rounded-2xl touch-pan-y"
                             onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd}
-                            onClick={() => openFullscreen(selectedImage)}
+                            onClick={() => !dragOffset && openFullscreen(selectedImage)}
                         >
-                            {product.images?.[selectedImage]?.url ? (
-                                <img src={product.images[selectedImage].url} alt={product.name}
-                                    className="max-h-full max-w-full object-contain" draggable={false} />
-                            ) : (
-                                <div className="w-full h-full bg-muted flex items-center justify-center">
-                                    <span className="text-6xl">📦</span>
-                                </div>
-                            )}
+                            {/* Sliding image track — follows finger during drag, snaps on release */}
+                            <div
+                                className={`flex h-full ${isSwiping ? '' : 'transition-transform duration-300 ease-out'}`}
+                                style={{
+                                    transform: `translateX(calc(-${selectedImage * 100}% + ${dragOffset}px))`,
+                                    willChange: isSwiping ? 'transform' : 'auto',
+                                }}
+                            >
+                                {product.images?.map((img, i) => (
+                                    <div key={i} className="w-full h-full flex-shrink-0 flex items-center justify-center">
+                                        {img.url ? (
+                                            <img src={img.url} alt={`${product.name} - ${i + 1}`}
+                                                className="max-h-full max-w-full object-contain select-none" draggable={false} />
+                                        ) : (
+                                            <div className="w-full h-full bg-muted flex items-center justify-center">
+                                                <span className="text-6xl">📦</span>
+                                            </div>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
 
                             {/* Like button */}
                             <button onClick={(e) => { e.stopPropagation(); setLiked(!liked); }}
@@ -175,21 +252,11 @@ export default function ProductDetailClient({ product, relatedProducts, reviews 
                                 </>
                             )}
 
-                            {/* Counter */}
+                            {/* Counter badge */}
                             {product.images?.length > 1 && (
-                                <span className="absolute bottom-3 left-3 bg-black/60 text-white text-[11px] px-2 py-0.5 rounded-full">
+                                <span className="absolute bottom-3 left-3 bg-black/60 text-white text-[11px] px-2 py-0.5 rounded-full z-10">
                                     {selectedImage + 1}/{product.images.length}
                                 </span>
-                            )}
-
-                            {/* Dots */}
-                            {product.images?.length > 1 && (
-                                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
-                                    {product.images.map((_, i) => (
-                                        <button key={i} onClick={(e) => { e.stopPropagation(); setSelectedImage(i); }}
-                                            className={`w-1.5 h-1.5 rounded-full transition-all ${i === selectedImage ? 'bg-[#2874F0] w-3' : 'bg-gray-400/60'}`} />
-                                    ))}
-                                </div>
                             )}
 
                             {isOutOfStock && (
@@ -198,6 +265,35 @@ export default function ProductDetailClient({ product, relatedProducts, reviews 
                                 </div>
                             )}
                         </div>
+
+                        {/* Thumbnail Strip (replaces dots) */}
+                        {product.images?.length > 1 && (
+                            <div className="mt-3 px-2">
+                                <div
+                                    ref={thumbnailStripRef}
+                                    className="flex gap-2 overflow-x-auto scrollbar-hide pb-1"
+                                    style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                                >
+                                    {product.images.map((img, i) => (
+                                        <button
+                                            key={i}
+                                            onClick={() => setSelectedImage(i)}
+                                            className={`flex-shrink-0 w-14 h-14 md:w-16 md:h-16 rounded-lg overflow-hidden border-2 transition-all duration-200 ${i === selectedImage
+                                                ? 'border-[#2874F0] shadow-md shadow-[#2874F0]/20 scale-105'
+                                                : 'border-border opacity-60 hover:opacity-100'
+                                                }`}
+                                        >
+                                            <img
+                                                src={img.url}
+                                                alt={`${product.name} thumbnail ${i + 1}`}
+                                                className="w-full h-full object-cover"
+                                                draggable={false}
+                                            />
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
                     </div>
 
                     {/* ===== RIGHT: DETAILS ===== */}

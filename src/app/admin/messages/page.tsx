@@ -33,25 +33,25 @@ export default function AdminMessagesPage() {
 
     return (
         <div>
-            <h1 className="text-2xl font-bold text-gray-800 mb-6">Messages</h1>
+            <h1 className="text-2xl font-bold text-foreground mb-6">Messages</h1>
             <div className="space-y-3">
-                {loading ? <p className="text-gray-400">Loading...</p> :
-                    messages.length === 0 ? <p className="text-gray-400 bg-white rounded-lg p-8 text-center shadow-sm">No messages</p> :
+                {loading ? <p className="text-muted-foreground">Loading...</p> :
+                    messages.length === 0 ? <p className="text-muted-foreground bg-card rounded-lg p-8 text-center shadow-sm">No messages</p> :
                         messages.map(m => (
-                            <div key={m._id} className={`bg-white rounded-lg p-4 shadow-sm border-l-4 ${m.isRead ? 'border-gray-200' : 'border-[#2874F0]'}`}>
+                            <div key={m._id} className={`bg-card rounded-lg p-4 shadow-sm border-l-4 ${m.isRead ? 'border-border' : 'border-[#2874F0]'}`}>
                                 <div className="flex items-start justify-between">
                                     <div>
-                                        <p className="font-medium text-gray-800">{m.name}{m.subject ? ` — ${m.subject}` : ''}</p>
-                                        <div className="flex gap-3 text-xs text-gray-500 mt-0.5">
+                                        <p className="font-medium text-foreground">{m.name}{m.subject ? ` — ${m.subject}` : ''}</p>
+                                        <div className="flex gap-3 text-xs text-muted-foreground mt-0.5">
                                             {m.email && <span>{m.email}</span>}
                                             {m.phone && <span>{m.phone}</span>}
                                             <span>{new Date(m.createdAt).toLocaleDateString('en-IN')}</span>
                                         </div>
-                                        <p className="text-sm text-gray-600 mt-2">{m.message}</p>
+                                        <p className="text-sm text-muted-foreground mt-2">{m.message}</p>
                                     </div>
                                     <div className="flex gap-1">
-                                        {!m.isRead && <button onClick={() => markRead(m._id)} className="p-1.5 text-gray-400 hover:text-[#2874F0]" title="Mark Read"><Eye size={15} /></button>}
-                                        <button onClick={() => handleDelete(m._id)} className="p-1.5 text-gray-400 hover:text-red-500" title="Delete"><Trash2 size={15} /></button>
+                                        {!m.isRead && <button onClick={() => markRead(m._id)} className="p-1.5 text-muted-foreground hover:text-[#2874F0]" title="Mark Read"><Eye size={15} /></button>}
+                                        <button onClick={() => handleDelete(m._id)} className="p-1.5 text-muted-foreground hover:text-red-500" title="Delete"><Trash2 size={15} /></button>
                                     </div>
                                 </div>
                             </div>

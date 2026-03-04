@@ -37,7 +37,7 @@ export default function CheckoutPage() {
     if (status === 'loading') {
         return (
             <div className="max-w-7xl mx-auto px-4 py-16 text-center">
-                <div className="w-8 h-8 border-2 border-gray-300 border-t-[#2874F0] rounded-full animate-spin mx-auto" />
+                <div className="w-8 h-8 border-2 border-muted border-t-[#2874F0] rounded-full animate-spin mx-auto" />
             </div>
         );
     }
@@ -45,10 +45,10 @@ export default function CheckoutPage() {
     if (status === 'unauthenticated') {
         return (
             <div className="max-w-4xl mx-auto px-4 py-8">
-                <div className="bg-white rounded-lg p-8 shadow-sm text-center space-y-4">
+                <div className="bg-card rounded-lg p-8 shadow-sm border border-border text-center space-y-4">
                     <LogIn size={48} className="mx-auto text-[#2874F0]" />
-                    <h2 className="text-xl font-bold text-gray-800">Sign in to Continue</h2>
-                    <p className="text-gray-500">Please sign in or create an account to place your order.</p>
+                    <h2 className="text-xl font-bold text-foreground">Sign in to Continue</h2>
+                    <p className="text-muted-foreground">Please sign in or create an account to place your order.</p>
                     <button
                         onClick={() => setShowLoginModal(true)}
                         className="inline-flex items-center gap-2 bg-[#2874F0] text-white px-8 py-3 rounded-lg font-bold hover:bg-blue-600 transition-colors"
@@ -64,8 +64,8 @@ export default function CheckoutPage() {
     if (items.length === 0) {
         return (
             <div className="max-w-7xl mx-auto px-4 py-16 text-center">
-                <div className="bg-white rounded-sm p-12 shadow-sm">
-                    <p className="text-gray-500 mb-4">Your cart is empty</p>
+                <div className="bg-card rounded-lg p-12 shadow-sm border border-border">
+                    <p className="text-muted-foreground mb-4">Your cart is empty</p>
                     <Link href="/" className="text-[#2874F0] font-medium hover:underline">Continue Shopping</Link>
                 </div>
             </div>
@@ -132,17 +132,19 @@ export default function CheckoutPage() {
         setLoading(false);
     };
 
+    const inputClass = "w-full border border-border bg-background text-foreground rounded-lg px-3 py-2.5 text-sm focus:border-[#2874F0] focus:ring-1 focus:ring-[#2874F0]/30 outline-none transition-colors";
+
     return (
         <div className="max-w-4xl mx-auto px-4 py-4">
             {/* Logged in as */}
-            <div className="bg-blue-50 border border-blue-100 rounded-sm p-3 mb-4 flex items-center justify-between">
-                <p className="text-sm text-gray-700">
+            <div className="bg-[#2874F0]/10 border border-[#2874F0]/20 rounded-lg p-3 mb-4 flex items-center justify-between">
+                <p className="text-sm text-foreground">
                     Logged in as <span className="font-semibold text-[#2874F0]">{session?.user?.name || session?.user?.email}</span>
                 </p>
             </div>
 
             {/* Progress Steps */}
-            <div className="bg-white rounded-sm p-4 shadow-sm mb-4">
+            <div className="bg-card border border-border rounded-lg p-4 shadow-sm mb-4">
                 <div className="flex items-center justify-center gap-2 md:gap-8">
                     {[
                         { num: 1, label: 'Address', icon: MapPin },
@@ -150,12 +152,12 @@ export default function CheckoutPage() {
                         { num: 3, label: 'Payment', icon: CreditCard },
                     ].map((s, i) => (
                         <div key={s.num} className="flex items-center gap-2">
-                            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${step >= s.num ? 'bg-[#2874F0] text-white' : 'bg-gray-200 text-gray-500'
+                            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${step >= s.num ? 'bg-[#2874F0] text-white' : 'bg-muted text-muted-foreground'
                                 }`}>
                                 {s.num}
                             </div>
-                            <span className={`text-sm hidden md:inline ${step >= s.num ? 'text-[#2874F0] font-medium' : 'text-gray-500'}`}>{s.label}</span>
-                            {i < 2 && <div className={`w-16 md:w-24 h-0.5 ${step > s.num ? 'bg-[#2874F0]' : 'bg-gray-200'}`} />}
+                            <span className={`text-sm hidden md:inline ${step >= s.num ? 'text-[#2874F0] font-medium' : 'text-muted-foreground'}`}>{s.label}</span>
+                            {i < 2 && <div className={`w-16 md:w-24 h-0.5 ${step > s.num ? 'bg-[#2874F0]' : 'bg-muted'}`} />}
                         </div>
                     ))}
                 </div>
@@ -163,58 +165,58 @@ export default function CheckoutPage() {
 
             {/* Step 1: Address */}
             {step === 1 && (
-                <div className="bg-white rounded-sm p-6 shadow-sm">
-                    <h2 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                <div className="bg-card border border-border rounded-lg p-6 shadow-sm">
+                    <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
                         <MapPin size={20} className="text-[#2874F0]" /> Delivery Address
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Full Name *</label>
+                            <label className="block text-sm font-medium text-foreground mb-1">Full Name *</label>
                             <input type="text" value={address.name} onChange={(e) => setAddress({ ...address, name: e.target.value })}
-                                className="w-full border border-gray-300 rounded px-3 py-2.5 text-sm focus:border-[#2874F0] outline-none" placeholder="Enter full name" />
+                                className={inputClass} placeholder="Enter full name" />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number *</label>
+                            <label className="block text-sm font-medium text-foreground mb-1">Phone Number *</label>
                             <input type="tel" value={address.phone} onChange={(e) => setAddress({ ...address, phone: e.target.value.replace(/\D/g, '').slice(0, 10) })}
-                                className="w-full border border-gray-300 rounded px-3 py-2.5 text-sm focus:border-[#2874F0] outline-none" placeholder="10-digit mobile number" />
+                                className={inputClass} placeholder="10-digit mobile number" />
                         </div>
                         <div className="md:col-span-2">
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Email (Optional)</label>
+                            <label className="block text-sm font-medium text-foreground mb-1">Email (Optional)</label>
                             <input type="email" value={address.email} onChange={(e) => setAddress({ ...address, email: e.target.value })}
-                                className="w-full border border-gray-300 rounded px-3 py-2.5 text-sm focus:border-[#2874F0] outline-none" placeholder="For order updates" />
+                                className={inputClass} placeholder="For order updates" />
                         </div>
                         <div className="md:col-span-2">
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Address Line 1 *</label>
+                            <label className="block text-sm font-medium text-foreground mb-1">Address Line 1 *</label>
                             <input type="text" value={address.line1} onChange={(e) => setAddress({ ...address, line1: e.target.value })}
-                                className="w-full border border-gray-300 rounded px-3 py-2.5 text-sm focus:border-[#2874F0] outline-none" placeholder="House No., Building, Street" />
+                                className={inputClass} placeholder="House No., Building, Street" />
                         </div>
                         <div className="md:col-span-2">
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Address Line 2</label>
+                            <label className="block text-sm font-medium text-foreground mb-1">Address Line 2</label>
                             <input type="text" value={address.line2} onChange={(e) => setAddress({ ...address, line2: e.target.value })}
-                                className="w-full border border-gray-300 rounded px-3 py-2.5 text-sm focus:border-[#2874F0] outline-none" placeholder="Area, Landmark" />
+                                className={inputClass} placeholder="Area, Landmark" />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">City *</label>
+                            <label className="block text-sm font-medium text-foreground mb-1">City *</label>
                             <input type="text" value={address.city} onChange={(e) => setAddress({ ...address, city: e.target.value })}
-                                className="w-full border border-gray-300 rounded px-3 py-2.5 text-sm focus:border-[#2874F0] outline-none" placeholder="City" />
+                                className={inputClass} placeholder="City" />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">State *</label>
+                            <label className="block text-sm font-medium text-foreground mb-1">State *</label>
                             <select value={address.state} onChange={(e) => setAddress({ ...address, state: e.target.value })}
-                                className="w-full border border-gray-300 rounded px-3 py-2.5 text-sm focus:border-[#2874F0] outline-none bg-white">
+                                className={inputClass}>
                                 <option value="">Select State</option>
                                 {INDIAN_STATES.map((s) => <option key={s} value={s}>{s}</option>)}
                             </select>
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Pincode *</label>
+                            <label className="block text-sm font-medium text-foreground mb-1">Pincode *</label>
                             <input type="text" value={address.pincode} onChange={(e) => setAddress({ ...address, pincode: e.target.value.replace(/\D/g, '').slice(0, 6) })}
-                                className="w-full border border-gray-300 rounded px-3 py-2.5 text-sm focus:border-[#2874F0] outline-none" placeholder="6-digit pincode" />
+                                className={inputClass} placeholder="6-digit pincode" />
                         </div>
                     </div>
                     <button
                         onClick={() => validateAddress() && setStep(2)}
-                        className="mt-6 w-full flex items-center justify-center gap-2 bg-[#FB641B] text-white py-3 rounded-sm font-bold hover:bg-orange-600"
+                        className="mt-6 w-full flex items-center justify-center gap-2 bg-[#FB641B] text-white py-3 rounded-lg font-bold hover:bg-orange-600 transition-colors"
                     >
                         Continue <ArrowRight size={18} />
                     </button>
@@ -224,47 +226,47 @@ export default function CheckoutPage() {
             {/* Step 2: Summary */}
             {step === 2 && (
                 <div className="space-y-4">
-                    <div className="bg-white rounded-sm p-4 shadow-sm">
+                    <div className="bg-card border border-border rounded-lg p-4 shadow-sm">
                         <div className="flex items-center justify-between mb-3">
-                            <h2 className="text-lg font-bold text-gray-800">Order Summary</h2>
+                            <h2 className="text-lg font-bold text-foreground">Order Summary</h2>
                             <button onClick={() => setStep(1)} className="text-[#2874F0] text-sm font-medium">Edit Address</button>
                         </div>
-                        <div className="bg-gray-50 p-3 rounded mb-4 text-sm text-gray-700">
+                        <div className="bg-muted/50 p-3 rounded-lg mb-4 text-sm text-foreground">
                             <p className="font-medium">{address.name} — {address.phone}</p>
-                            <p>{address.line1}{address.line2 ? `, ${address.line2}` : ''}</p>
-                            <p>{address.city}, {address.state} — {address.pincode}</p>
+                            <p className="text-muted-foreground">{address.line1}{address.line2 ? `, ${address.line2}` : ''}</p>
+                            <p className="text-muted-foreground">{address.city}, {address.state} — {address.pincode}</p>
                         </div>
                         <div className="space-y-3">
                             {items.map((item) => (
-                                <div key={`${item.productId}-${item.variant}`} className="flex gap-3 py-2 border-b border-gray-100 last:border-0">
+                                <div key={`${item.productId}-${item.variant}`} className="flex gap-3 py-2 border-b border-border last:border-0">
                                     {item.image ? (
-                                        <img src={item.image} alt="" className="w-14 h-14 object-contain bg-gray-50 rounded" />
+                                        <img src={item.image} alt="" className="w-14 h-14 object-contain bg-muted rounded-lg" />
                                     ) : (
-                                        <div className="w-14 h-14 bg-gray-100 rounded flex items-center justify-center">📦</div>
+                                        <div className="w-14 h-14 bg-muted rounded-lg flex items-center justify-center">📦</div>
                                     )}
                                     <div className="flex-1">
-                                        <p className="text-sm text-gray-800 font-medium line-clamp-2">{item.name}</p>
-                                        <p className="text-sm text-gray-600 mt-0.5">Qty: {item.quantity} × {formatPrice(item.price)}</p>
+                                        <p className="text-sm text-foreground font-medium line-clamp-2">{item.name}</p>
+                                        <p className="text-sm text-muted-foreground mt-0.5">Qty: {item.quantity} × {formatPrice(item.price)}</p>
                                     </div>
-                                    <span className="text-sm font-bold">{formatPrice(item.price * item.quantity)}</span>
+                                    <span className="text-sm font-bold text-foreground">{formatPrice(item.price * item.quantity)}</span>
                                 </div>
                             ))}
                         </div>
                     </div>
-                    <div className="bg-white rounded-sm p-4 shadow-sm">
-                        <h3 className="text-sm font-bold text-gray-500 uppercase mb-3">Price Details</h3>
-                        <div className="space-y-2 text-sm">
+                    <div className="bg-card border border-border rounded-lg p-4 shadow-sm">
+                        <h3 className="text-sm font-bold text-muted-foreground uppercase mb-3">Price Details</h3>
+                        <div className="space-y-2 text-sm text-foreground">
                             <div className="flex justify-between"><span>Price ({getItemCount()} items)</span><span>{formatPrice(getMrpTotal())}</span></div>
                             <div className="flex justify-between"><span>Discount</span><span className="text-[#388E3C]">-{formatPrice(getDiscount())}</span></div>
                             <div className="flex justify-between"><span>Delivery</span><span className={deliveryCharge === 0 ? 'text-[#388E3C]' : ''}>{deliveryCharge === 0 ? 'FREE' : formatPrice(deliveryCharge)}</span></div>
-                            <div className="flex justify-between font-bold text-base pt-2 border-t border-dashed"><span>Total</span><span>{formatPrice(total)}</span></div>
+                            <div className="flex justify-between font-bold text-base pt-2 border-t border-dashed border-border"><span>Total</span><span>{formatPrice(total)}</span></div>
                         </div>
                     </div>
                     <div className="flex gap-3">
-                        <button onClick={() => setStep(1)} className="flex-1 flex items-center justify-center gap-2 border-2 border-gray-300 text-gray-700 py-3 rounded-sm font-bold hover:bg-gray-50">
+                        <button onClick={() => setStep(1)} className="flex-1 flex items-center justify-center gap-2 border-2 border-border text-foreground py-3 rounded-lg font-bold hover:bg-muted/50 transition-colors">
                             <ArrowLeft size={18} /> Back
                         </button>
-                        <button onClick={() => setStep(3)} className="flex-1 flex items-center justify-center gap-2 bg-[#FB641B] text-white py-3 rounded-sm font-bold hover:bg-orange-600">
+                        <button onClick={() => setStep(3)} className="flex-1 flex items-center justify-center gap-2 bg-[#FB641B] text-white py-3 rounded-lg font-bold hover:bg-orange-600 transition-colors">
                             Continue <ArrowRight size={18} />
                         </button>
                     </div>
@@ -274,34 +276,34 @@ export default function CheckoutPage() {
             {/* Step 3: Payment */}
             {step === 3 && (
                 <div className="space-y-4">
-                    <div className="bg-white rounded-sm p-6 shadow-sm">
-                        <h2 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                    <div className="bg-card border border-border rounded-lg p-6 shadow-sm">
+                        <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
                             <CreditCard size={20} className="text-[#2874F0]" /> Payment Method
                         </h2>
-                        <div className="border-2 border-[#2874F0] rounded-md p-4 bg-blue-50">
+                        <div className="border-2 border-[#2874F0] rounded-lg p-4 bg-[#2874F0]/10">
                             <div className="flex items-center gap-3">
                                 <div className="w-5 h-5 rounded-full border-2 border-[#2874F0] flex items-center justify-center">
                                     <div className="w-3 h-3 rounded-full bg-[#2874F0]" />
                                 </div>
                                 <div>
-                                    <p className="font-bold text-gray-800">Cash on Delivery (COD)</p>
-                                    <p className="text-sm text-gray-600">Pay {formatPrice(total)} when your order arrives</p>
+                                    <p className="font-bold text-foreground">Cash on Delivery (COD)</p>
+                                    <p className="text-sm text-muted-foreground">Pay {formatPrice(total)} when your order arrives</p>
                                 </div>
                             </div>
                         </div>
-                        <div className="mt-4 flex items-center gap-2 text-sm text-gray-500">
+                        <div className="mt-4 flex items-center gap-2 text-sm text-muted-foreground">
                             <Shield size={16} className="text-[#388E3C]" />
                             Safe and secure. No online payment needed.
                         </div>
                     </div>
                     <div className="flex gap-3">
-                        <button onClick={() => setStep(2)} className="flex-1 flex items-center justify-center gap-2 border-2 border-gray-300 text-gray-700 py-3 rounded-sm font-bold hover:bg-gray-50">
+                        <button onClick={() => setStep(2)} className="flex-1 flex items-center justify-center gap-2 border-2 border-border text-foreground py-3 rounded-lg font-bold hover:bg-muted/50 transition-colors">
                             <ArrowLeft size={18} /> Back
                         </button>
                         <button
                             onClick={handlePlaceOrder}
                             disabled={loading}
-                            className="flex-1 flex items-center justify-center gap-2 bg-[#FB641B] text-white py-3.5 rounded-sm font-bold text-base hover:bg-orange-600 disabled:opacity-50"
+                            className="flex-1 flex items-center justify-center gap-2 bg-[#FB641B] text-white py-3.5 rounded-lg font-bold text-base hover:bg-orange-600 disabled:opacity-50 transition-colors"
                         >
                             {loading ? 'Placing Order...' : `CONFIRM ORDER — ${formatPrice(total)}`}
                         </button>

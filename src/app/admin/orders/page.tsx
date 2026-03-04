@@ -33,18 +33,18 @@ export default function AdminOrdersPage() {
 
     return (
         <div>
-            <h1 className="text-2xl font-bold text-gray-800 mb-6">Orders</h1>
+            <h1 className="text-2xl font-bold text-foreground mb-6">Orders</h1>
 
-            <div className="bg-white rounded-lg p-4 shadow-sm mb-4 flex flex-col md:flex-row gap-3">
+            <div className="bg-card rounded-lg p-4 shadow-sm mb-4 flex flex-col md:flex-row gap-3">
                 <div className="flex-1 relative">
-                    <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                    <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
                     <input value={search} onChange={(e) => setSearch(e.target.value)}
                         onKeyDown={(e) => e.key === 'Enter' && fetchOrders()}
                         placeholder="Search by Order ID, name, or phone..."
-                        className="w-full pl-9 pr-4 py-2 border border-gray-300 rounded-md text-sm focus:border-[#2874F0] outline-none" />
+                        className="w-full pl-9 pr-4 py-2 border border-border rounded-md text-sm focus:border-[#2874F0] outline-none" />
                 </div>
                 <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}
-                    className="border border-gray-300 rounded-md px-3 py-2 text-sm bg-white">
+                    className="border border-border rounded-md px-3 py-2 text-sm bg-card">
                     <option value="">All Status</option>
                     <option value="pending">Pending</option>
                     <option value="confirmed">Confirmed</option>
@@ -53,40 +53,40 @@ export default function AdminOrdersPage() {
                     <option value="delivered">Delivered</option>
                     <option value="cancelled">Cancelled</option>
                 </select>
-                <button onClick={fetchOrders} className="bg-gray-100 text-gray-700 px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-200">
+                <button onClick={fetchOrders} className="bg-muted text-foreground px-4 py-2 rounded-md text-sm font-medium hover:bg-muted">
                     <Filter size={14} className="inline mr-1" /> Apply
                 </button>
             </div>
 
-            <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+            <div className="bg-card rounded-lg shadow-sm overflow-hidden">
                 <div className="overflow-x-auto">
                     <table className="w-full text-sm">
-                        <thead className="bg-gray-50 border-b">
+                        <thead className="bg-muted/50 border-b">
                             <tr>
-                                <th className="px-4 py-3 text-left font-medium text-gray-500">Order ID</th>
-                                <th className="px-4 py-3 text-left font-medium text-gray-500">Customer</th>
-                                <th className="px-4 py-3 text-left font-medium text-gray-500">Phone</th>
-                                <th className="px-4 py-3 text-left font-medium text-gray-500">City</th>
-                                <th className="px-4 py-3 text-left font-medium text-gray-500">Items</th>
-                                <th className="px-4 py-3 text-left font-medium text-gray-500">Total</th>
-                                <th className="px-4 py-3 text-left font-medium text-gray-500">Status</th>
-                                <th className="px-4 py-3 text-left font-medium text-gray-500">Date</th>
+                                <th className="px-4 py-3 text-left font-medium text-muted-foreground">Order ID</th>
+                                <th className="px-4 py-3 text-left font-medium text-muted-foreground">Customer</th>
+                                <th className="px-4 py-3 text-left font-medium text-muted-foreground">Phone</th>
+                                <th className="px-4 py-3 text-left font-medium text-muted-foreground">City</th>
+                                <th className="px-4 py-3 text-left font-medium text-muted-foreground">Items</th>
+                                <th className="px-4 py-3 text-left font-medium text-muted-foreground">Total</th>
+                                <th className="px-4 py-3 text-left font-medium text-muted-foreground">Status</th>
+                                <th className="px-4 py-3 text-left font-medium text-muted-foreground">Date</th>
                             </tr>
                         </thead>
                         <tbody>
                             {loading ? (
-                                <tr><td colSpan={8} className="px-4 py-8 text-center text-gray-400">Loading...</td></tr>
+                                <tr><td colSpan={8} className="px-4 py-8 text-center text-muted-foreground">Loading...</td></tr>
                             ) : orders.length === 0 ? (
-                                <tr><td colSpan={8} className="px-4 py-8 text-center text-gray-400">No orders found</td></tr>
+                                <tr><td colSpan={8} className="px-4 py-8 text-center text-muted-foreground">No orders found</td></tr>
                             ) : orders.map((order) => (
-                                <tr key={order._id} className="border-b border-gray-50 hover:bg-gray-50">
+                                <tr key={order._id} className="border-b border-gray-50 hover:bg-muted/50">
                                     <td className="px-4 py-3">
                                         <Link href={`/admin/orders/${order._id}`} className="text-[#2874F0] font-medium hover:underline">{order.orderId}</Link>
                                     </td>
                                     <td className="px-4 py-3 font-medium">{order.customer.name}</td>
-                                    <td className="px-4 py-3 text-gray-500">{order.customer.phone}</td>
-                                    <td className="px-4 py-3 text-gray-500">{order.customer.address?.city}</td>
-                                    <td className="px-4 py-3 text-gray-500">{order.items.length}</td>
+                                    <td className="px-4 py-3 text-muted-foreground">{order.customer.phone}</td>
+                                    <td className="px-4 py-3 text-muted-foreground">{order.customer.address?.city}</td>
+                                    <td className="px-4 py-3 text-muted-foreground">{order.items.length}</td>
                                     <td className="px-4 py-3 font-medium">{formatPrice(order.total)}</td>
                                     <td className="px-4 py-3">
                                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${order.status === 'delivered' ? 'bg-green-100 text-green-700' :
@@ -96,7 +96,7 @@ export default function AdminOrdersPage() {
                                                             'bg-blue-100 text-blue-700'
                                             }`}>{order.status}</span>
                                     </td>
-                                    <td className="px-4 py-3 text-gray-500">{new Date(order.createdAt).toLocaleDateString('en-IN')}</td>
+                                    <td className="px-4 py-3 text-muted-foreground">{new Date(order.createdAt).toLocaleDateString('en-IN')}</td>
                                 </tr>
                             ))}
                         </tbody>

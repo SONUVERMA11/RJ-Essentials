@@ -2,13 +2,13 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import NextImage from 'next/image';
 import {
     LayoutDashboard, Package, FolderOpen, ShoppingCart, Image, Layers, Star,
-    MessageSquare, FileText, Settings, BarChart3, Search, LogOut, ChevronLeft, Menu
+    MessageSquare, FileText, Settings, BarChart3, Search, LogOut, ChevronLeft, Menu, Sun, Moon
 } from 'lucide-react';
 import { signOut } from 'next-auth/react';
 import { useState } from 'react';
+import { useTheme } from 'next-themes';
 
 const navItems = [
     { href: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -29,6 +29,7 @@ export default function AdminSidebar() {
     const pathname = usePathname();
     const [collapsed, setCollapsed] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
+    const { theme, setTheme } = useTheme();
 
     return (
         <>
@@ -46,9 +47,9 @@ export default function AdminSidebar() {
             )}
 
             {/* Sidebar */}
-            <aside className={`fixed top-0 left-0 h-full bg-white border-r border-gray-200 z-50 transition-all duration-200 ${collapsed ? 'w-16' : 'w-60'
+            <aside className={`fixed top-0 left-0 h-full bg-card border-r border-border z-50 transition-all duration-200 ${collapsed ? 'w-16' : 'w-60'
                 } ${mobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}>
-                <div className="p-4 border-b border-gray-200 flex items-center justify-between">
+                <div className="p-4 border-b border-border flex items-center justify-between">
                     <div className="flex items-center gap-2">
                         <svg width={collapsed ? 28 : 32} height={collapsed ? 28 : 32} viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
                             <rect x="0" y="0" width="120" height="120" rx="10" fill="#FFE500" />
@@ -60,20 +61,20 @@ export default function AdminSidebar() {
                         {!collapsed && (
                             <div>
                                 <h2 className="font-bold text-[#2874F0] text-sm">RJ ESSENTIALS</h2>
-                                <p className="text-[10px] text-gray-400">Admin Panel</p>
+                                <p className="text-[10px] text-muted-foreground">Admin Panel</p>
                             </div>
                         )}
                     </div>
                     <button
                         onClick={() => { setCollapsed(!collapsed); setMobileOpen(false); }}
-                        className="text-gray-400 hover:text-gray-600 p-1"
+                        className="text-muted-foreground hover:text-foreground p-1 transition-colors"
                     >
                         <ChevronLeft size={18} className={`transition-transform ${collapsed ? 'rotate-180' : ''}`} />
                     </button>
                 </div>
 
                 {/* Nav */}
-                <nav className="p-2 space-y-0.5 overflow-y-auto h-[calc(100%-120px)]">
+                <nav className="p-2 space-y-0.5 overflow-y-auto h-[calc(100%-160px)]">
                     {navItems.map((item) => {
                         const isActive = pathname === item.href || pathname.startsWith(item.href + '/');
                         const Icon = item.icon;
@@ -84,7 +85,7 @@ export default function AdminSidebar() {
                                 onClick={() => setMobileOpen(false)}
                                 className={`flex items-center gap-3 px-3 py-2.5 rounded-md text-sm transition-colors ${isActive
                                     ? 'bg-[#2874F0] text-white font-medium'
-                                    : 'text-gray-600 hover:bg-gray-100'
+                                    : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                                     }`}
                                 title={collapsed ? item.label : undefined}
                             >
@@ -96,13 +97,21 @@ export default function AdminSidebar() {
                 </nav>
 
                 {/* Footer */}
-                <div className="absolute bottom-0 left-0 right-0 p-2 border-t border-gray-200">
-                    <Link href="/" className="flex items-center gap-3 px-3 py-2 rounded-md text-sm text-gray-500 hover:bg-gray-100 mb-1" target="_blank">
+                <div className="absolute bottom-0 left-0 right-0 p-2 border-t border-border space-y-0.5">
+                    {/* Theme Toggle */}
+                    <button
+                        onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                        className="w-full flex items-center gap-3 px-3 py-2 rounded-md text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+                    >
+                        {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+                        {!collapsed && <span>{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>}
+                    </button>
+                    <Link href="/" className="flex items-center gap-3 px-3 py-2 rounded-md text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors" target="_blank">
                         {!collapsed && <span>View Store</span>}
                     </Link>
                     <button
                         onClick={() => signOut({ callbackUrl: '/admin/login' })}
-                        className="w-full flex items-center gap-3 px-3 py-2 rounded-md text-sm text-red-500 hover:bg-red-50"
+                        className="w-full flex items-center gap-3 px-3 py-2 rounded-md text-sm text-red-500 hover:bg-red-500/10 transition-colors"
                     >
                         <LogOut size={18} />
                         {!collapsed && <span>Logout</span>}
