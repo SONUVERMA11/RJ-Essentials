@@ -9,7 +9,7 @@ export default function StoreLayout({ children }: { children: React.ReactNode })
     return (
         <div className="store-bg min-h-screen flex flex-col">
             <Navbar />
-            <main className="flex-1 pt-[140px] md:pt-[160px] pb-16 md:pb-0">{children}</main>
+            <main className="flex-1 pt-[120px] md:pt-[130px] pb-16 md:pb-0">{children}</main>
             <Footer />
             <MobileNav />
             <WhatsAppButton />

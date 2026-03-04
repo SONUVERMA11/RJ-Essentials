@@ -46,19 +46,19 @@ export default function ProductCard({ product }: ProductCardProps) {
     };
 
     return (
-        <Link href={`/product/${product.slug}`} className="block">
-            <div className="product-card bg-white dark:bg-gray-800 rounded-3xl overflow-hidden relative group border border-gray-100 dark:border-gray-700 hover:border-[#2874F0] dark:hover:border-[#5a9cf5] hover:shadow-xl transition-all duration-300 h-full flex flex-col">
+        <Link href={`/product/${product.slug}`} className="block group">
+            <div className="bg-card rounded-xl overflow-hidden relative hover:shadow-lg hover:shadow-[#2874F0]/5 transition-all duration-300 h-full flex flex-col">
                 {/* Image */}
-                <div className="relative aspect-square bg-gray-50/50 dark:bg-gray-900/50 p-4 flex items-center justify-center overflow-hidden rounded-2xl mx-1.5 mt-1.5">
+                <div className="relative aspect-square bg-muted/30 p-3 flex items-center justify-center overflow-hidden rounded-t-xl">
                     <img
                         src={product.images?.[0]?.url || '/placeholder.png'}
                         alt={product.name}
-                        className="max-h-full max-w-full object-contain transition-all duration-500 ease-out group-hover:scale-105 group-hover:opacity-90 rounded-xl"
+                        className="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-105 rounded-lg"
                         loading="lazy"
                     />
                     {isOutOfStock && (
-                        <div className="absolute inset-0 bg-white/70 dark:bg-black/60 flex items-center justify-center">
-                            <span className="bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-900 text-xs font-bold px-3 py-1 rounded-full">OUT OF STOCK</span>
+                        <div className="absolute inset-0 bg-background/70 flex items-center justify-center">
+                            <span className="bg-foreground text-background text-xs font-bold px-3 py-1 rounded-full">OUT OF STOCK</span>
                         </div>
                     )}
                     {discount > 0 && !isOutOfStock && (
@@ -70,7 +70,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                     {!isOutOfStock && (
                         <button
                             onClick={handleAddToCart}
-                            className="absolute bottom-2 right-2 bg-white dark:bg-gray-700 shadow-md rounded-full p-2.5 opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-[#2874F0] hover:text-white text-gray-700 dark:text-gray-200 hover:scale-110"
+                            className="absolute bottom-2 right-2 bg-card shadow-md rounded-full p-2.5 opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-[#2874F0] hover:text-white text-muted-foreground hover:scale-110 border border-border"
                         >
                             <ShoppingCart size={16} />
                         </button>
@@ -78,28 +78,28 @@ export default function ProductCard({ product }: ProductCardProps) {
                 </div>
 
                 {/* Info */}
-                <div className="p-3.5 space-y-1.5">
-                    <h3 className="text-sm text-gray-800 dark:text-gray-100 font-bold truncate leading-tight" title={product.name}>
+                <div className="p-3 space-y-1.5 flex-1 flex flex-col">
+                    <h3 className="text-sm text-foreground font-semibold truncate leading-tight" title={product.name}>
                         {product.name}
                     </h3>
 
                     {/* Rating */}
                     {product.ratings.count > 0 && (
                         <div className="flex items-center gap-1.5">
-                            <span className="inline-flex items-center gap-0.5 bg-[#388E3C] text-white text-xs font-bold px-1.5 py-0.5 rounded-sm">
-                                {product.ratings.average.toFixed(1)} <Star size={10} fill="white" />
+                            <span className="inline-flex items-center gap-0.5 bg-[#388E3C] text-white text-[11px] font-bold px-1.5 py-0.5 rounded">
+                                {product.ratings.average.toFixed(1)} <Star size={9} fill="white" />
                             </span>
-                            <span className="text-xs text-gray-500 dark:text-gray-400">({product.ratings.count.toLocaleString()})</span>
+                            <span className="text-xs text-muted-foreground">({product.ratings.count.toLocaleString()})</span>
                         </div>
                     )}
 
                     {/* Price */}
-                    <div className="flex items-baseline gap-2 flex-wrap">
-                        <span className="text-base font-bold text-gray-900 dark:text-white">{formatPrice(product.sellingPrice)}</span>
+                    <div className="flex items-baseline gap-2 flex-wrap mt-auto">
+                        <span className="text-base font-bold text-foreground">{formatPrice(product.sellingPrice)}</span>
                         {discount > 0 && (
                             <>
-                                <span className="text-sm text-gray-400 dark:text-gray-500 line-through">{formatPrice(product.mrp)}</span>
-                                <span className="text-xs text-[#388E3C] font-medium">{discount}% off</span>
+                                <span className="text-xs text-muted-foreground line-through">{formatPrice(product.mrp)}</span>
+                                <span className="text-xs text-[#388E3C] font-semibold">{discount}% off</span>
                             </>
                         )}
                     </div>

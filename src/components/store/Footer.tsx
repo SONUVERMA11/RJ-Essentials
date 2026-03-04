@@ -1,53 +1,9 @@
 import Link from 'next/link';
-import { Mail, Phone, Instagram, Facebook, Youtube, Heart, Shield, Truck, RotateCcw } from 'lucide-react';
+import { Mail, Phone, Instagram, Facebook, Youtube } from 'lucide-react';
 
 export default function Footer() {
     return (
         <footer className="bg-black text-white pb-20 md:pb-0 font-sans tracking-tight">
-            {/* Trust Badges */}
-            <div className="border-b border-white/10">
-                <div className="max-w-7xl mx-auto px-4 py-8">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                        <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all duration-300 group">
-                            <div className="p-2.5 bg-[#2874F0]/20 rounded-xl group-hover:scale-110 transition-transform">
-                                <Truck size={24} className="text-[#2874F0]" />
-                            </div>
-                            <div>
-                                <p className="text-sm font-bold text-white uppercase tracking-wider">Free Delivery</p>
-                                <p className="text-xs text-gray-400">Above ₹499</p>
-                            </div>
-                        </div>
-                        <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all duration-300 group">
-                            <div className="p-2.5 bg-green-500/20 rounded-xl group-hover:scale-110 transition-transform">
-                                <Shield size={24} className="text-green-400" />
-                            </div>
-                            <div>
-                                <p className="text-sm font-bold text-white uppercase tracking-wider">COD Available</p>
-                                <p className="text-xs text-gray-400">Direct Payment</p>
-                            </div>
-                        </div>
-                        <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all duration-300 group">
-                            <div className="p-2.5 bg-orange-500/20 rounded-xl group-hover:scale-110 transition-transform">
-                                <RotateCcw size={24} className="text-orange-400" />
-                            </div>
-                            <div>
-                                <p className="text-sm font-bold text-white uppercase tracking-wider">Easy Returns</p>
-                                <p className="text-xs text-gray-400">7-Day Window</p>
-                            </div>
-                        </div>
-                        <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all duration-300 group">
-                            <div className="p-2.5 bg-purple-500/20 rounded-xl group-hover:scale-110 transition-transform">
-                                <Heart size={24} className="text-purple-400" />
-                            </div>
-                            <div>
-                                <p className="text-sm font-bold text-white uppercase tracking-wider">Top Quality</p>
-                                <p className="text-xs text-gray-400">Handpicked</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             {/* Main Footer Content */}
             <div className="max-w-7xl mx-auto px-4 py-16">
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-12">

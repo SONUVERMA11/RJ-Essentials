@@ -99,9 +99,9 @@ export default function LoginModal({ isOpen, onClose, callbackMessage }: LoginMo
             <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
 
             {/* Modal */}
-            <div className="relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in duration-200">
+            <div className="relative bg-card rounded-2xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in duration-200">
                 {/* Header */}
-                <div className="flex items-center justify-between p-5 border-b border-gray-100 dark:border-gray-800">
+                <div className="flex items-center justify-between p-5 border-b border-border">
                     <div className="flex items-center gap-2.5">
                         <svg width="32" height="32" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="0" y="0" width="120" height="120" rx="10" fill="#FFE500" />
@@ -111,18 +111,18 @@ export default function LoginModal({ isOpen, onClose, callbackMessage }: LoginMo
                             <text x="60" y="96" textAnchor="middle" fontFamily="'Arial', 'Helvetica', sans-serif" fontWeight="800" fontSize="14" fill="#2874F0" letterSpacing="1">ESSENTIALS</text>
                         </svg>
                         <div>
-                            <h2 className="font-bold text-gray-800 dark:text-gray-100 text-lg">Sign In Required</h2>
-                            <p className="text-xs text-gray-400">{callbackMessage || 'Please sign in to continue'}</p>
+                            <h2 className="font-bold text-foreground text-lg">Sign In Required</h2>
+                            <p className="text-xs text-muted-foreground">{callbackMessage || 'Please sign in to continue'}</p>
                         </div>
                     </div>
-                    <button onClick={onClose} className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
-                        <X size={20} className="text-gray-400" />
+                    <button onClick={onClose} className="p-1.5 hover:bg-muted rounded-lg transition-colors">
+                        <X size={20} className="text-muted-foreground" />
                     </button>
                 </div>
 
                 <div className="p-5">
                     {error && (
-                        <div className="mb-4 p-3 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-600 text-sm border border-red-200 dark:border-red-800">
+                        <div className="mb-4 p-3 rounded-lg bg-red-500/10 text-red-500 text-sm border border-red-500/20">
                             ⚠️ {error}
                         </div>
                     )}
@@ -130,7 +130,7 @@ export default function LoginModal({ isOpen, onClose, callbackMessage }: LoginMo
                     {/* Google */}
                     <button
                         onClick={() => signIn('google', { callbackUrl: window.location.href })}
-                        className="w-full flex items-center justify-center gap-3 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 text-sm font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-50 hover:shadow-md transition-all"
+                        className="w-full flex items-center justify-center gap-3 bg-card border-2 border-border rounded-xl px-4 py-3 text-sm font-semibold text-foreground hover:bg-muted hover:shadow-md transition-all"
                     >
                         <svg className="w-5 h-5" viewBox="0 0 24 24">
                             <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" />
@@ -142,19 +142,19 @@ export default function LoginModal({ isOpen, onClose, callbackMessage }: LoginMo
                     </button>
 
                     <div className="flex items-center gap-3 my-4">
-                        <div className="flex-1 h-px bg-gray-200 dark:bg-gray-700" />
-                        <span className="text-xs text-gray-400 uppercase font-medium">or</span>
-                        <div className="flex-1 h-px bg-gray-200 dark:bg-gray-700" />
+                        <div className="flex-1 h-px bg-border" />
+                        <span className="text-xs text-muted-foreground uppercase font-medium">or</span>
+                        <div className="flex-1 h-px bg-border" />
                     </div>
 
                     {/* Tabs */}
-                    <div className="flex bg-gray-100 dark:bg-gray-800 rounded-lg p-1 mb-4">
+                    <div className="flex bg-muted rounded-lg p-1 mb-4">
                         <button onClick={() => { setTab('signin'); setError(''); }}
-                            className={`flex-1 py-1.5 text-sm font-semibold rounded-md transition-all ${tab === 'signin' ? 'bg-white dark:bg-gray-700 text-gray-800 dark:text-white shadow-sm' : 'text-gray-500'}`}>
+                            className={`flex-1 py-1.5 text-sm font-semibold rounded-md transition-all ${tab === 'signin' ? 'bg-card text-foreground shadow-sm' : 'text-muted-foreground'}`}>
                             Sign In
                         </button>
                         <button onClick={() => { setTab('signup'); setError(''); }}
-                            className={`flex-1 py-1.5 text-sm font-semibold rounded-md transition-all ${tab === 'signup' ? 'bg-white dark:bg-gray-700 text-gray-800 dark:text-white shadow-sm' : 'text-gray-500'}`}>
+                            className={`flex-1 py-1.5 text-sm font-semibold rounded-md transition-all ${tab === 'signup' ? 'bg-card text-foreground shadow-sm' : 'text-muted-foreground'}`}>
                             Create Account
                         </button>
                     </div>
@@ -164,12 +164,12 @@ export default function LoginModal({ isOpen, onClose, callbackMessage }: LoginMo
                             <div className="relative">
                                 <Mail size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                                 <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
-                                    placeholder="Email" className="w-full pl-10 pr-4 py-2.5 border border-gray-200 dark:border-gray-700 rounded-lg text-sm bg-gray-50 dark:bg-gray-800 outline-none focus:border-[#2874F0]" required />
+                                    placeholder="Email" className="w-full pl-10 pr-4 py-2.5 border border-border rounded-lg text-sm bg-muted/50 outline-none focus:border-[#2874F0] text-foreground" required />
                             </div>
                             <div className="relative">
                                 <Lock size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                                 <input type={showPassword ? 'text' : 'password'} value={password} onChange={(e) => setPassword(e.target.value)}
-                                    placeholder="Password" className="w-full pl-10 pr-10 py-2.5 border border-gray-200 dark:border-gray-700 rounded-lg text-sm bg-gray-50 dark:bg-gray-800 outline-none focus:border-[#2874F0]" required />
+                                    placeholder="Password" className="w-full pl-10 pr-10 py-2.5 border border-border rounded-lg text-sm bg-muted/50 outline-none focus:border-[#2874F0] text-foreground" required />
                                 <button type="button" onClick={() => setShowPassword(!showPassword)}
                                     className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
                                     {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
@@ -185,17 +185,17 @@ export default function LoginModal({ isOpen, onClose, callbackMessage }: LoginMo
                             <div className="relative">
                                 <User size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                                 <input type="text" value={name} onChange={(e) => setName(e.target.value)}
-                                    placeholder="Full Name" className="w-full pl-10 pr-4 py-2.5 border border-gray-200 dark:border-gray-700 rounded-lg text-sm bg-gray-50 dark:bg-gray-800 outline-none focus:border-[#2874F0]" required />
+                                    placeholder="Full Name" className="w-full pl-10 pr-4 py-2.5 border border-border rounded-lg text-sm bg-muted/50 outline-none focus:border-[#2874F0] text-foreground" required />
                             </div>
                             <div className="relative">
                                 <Mail size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                                 <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
-                                    placeholder="Email" className="w-full pl-10 pr-4 py-2.5 border border-gray-200 dark:border-gray-700 rounded-lg text-sm bg-gray-50 dark:bg-gray-800 outline-none focus:border-[#2874F0]" required />
+                                    placeholder="Email" className="w-full pl-10 pr-4 py-2.5 border border-border rounded-lg text-sm bg-muted/50 outline-none focus:border-[#2874F0] text-foreground" required />
                             </div>
                             <div className="relative">
                                 <Lock size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                                 <input type={showPassword ? 'text' : 'password'} value={password} onChange={(e) => setPassword(e.target.value)}
-                                    placeholder="Password (min 6 chars)" className="w-full pl-10 pr-10 py-2.5 border border-gray-200 dark:border-gray-700 rounded-lg text-sm bg-gray-50 dark:bg-gray-800 outline-none focus:border-[#2874F0]" required minLength={6} />
+                                    placeholder="Password (min 6 chars)" className="w-full pl-10 pr-10 py-2.5 border border-border rounded-lg text-sm bg-muted/50 outline-none focus:border-[#2874F0] text-foreground" required minLength={6} />
                                 <button type="button" onClick={() => setShowPassword(!showPassword)}
                                     className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
                                     {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
@@ -204,7 +204,7 @@ export default function LoginModal({ isOpen, onClose, callbackMessage }: LoginMo
                             <div className="relative">
                                 <Lock size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                                 <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
-                                    placeholder="Confirm Password" className="w-full pl-10 pr-4 py-2.5 border border-gray-200 dark:border-gray-700 rounded-lg text-sm bg-gray-50 dark:bg-gray-800 outline-none focus:border-[#2874F0]" required />
+                                    placeholder="Confirm Password" className="w-full pl-10 pr-4 py-2.5 border border-border rounded-lg text-sm bg-muted/50 outline-none focus:border-[#2874F0] text-foreground" required />
                             </div>
                             <button type="submit" disabled={loading}
                                 className="w-full bg-[#388E3C] text-white py-2.5 rounded-lg font-bold text-sm disabled:opacity-50 flex items-center justify-center gap-2">

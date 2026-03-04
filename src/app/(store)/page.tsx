@@ -54,7 +54,7 @@ function SectionHeader({ title, icon: Icon, link, color = '#2874F0' }: { title: 
                 <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: `${color}15` }}>
                     <Icon size={18} style={{ color }} />
                 </div>
-                <h2 className="text-lg md:text-xl font-bold text-gray-800 dark:text-gray-100">{title}</h2>
+                <h2 className="text-lg md:text-xl font-bold text-foreground">{title}</h2>
             </div>
             {link && (
                 <Link

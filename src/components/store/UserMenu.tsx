@@ -21,7 +21,7 @@ export default function UserMenu() {
     }, []);
 
     if (status === 'loading') {
-        return <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-800 animate-pulse" />;
+        return <div className="w-8 h-8 rounded-full bg-muted animate-pulse" />;
     }
 
     if (!session) {
@@ -43,44 +43,44 @@ export default function UserMenu() {
         <div ref={ref} className="relative">
             <button
                 onClick={() => setOpen(!open)}
-                className="flex items-center gap-2 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 px-2 py-2 rounded-xl transition-all"
+                className="flex items-center gap-2 text-foreground hover:bg-muted px-2 py-2 rounded-xl transition-all"
             >
                 {session.user?.image ? (
-                    <img src={session.user.image} alt="" className="w-7 h-7 rounded-full border border-gray-200 dark:border-gray-700" />
+                    <img src={session.user.image} alt="" className="w-7 h-7 rounded-full border border-border" />
                 ) : (
                     <div className="w-7 h-7 rounded-full bg-[#2874F0] flex items-center justify-center text-white text-xs font-bold">
                         {initial}
                     </div>
                 )}
                 <span className="hidden md:inline text-sm font-bold max-w-[100px] truncate">{session.user?.name?.split(' ')[0] || 'Account'}</span>
-                <ChevronDown size={14} className={`hidden md:block transition-transform ${open ? 'rotate-180' : ''} text-gray-400`} />
+                <ChevronDown size={14} className={`hidden md:block transition-transform ${open ? 'rotate-180' : ''} text-muted-foreground`} />
             </button>
 
             {open && (
-                <div className="absolute right-0 top-full mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-100 dark:border-gray-700 z-[100] py-2 animate-in fade-in slide-in-from-top-4 duration-200">
-                    <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-900/50 rounded-t-xl mb-1">
-                        <p className="text-sm font-bold text-gray-800 dark:text-gray-200 truncate">{session.user?.name}</p>
-                        <p className="text-xs text-gray-500 dark:text-gray-400 truncate mt-0.5">{session.user?.email}</p>
+                <div className="absolute right-0 top-full mt-2 w-56 bg-card rounded-xl shadow-2xl border border-border z-[100] py-2 animate-in fade-in slide-in-from-top-4 duration-200">
+                    <div className="px-4 py-3 border-b border-border bg-muted/50 rounded-t-xl mb-1">
+                        <p className="text-sm font-bold text-foreground truncate">{session.user?.name}</p>
+                        <p className="text-xs text-muted-foreground truncate mt-0.5">{session.user?.email}</p>
                     </div>
 
                     <Link href="/track-order" onClick={() => setOpen(false)}
-                        className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 font-medium">
+                        className="flex items-center gap-3 px-4 py-2.5 text-sm text-foreground/80 hover:bg-[#2874F0]/10 font-medium">
                         <Package size={18} className="text-[#2874F0]" />
                         My Orders
                     </Link>
 
                     {isAdmin && (
                         <Link href="/admin/dashboard" onClick={() => setOpen(false)}
-                            className="flex items-center gap-3 px-4 py-2.5 text-sm text-[#FB641B] font-bold hover:bg-orange-50 dark:hover:bg-orange-900/20">
+                            className="flex items-center gap-3 px-4 py-2.5 text-sm text-[#FB641B] font-bold hover:bg-[#FB641B]/10">
                             <User size={18} />
                             Admin Panel
                         </Link>
                     )}
 
-                    <div className="mt-2 pt-2 border-t border-gray-100 dark:border-gray-700">
+                    <div className="mt-2 pt-2 border-t border-border">
                         <button
                             onClick={() => { setOpen(false); signOut({ callbackUrl: '/' }); }}
-                            className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 font-bold"
+                            className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-500 hover:bg-red-500/10 font-bold"
                         >
                             <LogOut size={18} />
                             Logout

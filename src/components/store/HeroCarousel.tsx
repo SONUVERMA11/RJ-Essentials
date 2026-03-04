@@ -97,7 +97,7 @@ export default function HeroCarousel({ banners: initialBanners }: { banners?: Ba
     if (!isLoaded) {
         return (
             <div className="max-w-7xl mx-auto px-4 pt-4">
-                <div className="h-[160px] sm:h-[220px] md:h-[300px] lg:h-[360px] rounded-2xl bg-gray-100 dark:bg-gray-800 animate-pulse" />
+                <div className="h-[160px] sm:h-[220px] md:h-[300px] lg:h-[360px] rounded-2xl bg-muted animate-pulse" />
             </div>
         );
     }
@@ -111,8 +111,8 @@ export default function HeroCarousel({ banners: initialBanners }: { banners?: Ba
                         <div
                             key={slide._id}
                             className={`absolute inset-0 transition-all duration-700 ease-in-out ${index === current
-                                    ? 'opacity-100 scale-100'
-                                    : 'opacity-0 scale-105 pointer-events-none'
+                                ? 'opacity-100 scale-100'
+                                : 'opacity-0 scale-105 pointer-events-none'
                                 }`}
                         >
                             <Link href={slide.link || '#'} className="block w-full h-full">
@@ -153,17 +153,17 @@ export default function HeroCarousel({ banners: initialBanners }: { banners?: Ba
                     <>
                         <button
                             onClick={prev}
-                            className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/90 dark:bg-gray-900/80 backdrop-blur-sm rounded-full p-2.5 shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white hover:scale-110"
+                            className="absolute left-3 top-1/2 -translate-y-1/2 bg-card/90 backdrop-blur-sm rounded-full p-2.5 shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110"
                             aria-label="Previous slide"
                         >
-                            <ChevronLeft size={20} className="text-gray-700 dark:text-gray-200" />
+                            <ChevronLeft size={20} className="text-foreground" />
                         </button>
                         <button
                             onClick={next}
-                            className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/90 dark:bg-gray-900/80 backdrop-blur-sm rounded-full p-2.5 shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white hover:scale-110"
+                            className="absolute right-3 top-1/2 -translate-y-1/2 bg-card/90 backdrop-blur-sm rounded-full p-2.5 shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110"
                             aria-label="Next slide"
                         >
-                            <ChevronRight size={20} className="text-gray-700 dark:text-gray-200" />
+                            <ChevronRight size={20} className="text-foreground" />
                         </button>
                     </>
                 )}
@@ -176,8 +176,8 @@ export default function HeroCarousel({ banners: initialBanners }: { banners?: Ba
                                 key={i}
                                 onClick={() => setCurrent(i)}
                                 className={`h-2 rounded-full transition-all duration-300 ${i === current
-                                        ? 'w-7 bg-white shadow-md'
-                                        : 'w-2 bg-white/50 hover:bg-white/70'
+                                    ? 'w-7 bg-white shadow-md'
+                                    : 'w-2 bg-white/50 hover:bg-white/70'
                                     }`}
                                 aria-label={`Go to slide ${i + 1}`}
                             />

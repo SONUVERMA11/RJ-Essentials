@@ -1,6 +1,6 @@
 import ProductCard from '@/components/store/ProductCard';
 import Link from 'next/link';
-import { ChevronRight, SlidersHorizontal } from 'lucide-react';
+import { ChevronRight, SlidersHorizontal, Package } from 'lucide-react';
 import { Metadata } from 'next';
 import dbConnect from '@/lib/mongodb';
 import Product from '@/models/Product';
@@ -72,40 +72,52 @@ export default async function CategoryPage({ params, searchParams }: Props) {
     const categoryName = slug === 'all' ? 'All Products' : slug.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
     const data = await getProducts(slug, sp);
 
+    const sortOptions = [
+        { value: 'newest', label: 'Newest First' },
+        { value: 'popularity', label: 'Popularity' },
+        { value: 'price-low', label: 'Price: Low to High' },
+        { value: 'price-high', label: 'Price: High to Low' },
+        { value: 'rating', label: 'Customer Rating' },
+    ];
+
+    const priceRanges = [
+        { min: '0', max: '499', label: 'Under ₹500' },
+        { min: '500', max: '999', label: '₹500 — ₹999' },
+        { min: '1000', max: '1999', label: '₹1,000 — ₹1,999' },
+        { min: '2000', max: '4999', label: '₹2,000 — ₹4,999' },
+        { min: '5000', max: '', label: '₹5,000+' },
+    ];
+
     return (
-        <div className="max-w-7xl mx-auto px-4 py-4">
+        <div className="max-w-7xl mx-auto px-4 py-6">
             {/* Breadcrumb */}
-            <div className="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400 mb-4">
-                <Link href="/" className="hover:text-[#2874F0]">Home</Link>
+            <div className="flex items-center gap-1.5 text-sm text-muted-foreground mb-6">
+                <Link href="/" className="hover:text-[#2874F0] transition-colors">Home</Link>
                 <ChevronRight size={14} />
-                <span className="text-gray-800 dark:text-gray-200 font-medium">{categoryName}</span>
+                <span className="text-foreground font-medium">{categoryName}</span>
             </div>
 
-            <div className="flex gap-4">
+            <div className="flex gap-6">
                 {/* Sidebar Filters - Desktop */}
-                <aside className="hidden lg:block w-64 flex-shrink-0">
-                    <div className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-sm sticky top-20 border border-gray-100 dark:border-gray-700">
-                        <h3 className="font-bold text-sm text-gray-800 dark:text-gray-100 mb-4 flex items-center gap-2">
-                            <SlidersHorizontal size={16} /> Filters
-                        </h3>
+                <aside className="hidden lg:block w-60 flex-shrink-0">
+                    <div className="sticky top-24 space-y-6">
+                        {/* Filters Header */}
+                        <div className="flex items-center gap-2 text-foreground">
+                            <SlidersHorizontal size={18} />
+                            <h3 className="font-bold text-sm">Filters</h3>
+                        </div>
 
                         {/* Sort */}
-                        <div className="mb-5">
-                            <p className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-2 tracking-wide">Sort By</p>
+                        <div>
+                            <p className="text-xs font-bold text-muted-foreground uppercase mb-3 tracking-wider">Sort By</p>
                             <div className="space-y-0.5">
-                                {[
-                                    { value: 'newest', label: 'Newest First' },
-                                    { value: 'popularity', label: 'Popularity' },
-                                    { value: 'price-low', label: 'Price: Low to High' },
-                                    { value: 'price-high', label: 'Price: High to Low' },
-                                    { value: 'rating', label: 'Customer Rating' },
-                                ].map((opt) => (
+                                {sortOptions.map((opt) => (
                                     <Link
                                         key={opt.value}
                                         href={`/category/${slug}?sort=${opt.value}`}
                                         className={`block text-sm py-2 px-3 rounded-lg transition-colors ${sp.sort === opt.value
-                                            ? 'bg-blue-50 dark:bg-blue-900/30 text-[#2874F0] font-semibold border-l-3 border-[#2874F0]'
-                                            : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
+                                            ? 'bg-[#2874F0]/10 text-[#2874F0] font-semibold border-l-2 border-[#2874F0]'
+                                            : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
                                             }`}
                                     >
                                         {opt.label}
@@ -115,23 +127,17 @@ export default async function CategoryPage({ params, searchParams }: Props) {
                         </div>
 
                         {/* Divider */}
-                        <div className="border-t border-gray-100 dark:border-gray-700 my-3"></div>
+                        <div className="border-t border-border" />
 
                         {/* Price Range */}
-                        <div className="mb-4">
-                            <p className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-2 tracking-wide">Price Range</p>
+                        <div>
+                            <p className="text-xs font-bold text-muted-foreground uppercase mb-3 tracking-wider">Price Range</p>
                             <div className="space-y-0.5">
-                                {[
-                                    { min: '0', max: '499', label: 'Under ₹500' },
-                                    { min: '500', max: '999', label: '₹500 — ₹999' },
-                                    { min: '1000', max: '1999', label: '₹1,000 — ₹1,999' },
-                                    { min: '2000', max: '4999', label: '₹2,000 — ₹4,999' },
-                                    { min: '5000', max: '', label: '₹5,000+' },
-                                ].map((range) => (
+                                {priceRanges.map((range) => (
                                     <Link
                                         key={range.label}
                                         href={`/category/${slug}?minPrice=${range.min}${range.max ? `&maxPrice=${range.max}` : ''}${sp.sort ? `&sort=${sp.sort}` : ''}`}
-                                        className="block text-sm py-2 px-3 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                                        className="block text-sm py-2 px-3 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
                                     >
                                         {range.label}
                                     </Link>
@@ -141,43 +147,70 @@ export default async function CategoryPage({ params, searchParams }: Props) {
                     </div>
                 </aside>
 
-                {/* Products Grid */}
-                <div className="flex-1">
-                    <div className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-sm mb-4 flex items-center justify-between border border-gray-100 dark:border-gray-700">
-                        <h1 className="text-lg font-bold text-gray-800 dark:text-gray-100">{categoryName}</h1>
-                        <span className="text-sm text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-full font-medium">{data.pagination?.total || data.products.length} results</span>
+                {/* Products Area */}
+                <div className="flex-1 min-w-0">
+                    {/* Header */}
+                    <div className="flex items-center justify-between mb-5">
+                        <h1 className="text-xl md:text-2xl font-bold text-foreground">{categoryName}</h1>
+                        <span className="text-sm text-muted-foreground bg-muted px-3 py-1 rounded-full font-medium">
+                            {data.pagination?.total || data.products.length} results
+                        </span>
                     </div>
 
                     {/* Mobile Sort */}
-                    <div className="lg:hidden bg-white dark:bg-gray-800 rounded-lg p-3 shadow-sm mb-3 overflow-x-auto border border-gray-100 dark:border-gray-700">
-                        <div className="flex gap-2">
-                            {['newest', 'popularity', 'price-low', 'price-high'].map((s) => (
+                    <div className="lg:hidden mb-4 overflow-x-auto scrollbar-hide">
+                        <div className="flex gap-2 pb-1">
+                            {sortOptions.slice(0, 4).map((opt) => (
                                 <Link
-                                    key={s}
-                                    href={`/category/${slug}?sort=${s}`}
-                                    className={`px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap border transition-colors ${sp.sort === s
-                                        ? 'border-[#2874F0] text-[#2874F0] bg-blue-50 dark:bg-blue-900/30'
-                                        : 'border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:border-gray-400'
+                                    key={opt.value}
+                                    href={`/category/${slug}?sort=${opt.value}`}
+                                    className={`px-4 py-2 rounded-full text-xs font-medium whitespace-nowrap border transition-all ${sp.sort === opt.value
+                                        ? 'border-[#2874F0] text-[#2874F0] bg-[#2874F0]/10'
+                                        : 'border-border text-muted-foreground hover:border-foreground/30'
                                         }`}
                                 >
-                                    {s.replace('-', ' ').replace(/\b\w/g, (l) => l.toUpperCase())}
+                                    {opt.label}
                                 </Link>
                             ))}
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                    {/* Products Grid */}
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
                         {data.products.map((product: { _id: string; name: string; slug: string; images: { url: string }[]; mrp: number; sellingPrice: number; ratings: { average: number; count: number }; stock: number }) => (
                             <ProductCard key={product._id} product={product} />
                         ))}
                     </div>
 
+                    {/* Empty State */}
                     {data.products.length === 0 && (
-                        <div className="text-center py-16 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700">
-                            <p className="text-5xl mb-3">🔍</p>
-                            <p className="text-lg font-medium text-gray-700 dark:text-gray-300 mb-1">No products found</p>
-                            <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">Try browsing a different category</p>
-                            <Link href="/" className="inline-block bg-[#2874F0] text-white px-6 py-2.5 rounded-lg font-medium hover:bg-blue-600 transition-colors">Browse All Products</Link>
+                        <div className="text-center py-20">
+                            <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mx-auto mb-4">
+                                <Package size={28} className="text-muted-foreground" />
+                            </div>
+                            <p className="text-lg font-semibold text-foreground mb-1">No products found</p>
+                            <p className="text-sm text-muted-foreground mb-6">Try browsing a different category or adjusting filters</p>
+                            <Link href="/" className="inline-block bg-[#2874F0] text-white px-6 py-2.5 rounded-lg font-medium hover:bg-blue-600 transition-colors">
+                                Browse All Products
+                            </Link>
+                        </div>
+                    )}
+
+                    {/* Pagination */}
+                    {data.pagination.pages > 1 && (
+                        <div className="flex items-center justify-center gap-2 mt-8">
+                            {Array.from({ length: data.pagination.pages }, (_, i) => i + 1).map((p) => (
+                                <Link
+                                    key={p}
+                                    href={`/category/${slug}?page=${p}${sp.sort ? `&sort=${sp.sort}` : ''}${sp.minPrice ? `&minPrice=${sp.minPrice}` : ''}${sp.maxPrice ? `&maxPrice=${sp.maxPrice}` : ''}`}
+                                    className={`w-9 h-9 flex items-center justify-center rounded-lg text-sm font-medium transition-colors ${data.pagination.page === p
+                                        ? 'bg-[#2874F0] text-white'
+                                        : 'text-muted-foreground hover:bg-muted'
+                                        }`}
+                                >
+                                    {p}
+                                </Link>
+                            ))}
                         </div>
                     )}
                 </div>
