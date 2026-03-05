@@ -212,10 +212,6 @@
   left: 100%;
 }
 
-/* Smooth scroll */
-html {
-  scroll-behavior: smooth;
-}
 
 /* Custom scrollbar for carousels */
 .carousel-scroll {

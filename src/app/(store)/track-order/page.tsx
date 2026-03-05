@@ -1,8 +1,11 @@
 'use client';
 
-import { useState } from 'react';
-import { Search, Package, CheckCircle, Truck, MapPin, XCircle } from 'lucide-react';
+import { useState, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { useSession } from 'next-auth/react';
+import { Search, Package, CheckCircle, Truck, MapPin, XCircle, ArrowLeft } from 'lucide-react';
 import { toast } from 'sonner';
+import Link from 'next/link';
 
 interface OrderStatus {
     orderId: string;
@@ -22,11 +25,41 @@ const STATUS_STEPS = [
     { key: 'delivered', label: 'Delivered', icon: MapPin, color: '#388E3C' },
 ];
 
-export default function TrackOrderPage() {
-    const [orderId, setOrderId] = useState('');
+function TrackOrderContent() {
+    const searchParams = useSearchParams();
+    const { data: session } = useSession();
+    const orderIdParam = searchParams.get('orderId');
+
+    const [orderId, setOrderId] = useState(orderIdParam || '');
     const [phone, setPhone] = useState('');
     const [loading, setLoading] = useState(false);
     const [order, setOrder] = useState<OrderStatus | null>(null);
+    const [autoFetched, setAutoFetched] = useState(false);
+
+    // Auto-fetch for logged-in users with orderId param
+    useEffect(() => {
+        if (orderIdParam && session?.user && !autoFetched) {
+            setAutoFetched(true);
+            fetchOrderAuthenticated(orderIdParam);
+        }
+    }, [orderIdParam, session, autoFetched]);
+
+    const fetchOrderAuthenticated = async (id: string) => {
+        setLoading(true);
+        try {
+            const res = await fetch(`/api/user/orders/track?orderId=${encodeURIComponent(id)}`);
+            const data = await res.json();
+            if (res.ok) {
+                setOrder(data);
+            } else {
+                toast.error(data.error || 'Order not found');
+                setOrder(null);
+            }
+        } catch {
+            toast.error('Something went wrong');
+        }
+        setLoading(false);
+    };
 
     const handleTrack = async () => {
         if (!orderId.trim() || !phone.trim()) {
@@ -57,47 +90,69 @@ export default function TrackOrderPage() {
         ? STATUS_STEPS.findIndex((s) => s.key === order.status)
         : -1;
 
+    // Show loading state while auto-fetching
+    if (loading && orderIdParam && !order) {
+        return (
+            <div className="max-w-2xl mx-auto px-4 py-16 text-center">
+                <div className="w-12 h-12 border-3 border-[#2874F0] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+                <p className="text-sm text-muted-foreground">Fetching order details...</p>
+            </div>
+        );
+    }
+
     return (
         <div className="max-w-2xl mx-auto px-4 py-8">
+            {/* Back to Account link when coming from account */}
+            {orderIdParam && session?.user && (
+                <Link href="/account?tab=orders" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground mb-6 transition-colors">
+                    <ArrowLeft size={16} />
+                    Back to My Orders
+                </Link>
+            )}
+
             {/* Header */}
             <div className="text-center mb-8">
                 <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#2874F0]/10 flex items-center justify-center">
                     <Package size={28} className="text-[#2874F0]" />
                 </div>
                 <h1 className="text-2xl font-bold text-foreground">Track Your Order</h1>
-                <p className="text-sm text-muted-foreground mt-2">Enter your order details to check the current status</p>
+                {!order && !orderIdParam && (
+                    <p className="text-sm text-muted-foreground mt-2">Enter your order details to check the current status</p>
+                )}
             </div>
 
-            {/* Search Form */}
-            <div className="space-y-4 mb-8">
-                <div>
-                    <label className="block text-sm font-medium text-foreground mb-2">Order ID</label>
-                    <input
-                        type="text"
-                        value={orderId}
-                        onChange={(e) => setOrderId(e.target.value.toUpperCase())}
-                        placeholder="e.g. RJE-20241201-ABCD"
-                        className="w-full border border-border rounded-lg px-4 py-3 text-sm bg-transparent text-foreground placeholder:text-muted-foreground focus:border-[#2874F0] focus:ring-1 focus:ring-[#2874F0]/20 outline-none transition-all"
-                    />
+            {/* Search Form — only show if no auto-fetched order */}
+            {!order && !(orderIdParam && session?.user) && (
+                <div className="space-y-4 mb-8">
+                    <div>
+                        <label className="block text-sm font-medium text-foreground mb-2">Order ID</label>
+                        <input
+                            type="text"
+                            value={orderId}
+                            onChange={(e) => setOrderId(e.target.value.toUpperCase())}
+                            placeholder="e.g. RJE-20241201-ABCD"
+                            className="w-full border border-border rounded-lg px-4 py-3 text-sm bg-transparent text-foreground placeholder:text-muted-foreground focus:border-[#2874F0] focus:ring-1 focus:ring-[#2874F0]/20 outline-none transition-all"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-foreground mb-2">Phone Number</label>
+                        <input
+                            type="tel"
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value.replace(/\D/g, '').slice(0, 10))}
+                            placeholder="10-digit mobile number"
+                            className="w-full border border-border rounded-lg px-4 py-3 text-sm bg-transparent text-foreground placeholder:text-muted-foreground focus:border-[#2874F0] focus:ring-1 focus:ring-[#2874F0]/20 outline-none transition-all"
+                        />
+                    </div>
+                    <button
+                        onClick={handleTrack}
+                        disabled={loading}
+                        className="w-full flex items-center justify-center gap-2 bg-[#2874F0] text-white py-3.5 rounded-lg font-semibold hover:bg-blue-600 disabled:opacity-50 transition-all hover:shadow-lg hover:shadow-blue-500/25"
+                    >
+                        <Search size={18} /> {loading ? 'Tracking...' : 'Track Order'}
+                    </button>
                 </div>
-                <div>
-                    <label className="block text-sm font-medium text-foreground mb-2">Phone Number</label>
-                    <input
-                        type="tel"
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value.replace(/\D/g, '').slice(0, 10))}
-                        placeholder="10-digit mobile number"
-                        className="w-full border border-border rounded-lg px-4 py-3 text-sm bg-transparent text-foreground placeholder:text-muted-foreground focus:border-[#2874F0] focus:ring-1 focus:ring-[#2874F0]/20 outline-none transition-all"
-                    />
-                </div>
-                <button
-                    onClick={handleTrack}
-                    disabled={loading}
-                    className="w-full flex items-center justify-center gap-2 bg-[#2874F0] text-white py-3.5 rounded-lg font-semibold hover:bg-blue-600 disabled:opacity-50 transition-all hover:shadow-lg hover:shadow-blue-500/25"
-                >
-                    <Search size={18} /> {loading ? 'Tracking...' : 'Track Order'}
-                </button>
-            </div>
+            )}
 
             {/* Order Status */}
             {order && (
@@ -112,6 +167,13 @@ export default function TrackOrderPage() {
                             <p className="font-bold text-lg text-foreground mt-0.5">₹{order.total?.toLocaleString('en-IN')}</p>
                         </div>
                     </div>
+
+                    {/* Placed date */}
+                    {order.createdAt && (
+                        <p className="text-xs text-muted-foreground mb-6">
+                            Placed on {new Date(order.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}
+                        </p>
+                    )}
 
                     {/* Status Timeline */}
                     {order.status === 'cancelled' ? (
@@ -177,8 +239,25 @@ export default function TrackOrderPage() {
                             ))}
                         </div>
                     </div>
+
+                    {/* Track another order link */}
+                    {orderIdParam && (
+                        <div className="mt-8 text-center">
+                            <Link href="/track-order" className="text-sm text-[#2874F0] font-medium hover:underline">
+                                Track Another Order →
+                            </Link>
+                        </div>
+                    )}
                 </div>
             )}
         </div>
+    );
+}
+
+export default function TrackOrderPage() {
+    return (
+        <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="w-10 h-10 border-3 border-[#2874F0] border-t-transparent rounded-full animate-spin" /></div>}>
+            <TrackOrderContent />
+        </Suspense>
     );
 }

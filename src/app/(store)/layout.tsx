@@ -15,7 +15,7 @@ export default function StoreLayout({ children }: { children: React.ReactNode })
     return (
         <div className="store-bg min-h-screen flex flex-col">
             <Navbar />
-            <main className={`flex-1 ${isProductPage ? 'pt-[60px]' : 'pt-[120px] md:pt-[130px]'} ${isProductPage ? 'pb-0' : 'pb-16 md:pb-0'}`}>{children}</main>
+            <main className={`flex-1 ${isProductPage ? 'pt-[60px]' : 'pt-[112px] md:pt-[130px]'} ${isProductPage ? 'pb-0' : 'pb-14 md:pb-0'}`}>{children}</main>
             <Footer />
             <MobileNav />
             <WhatsAppButton />
