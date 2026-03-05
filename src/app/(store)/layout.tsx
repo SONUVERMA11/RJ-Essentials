@@ -6,7 +6,6 @@ import Navbar from '@/components/store/Navbar';
 import MobileNav from '@/components/store/MobileNav';
 import Footer from '@/components/store/Footer';
 import WhatsAppButton from '@/components/store/WhatsAppButton';
-import CookieConsent from '@/components/store/CookieConsent';
 
 export default function StoreLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
@@ -19,7 +18,6 @@ export default function StoreLayout({ children }: { children: React.ReactNode })
             <Footer />
             <MobileNav />
             <WhatsAppButton />
-            <CookieConsent />
             <Toaster position="top-center" richColors />
         </div>
     );

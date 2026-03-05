@@ -179,9 +179,9 @@ export default function Navbar() {
                         </div>
 
                         {/* Actions */}
-                        <div className="flex items-center gap-1 md:gap-1.5 shrink-0">
+                        <div className="flex items-center gap-2 md:gap-1.5 ml-auto md:ml-0 shrink-0">
                             <ThemeToggle />
-                            <UserMenu />
+                            <div className="hidden md:block"><UserMenu /></div>
 
                             {/* Track Order - Desktop */}
                             <Link
@@ -192,12 +192,12 @@ export default function Navbar() {
                                 <span>Track</span>
                             </Link>
 
-                            {/* Cart */}
-                            <Link href="/cart" className="relative flex items-center gap-1.5 px-3 py-2 rounded-full hover:bg-muted/50 transition-colors group" id="cart-icon">
+                            {/* Cart — Desktop only */}
+                            <Link href="/cart" className="relative hidden md:flex items-center gap-1.5 px-3 py-2 rounded-full hover:bg-muted/50 transition-colors group" id="cart-icon">
                                 <ShoppingCart size={20} className="text-foreground/70 group-hover:text-foreground transition-colors" />
                                 <span className="hidden md:inline text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">Cart</span>
                                 {itemCount > 0 && (
-                                    <span className="absolute top-0.5 left-5 md:left-auto md:-top-0.5 md:right-0 bg-[#FB641B] text-white text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
+                                    <span className="absolute -top-0.5 right-0 bg-[#FB641B] text-white text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
                                         {itemCount}
                                     </span>
                                 )}
