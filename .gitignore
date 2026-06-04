@@ -2,6 +2,8 @@
 
 # dependencies
 /node_modules
+agents/node_modules
+agents/output
 /.pnp
 .pnp.*
 .yarn/*

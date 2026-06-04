@@ -9,7 +9,7 @@ export async function GET(
     { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const authError = await requireAdmin();
+        const authError = await requireAdmin(req);
         if (authError) return authError;
 
         await dbConnect();
@@ -33,7 +33,7 @@ export async function PUT(
     { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const authError = await requireAdmin();
+        const authError = await requireAdmin(req);
         if (authError) return authError;
 
         await dbConnect();

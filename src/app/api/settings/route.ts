@@ -17,7 +17,7 @@ export async function GET() {
 
 export async function PUT(req: NextRequest) {
     try {
-        const authError = await requireAdmin();
+        const authError = await requireAdmin(req);
         if (authError) return authError;
 
         await dbConnect();

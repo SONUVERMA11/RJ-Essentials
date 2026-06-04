@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><style>
+/* {{SHARED_STYLES}} */
+body { width: 1200px; height: 800px; position: relative; }
+.container { padding: 0; height: 100%; display: flex; flex-direction: column; }
+.header { background: {{PRIMARY_COLOR}}; padding: 20px 30px; }
+.header h1 { color: white; font-size: 22px; font-weight: 800; margin-bottom: 4px; }
+.header .subtitle { color: rgba(255,255,255,0.8); font-size: 14px; }
+.specs-body { flex: 1; overflow: hidden; }
+.spec-row { display: flex; padding: 14px 30px; border-bottom: 1px solid #eee; }
+.spec-row:nth-child(even) { background: #f8f9fa; }
+.spec-key { width: 35%; font-weight: 600; color: #495057; font-size: 16px; }
+.spec-value { width: 65%; color: #212529; font-size: 16px; }
+.price-bar { display: flex; align-items: center; gap: 16px; padding: 16px 30px; background: #f0f7ff; }
+.price-current { font-size: 28px; font-weight: 800; color: #388E3C; }
+.price-mrp { font-size: 18px; color: #868E96; text-decoration: line-through; }
+.price-off { background: #FF6E40; color: white; padding: 4px 12px; border-radius: 14px; font-size: 14px; font-weight: 700; }
+.footer { background: {{PRIMARY_COLOR}}; color: white; padding: 14px; text-align: center; font-size: 14px; }
+</style></head><body>
+<div class="container">
+    <div class="header">
+        <h1>📋 {{PRODUCT_NAME}}</h1>
+        <div class="subtitle">{{BRAND}} · {{CATEGORY}} — Specifications</div>
+    </div>
+    <div class="price-bar">
+        <span class="price-current">{{SELLING_PRICE}}</span>
+        <span class="price-mrp">{{MRP}}</span>
+        <span class="price-off">{{DISCOUNT}}</span>
+    </div>
+    <div class="specs-body">
+        {{SPECS_HTML}}
+    </div>
+    <div class="footer">RJ ESSENTIALS — Quality at Your Doorstep</div>
+</div>
+</body></html>

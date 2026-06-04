@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><style>
+/* {{SHARED_STYLES}} */
+body { width: 1200px; height: 800px; position: relative; }
+.container { height: 100%; display: flex; flex-direction: column; }
+.header { background: {{PRIMARY_COLOR}}; padding: 20px 30px; }
+.header h1 { color: white; font-size: 22px; font-weight: 800; margin-bottom: 4px; }
+.header .subtitle { color: rgba(255,255,255,0.8); font-size: 14px; }
+.highlights-body { flex: 1; padding: 20px 30px; display: flex; flex-direction: column; gap: 0; }
+.highlight-item { display: flex; align-items: center; gap: 14px; padding: 18px 20px; font-size: 18px; color: #333; border-bottom: 1px solid #f0f0f0; }
+.highlight-item .icon { font-size: 24px; flex-shrink: 0; }
+.highlight-item .text { line-height: 1.4; }
+.footer { background: {{PRIMARY_COLOR}}; color: white; padding: 14px; text-align: center; font-size: 14px; }
+</style></head><body>
+<div class="container">
+    <div class="header">
+        <h1>✨ Key Features</h1>
+        <div class="subtitle">{{BRAND}} · {{PRODUCT_NAME}}</div>
+    </div>
+    <div class="highlights-body">
+        {{HIGHLIGHTS_HTML}}
+    </div>
+    <div class="footer">RJ ESSENTIALS — Quality at Your Doorstep</div>
+</div>
+</body></html>

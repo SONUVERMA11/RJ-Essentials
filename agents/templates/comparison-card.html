@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><style>
+/* {{SHARED_STYLES}} */
+body { width: 1200px; height: 600px; margin: 0; overflow: hidden; }
+.card {
+    width: 100%; height: 100%; background: white;
+    display: flex; flex-direction: column;
+}
+.header { background: {{PRIMARY_COLOR}}; padding: 20px 30px; text-align: center; }
+.header h1 { color: white; font-size: 22px; font-weight: 800; }
+.header .subtitle { color: rgba(255,255,255,0.7); font-size: 13px; }
+.body { flex: 1; display: flex; align-items: center; justify-content: center; padding: 30px; gap: 80px; }
+.price-col { text-align: center; padding: 30px 50px; border-radius: 16px; }
+.price-col.ours { background: #f0fff4; border: 2px solid {{ACCENT_COLOR}}; }
+.price-col.others { background: #fff5f5; border: 2px solid #e74c3c; }
+.price-label { font-size: 16px; font-weight: 700; margin-bottom: 12px; color: #666; letter-spacing: 1px; }
+.price-amount { font-size: 44px; font-weight: 800; }
+.price-col.ours .price-amount { color: {{ACCENT_COLOR}}; }
+.price-col.others .price-amount { color: #e74c3c; text-decoration: line-through; }
+.vs { font-size: 28px; font-weight: 800; color: #ccc; }
+.savings-bar { background: {{ACCENT_COLOR}}; color: white; padding: 12px 30px; border-radius: 20px; font-size: 20px; font-weight: 700; margin-top: 10px; }
+.product-name { text-align: center; font-size: 22px; font-weight: 600; color: #333; margin-top: -10px; margin-bottom: 20px; padding: 0 30px; }
+.footer { background: {{PRIMARY_COLOR}}; color: white; padding: 14px; text-align: center; font-size: 14px; }
+</style></head><body>
+<div class="card">
+    <div class="header">
+        <h1>💰 Price Comparison</h1>
+        <div class="subtitle">Why pay more? Shop smarter at {{STORE_NAME}}</div>
+    </div>
+    <div class="product-name">{{PRODUCT_NAME}}</div>
+    <div class="body">
+        <div class="price-col ours">
+            <div class="price-label">{{STORE_NAME}}</div>
+            <div class="price-amount">{{OUR_PRICE}}</div>
+            <div class="savings-bar">Save {{DISCOUNT}}</div>
+        </div>
+        <div class="vs">VS</div>
+        <div class="price-col others">
+            <div class="price-label">MRP / {{COMPETITOR_NAME}}</div>
+            <div class="price-amount">{{MRP}}</div>
+        </div>
+    </div>
+    <div class="footer">Shop at {{STORE_NAME}} · Free Delivery above ₹499 · Cash on Delivery</div>
+</div>
+</body></html>

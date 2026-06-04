@@ -1,0 +1,32 @@
+{
+  "name": "rj-essentials-agents",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "tsx run.ts",
+    "research": "tsx product-research.ts",
+    "listing": "tsx product-listing.ts",
+    "marketing": "tsx social-media-marketing.ts",
+    "inventory": "tsx inventory-pricing.ts",
+    "orders": "tsx order-management.ts",
+    "analytics": "tsx analytics-reporting.ts",
+    "website": "tsx website-manager.ts",
+    "orchestrate": "tsx orchestrator.ts",
+    "test": "tsx test-api-client.ts"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "cloudinary": "^2.9.0",
+    "dotenv": "^16.4.7",
+    "mongoose": "^9.2.3",
+    "puppeteer": "^24.8.0",
+    "sharp": "^0.34.5",
+    "slugify": "^1.6.6"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.0.0"
+  }
+}

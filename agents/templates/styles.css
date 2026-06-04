@@ -1,0 +1,132 @@
+/* ─── RJ ESSENTIALS Brand Styles ──────────────────────────── */
+:root {
+    --primary: #2874F0;
+    --secondary: #FF6E40;
+    --accent: #388E3C;
+    --dark: #0D1117;
+    --light: #FFFFFF;
+    --gray-50: #F8F9FA;
+    --gray-100: #F1F3F5;
+    --gray-200: #E9ECEF;
+    --gray-500: #868E96;
+    --gray-700: #495057;
+    --gray-900: #212529;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+}
+
+.brand-header {
+    background: var(--primary);
+    color: white;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand-name {
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.brand-tagline {
+    font-size: 12px;
+    opacity: 0.85;
+}
+
+.price-tag {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.price-current {
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--accent);
+}
+
+.price-mrp {
+    font-size: 20px;
+    color: var(--gray-500);
+    text-decoration: line-through;
+}
+
+.price-discount {
+    display: inline-block;
+    background: var(--secondary);
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 4px 14px;
+    border-radius: 20px;
+}
+
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--primary);
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 14px 32px;
+    border-radius: 30px;
+    text-decoration: none;
+}
+
+.spec-row {
+    display: flex;
+    padding: 12px 24px;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.spec-row.even { background: var(--gray-50); }
+.spec-row.odd { background: white; }
+
+.spec-key {
+    width: 40%;
+    font-weight: 600;
+    color: var(--gray-700);
+    font-size: 15px;
+}
+
+.spec-value {
+    width: 60%;
+    color: var(--gray-900);
+    font-size: 15px;
+}
+
+.highlight-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 24px;
+    font-size: 17px;
+    color: var(--gray-700);
+    border-bottom: 1px solid var(--gray-100);
+}
+
+.brand-footer {
+    background: var(--primary);
+    color: white;
+    padding: 14px 24px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}

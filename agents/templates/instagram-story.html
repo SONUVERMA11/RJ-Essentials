@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><style>
+/* {{SHARED_STYLES}} */
+body { width: 1080px; height: 1920px; margin: 0; overflow: hidden; }
+.story {
+    width: 100%; height: 100%;
+    background: linear-gradient(180deg, {{PRIMARY_COLOR}} 0%, #1a1a2e 45%, {{SECONDARY_COLOR}} 100%);
+    display: flex; flex-direction: column; align-items: center;
+    position: relative;
+}
+.top-bar { padding: 60px 0 20px; text-align: center; }
+.store-name { color: white; font-size: 22px; font-weight: 800; letter-spacing: 3px; opacity: 0.9; }
+.card-area { flex: 1; display: flex; align-items: center; justify-content: center; padding: 0 50px; }
+.card {
+    width: 100%; background: white; border-radius: 28px;
+    padding: 50px 40px; text-align: center;
+    box-shadow: 0 20px 80px rgba(0,0,0,0.4);
+}
+.product-image-area {
+    width: 400px; height: 400px; margin: 0 auto 30px;
+    background: #f8f9fa; border-radius: 20px;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+}
+.product-image-area img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.placeholder-icon { font-size: 100px; opacity: 0.3; }
+.product-name { font-size: 30px; font-weight: 700; color: #212529; margin-bottom: 10px; line-height: 1.3; }
+.product-brand { font-size: 17px; color: #868E96; margin-bottom: 30px; }
+.price-current { font-size: 52px; font-weight: 800; color: #388E3C; }
+.price-mrp { font-size: 24px; color: #adb5bd; text-decoration: line-through; display: block; margin-top: 6px; }
+.discount-badge {
+    display: inline-block; background: {{SECONDARY_COLOR}}; color: white;
+    font-size: 22px; font-weight: 700; padding: 10px 24px; border-radius: 28px; margin-top: 14px;
+}
+.highlights { margin: 24px 0; text-align: left; display: inline-block; }
+.highlights div { font-size: 17px; color: #555; padding: 5px 0; }
+.swipe-up {
+    padding: 40px 0 60px; text-align: center;
+}
+.swipe-btn {
+    display: inline-block; background: white; color: {{PRIMARY_COLOR}};
+    font-size: 22px; font-weight: 700; padding: 18px 44px; border-radius: 34px;
+    box-shadow: 0 4px 20px rgba(255,255,255,0.3);
+}
+.url-text { color: rgba(255,255,255,0.5); font-size: 14px; margin-top: 20px; }
+</style></head><body>
+<div class="story">
+    <div class="top-bar">
+        <div class="store-name">{{STORE_NAME}}</div>
+    </div>
+    <div class="card-area">
+        <div class="card">
+            <div class="product-image-area">
+                <img src="{{PRODUCT_IMAGE}}" alt="" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=placeholder-icon>📦</div>'"/>
+            </div>
+            <div class="product-name">{{PRODUCT_NAME}}</div>
+            <div class="product-brand">{{BRAND}}</div>
+            <div class="price-current">{{SELLING_PRICE}}</div>
+            <div class="price-mrp">{{MRP}}</div>
+            <div class="discount-badge">{{DISCOUNT}}</div>
+        </div>
+    </div>
+    <div class="swipe-up">
+        <div class="swipe-btn">{{CTA_TEXT}}</div>
+        <div class="url-text">{{WEBSITE_URL}}</div>
+    </div>
+</div>
+</body></html>

@@ -16,7 +16,7 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
     try {
-        const authError = await requireAdmin();
+        const authError = await requireAdmin(req);
         if (authError) return authError;
 
         await dbConnect();

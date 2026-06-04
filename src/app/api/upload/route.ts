@@ -7,7 +7,7 @@ const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'im
 
 export async function POST(req: NextRequest) {
     try {
-        const authError = await requireAdmin();
+        const authError = await requireAdmin(req);
         if (authError) return authError;
 
         const formData = await req.formData();

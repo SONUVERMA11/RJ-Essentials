@@ -5,7 +5,7 @@ import { requireAdmin } from '@/lib/adminAuth';
 
 export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     try {
-        const authError = await requireAdmin();
+        const authError = await requireAdmin(req);
         if (authError) return authError;
 
         await dbConnect();
@@ -21,7 +21,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
 
 export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     try {
-        const authError = await requireAdmin();
+        const authError = await requireAdmin(req);
         if (authError) return authError;
 
         await dbConnect();
