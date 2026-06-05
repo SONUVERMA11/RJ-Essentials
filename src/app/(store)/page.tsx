@@ -49,19 +49,19 @@ async function getProducts() {
 
 function SectionHeader({ title, icon: Icon, link, color = '#2874F0' }: { title: string; icon: React.ElementType; link?: string; color?: string }) {
     return (
-        <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: `${color}15` }}>
-                    <Icon size={18} style={{ color }} />
+        <div className="flex items-center justify-between mb-4 md:mb-5">
+            <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-[10px] flex items-center justify-center shadow-sm" style={{ backgroundColor: `${color}15` }}>
+                    <Icon size={20} style={{ color }} strokeWidth={2.5} />
                 </div>
-                <h2 className="text-lg md:text-xl font-bold text-foreground">{title}</h2>
+                <h2 className="text-xl md:text-2xl font-bold tracking-tight text-foreground">{title}</h2>
             </div>
             {link && (
                 <Link
                     href={link}
-                    className="flex items-center gap-1 text-[#2874F0] text-sm font-medium hover:underline transition-colors"
+                    className="flex items-center gap-1 text-[#2874F0] text-sm font-bold hover:underline transition-colors"
                 >
-                    View All <ChevronRight size={16} />
+                    View All <ChevronRight size={16} strokeWidth={2.5} />
                 </Link>
             )}
         </div>

@@ -47,13 +47,13 @@ export default function ProductCard({ product }: ProductCardProps) {
 
     return (
         <Link href={`/product/${product.slug}`} className="block group">
-            <div className="bg-card rounded-xl overflow-hidden relative hover:shadow-lg hover:shadow-[#2874F0]/5 transition-all duration-300 h-full flex flex-col">
+            <div className="bg-card rounded-[20px] overflow-hidden relative hover:shadow-lg hover:shadow-[#2874F0]/5 transition-all duration-300 h-full flex flex-col border border-border/40">
                 {/* Image */}
-                <div className="relative aspect-square bg-muted/30 p-3 flex items-center justify-center overflow-hidden rounded-t-xl">
+                <div className="relative aspect-square bg-muted/30 p-3 flex items-center justify-center overflow-hidden rounded-t-[20px]">
                     <img
                         src={product.images?.[0]?.url || '/placeholder.png'}
                         alt={product.name}
-                        className="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-105 rounded-lg"
+                        className="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-105 rounded-[12px]"
                         loading="lazy"
                     />
                     {isOutOfStock && (

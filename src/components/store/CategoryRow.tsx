@@ -79,7 +79,7 @@ export default function CategoryRow({ categories }: CategoryRowProps) {
                             className="group flex flex-col items-center gap-1.5 flex-shrink-0"
                         >
                             <div
-                                className="w-14 h-14 md:w-16 md:h-16 rounded-full overflow-hidden ring-2 ring-transparent group-hover:ring-[#2874F0]/50 transition-all duration-200 group-hover:scale-105 relative"
+                                className="w-14 h-14 md:w-16 md:h-16 rounded-[16px] md:rounded-[20px] overflow-hidden shadow-sm ring-1 ring-border/10 group-hover:shadow-md group-hover:ring-[#2874F0]/30 transition-all duration-300 group-hover:scale-[1.03] relative bg-background"
                             >
                                 <img
                                     src={cat.image}
@@ -89,7 +89,7 @@ export default function CategoryRow({ categories }: CategoryRowProps) {
                                 />
                                 {/* Subtle color overlay */}
                                 <div
-                                    className="absolute inset-0 opacity-10 group-hover:opacity-0 transition-opacity"
+                                    className="absolute inset-0 opacity-10 group-hover:opacity-5 transition-opacity duration-300"
                                     style={{ backgroundColor: cat.color }}
                                 />
                             </div>
