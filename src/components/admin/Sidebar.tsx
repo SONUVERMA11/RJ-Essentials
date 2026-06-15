@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
     LayoutDashboard, Package, FolderOpen, ShoppingCart, Image, Layers, Star,
-    MessageSquare, FileText, Settings, BarChart3, Search, LogOut, ChevronLeft, Menu, Sun, Moon
+    MessageSquare, FileText, Settings, BarChart3, Search, LogOut, ChevronLeft, Menu, Sun, Moon, ExternalLink
 } from 'lucide-react';
 import { signOut } from 'next-auth/react';
 import { useState } from 'react';
@@ -36,14 +36,14 @@ export default function AdminSidebar() {
             {/* Mobile toggle */}
             <button
                 onClick={() => setMobileOpen(true)}
-                className="lg:hidden fixed top-4 left-4 z-50 bg-[#2874F0] text-white p-2 rounded-md shadow-md"
+                className="lg:hidden fixed top-4 left-4 z-50 bg-foreground text-background p-2 rounded-xl shadow-md"
             >
-                <Menu size={20} />
+                <Menu size={18} />
             </button>
 
             {/* Mobile overlay */}
             {mobileOpen && (
-                <div className="lg:hidden fixed inset-0 bg-black/50 z-50" onClick={() => setMobileOpen(false)} />
+                <div className="lg:hidden fixed inset-0 bg-black/40 backdrop-blur-sm z-50" onClick={() => setMobileOpen(false)} />
             )}
 
             {/* Sidebar */}
@@ -51,17 +51,15 @@ export default function AdminSidebar() {
                 } ${mobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}>
                 <div className="p-4 border-b border-border flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                        <svg width={collapsed ? 28 : 32} height={collapsed ? 28 : 32} viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
-                            <rect x="0" y="0" width="120" height="120" rx="10" fill="#FFE500" />
-                            <rect x="5" y="5" width="110" height="110" rx="4" stroke="#2874F0" strokeWidth="3" fill="none" />
-                            <rect x="11" y="11" width="98" height="98" rx="3" stroke="#2874F0" strokeWidth="2" fill="none" />
-                            <text x="60" y="72" textAnchor="middle" fontFamily="'Arial Black', 'Impact', sans-serif" fontWeight="900" fontSize="54" fill="#2874F0" letterSpacing="-2">RJ</text>
-                            <text x="60" y="96" textAnchor="middle" fontFamily="'Arial', 'Helvetica', sans-serif" fontWeight="800" fontSize="14" fill="#2874F0" letterSpacing="1">ESSENTIALS</text>
+                        {/* Monochrome Logo */}
+                        <svg width={collapsed ? 24 : 28} height={collapsed ? 24 : 28} viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
+                            <rect width="120" height="120" rx="24" className="fill-foreground" />
+                            <text x="60" y="68" textAnchor="middle" fontFamily="'Inter', 'Arial', sans-serif" fontWeight="800" fontSize="52" className="fill-background" letterSpacing="-3">RJ</text>
                         </svg>
                         {!collapsed && (
                             <div>
-                                <h2 className="font-bold text-[#2874F0] text-sm">RJ ESSENTIALS</h2>
-                                <p className="text-[10px] text-muted-foreground">Admin Panel</p>
+                                <h2 className="font-bold text-foreground text-sm tracking-tight">RJ ESSENTIALS</h2>
+                                <p className="text-[10px] text-muted-foreground font-medium">Admin Panel</p>
                             </div>
                         )}
                     </div>
@@ -69,7 +67,7 @@ export default function AdminSidebar() {
                         onClick={() => { setCollapsed(!collapsed); setMobileOpen(false); }}
                         className="text-muted-foreground hover:text-foreground p-1 transition-colors"
                     >
-                        <ChevronLeft size={18} className={`transition-transform ${collapsed ? 'rotate-180' : ''}`} />
+                        <ChevronLeft size={16} className={`transition-transform ${collapsed ? 'rotate-180' : ''}`} />
                     </button>
                 </div>
 
@@ -83,13 +81,13 @@ export default function AdminSidebar() {
                                 key={item.href}
                                 href={item.href}
                                 onClick={() => setMobileOpen(false)}
-                                className={`flex items-center gap-3 px-3 py-2.5 rounded-md text-sm transition-colors ${isActive
-                                    ? 'bg-[#2874F0] text-white font-medium'
+                                className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all duration-150 ${isActive
+                                    ? 'bg-foreground text-background font-semibold'
                                     : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                                     }`}
                                 title={collapsed ? item.label : undefined}
                             >
-                                <Icon size={18} />
+                                <Icon size={17} strokeWidth={isActive ? 2 : 1.6} />
                                 {!collapsed && <span>{item.label}</span>}
                             </Link>
                         );
@@ -101,19 +99,20 @@ export default function AdminSidebar() {
                     {/* Theme Toggle */}
                     <button
                         onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                        className="w-full flex items-center gap-3 px-3 py-2 rounded-md text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+                        className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
                     >
-                        {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+                        {theme === 'dark' ? <Sun size={17} strokeWidth={1.6} /> : <Moon size={17} strokeWidth={1.6} />}
                         {!collapsed && <span>{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>}
                     </button>
-                    <Link href="/" className="flex items-center gap-3 px-3 py-2 rounded-md text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors" target="_blank">
+                    <Link href="/" className="flex items-center gap-3 px-3 py-2 rounded-xl text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors" target="_blank">
+                        <ExternalLink size={17} strokeWidth={1.6} />
                         {!collapsed && <span>View Store</span>}
                     </Link>
                     <button
                         onClick={() => signOut({ callbackUrl: '/admin/login' })}
-                        className="w-full flex items-center gap-3 px-3 py-2 rounded-md text-sm text-red-500 hover:bg-red-500/10 transition-colors"
+                        className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm text-destructive hover:bg-destructive/10 transition-colors"
                     >
-                        <LogOut size={18} />
+                        <LogOut size={17} strokeWidth={1.6} />
                         {!collapsed && <span>Logout</span>}
                     </button>
                 </div>

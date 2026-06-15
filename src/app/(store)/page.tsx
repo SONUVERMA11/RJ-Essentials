@@ -33,6 +33,30 @@ const DEMO_PRODUCTS = Array.from({ length: 12 }, (_, i) => ({
     category: ['Electronics', 'Fashion', 'Electronics', 'Fashion', 'Home & Kitchen', 'Fashion', 'Sports', 'Home & Kitchen', 'Electronics', 'Home & Kitchen', 'Electronics', 'Electronics'][i],
 }));
 
+function SectionHeader({ title, icon: Icon, link, color = '#0A0A0A' }: { title: string; icon: React.ElementType; link?: string; color?: string }) {
+    return (
+        <div className="mb-5 md:mb-6">
+            <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                    <div className="w-9 h-9 rounded-xl flex items-center justify-center shadow-sm" style={{ backgroundColor: `${color}12` }}>
+                        <Icon size={18} style={{ color }} strokeWidth={2.2} />
+                    </div>
+                    <h2 className="text-xl md:text-2xl font-bold tracking-tight text-foreground">{title}</h2>
+                </div>
+                {link && (
+                    <Link
+                        href={link}
+                        className="flex items-center gap-0.5 text-sm font-semibold text-[#2874F0] hover:underline transition-colors"
+                    >
+                        View All <ChevronRight size={14} strokeWidth={2.5} />
+                    </Link>
+                )}
+            </div>
+            <div className="mt-3 h-px bg-border" />
+        </div>
+    );
+}
+
 async function getProducts() {
     try {
         const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
@@ -45,27 +69,6 @@ async function getProducts() {
     } catch {
         return DEMO_PRODUCTS;
     }
-}
-
-function SectionHeader({ title, icon: Icon, link, color = '#2874F0' }: { title: string; icon: React.ElementType; link?: string; color?: string }) {
-    return (
-        <div className="flex items-center justify-between mb-4 md:mb-5">
-            <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-[10px] flex items-center justify-center shadow-sm" style={{ backgroundColor: `${color}15` }}>
-                    <Icon size={20} style={{ color }} strokeWidth={2.5} />
-                </div>
-                <h2 className="text-xl md:text-2xl font-bold tracking-tight text-foreground">{title}</h2>
-            </div>
-            {link && (
-                <Link
-                    href={link}
-                    className="flex items-center gap-1 text-[#2874F0] text-sm font-bold hover:underline transition-colors"
-                >
-                    View All <ChevronRight size={16} strokeWidth={2.5} />
-                </Link>
-            )}
-        </div>
-    );
 }
 
 export default async function HomePage() {
@@ -82,19 +85,17 @@ export default async function HomePage() {
     const displayBest = bestSellers.length > 0 ? bestSellers : products.slice(0, 4);
 
     return (
-        <div className="space-y-5 pb-6">
-            {/* Hero Banner Slider — Admin manageable */}
+        <div className="space-y-8 md:space-y-12 pb-8">
+            {/* Hero Banner Slider */}
             <HeroCarousel />
 
             {/* Category Grid */}
-            <section className="max-w-7xl mx-auto px-4">
-                <CategoryRow />
-            </section>
+            <CategoryRow />
 
             {/* Deal of the Day */}
-            <section className="max-w-7xl mx-auto px-4">
+            <section className="max-w-[1280px] mx-auto px-4">
                 <SectionHeader title="Deal of the Day" icon={Zap} link="/category/all?sort=popularity" color="#FB641B" />
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5">
                     {displayDeals.map((product: typeof DEMO_PRODUCTS[0]) => (
                         <ProductCard key={product._id} product={product} />
                     ))}
@@ -102,9 +103,9 @@ export default async function HomePage() {
             </section>
 
             {/* Featured Products */}
-            <section className="max-w-7xl mx-auto px-4">
+            <section className="max-w-[1280px] mx-auto px-4">
                 <SectionHeader title="Featured Products" icon={Star} link="/category/all" color="#FFB300" />
-                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-5">
                     {displayFeatured.map((product: typeof DEMO_PRODUCTS[0]) => (
                         <ProductCard key={product._id} product={product} />
                     ))}
@@ -112,9 +113,9 @@ export default async function HomePage() {
             </section>
 
             {/* Best Sellers */}
-            <section className="max-w-7xl mx-auto px-4">
+            <section className="max-w-[1280px] mx-auto px-4">
                 <SectionHeader title="Best Sellers" icon={TrendingUp} link="/category/all?sort=popularity" color="#388E3C" />
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5">
                     {displayBest.map((product: typeof DEMO_PRODUCTS[0]) => (
                         <ProductCard key={product._id} product={product} />
                     ))}
@@ -122,9 +123,9 @@ export default async function HomePage() {
             </section>
 
             {/* New Arrivals */}
-            <section className="max-w-7xl mx-auto px-4">
+            <section className="max-w-[1280px] mx-auto px-4">
                 <SectionHeader title="New Arrivals" icon={Clock} link="/category/all?sort=newest" color="#9C27B0" />
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5">
                     {displayNew.map((product: typeof DEMO_PRODUCTS[0]) => (
                         <ProductCard key={product._id} product={product} />
                     ))}

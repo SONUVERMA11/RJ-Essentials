@@ -9,45 +9,39 @@ interface LogoProps {
 }
 
 const sizes = {
-    xs: { box: 28, text: 'text-sm', tagline: 'text-[8px]' },
-    sm: { box: 36, text: 'text-base', tagline: 'text-[9px]' },
-    md: { box: 44, text: 'text-lg', tagline: 'text-[10px]' },
-    lg: { box: 56, text: 'text-2xl', tagline: 'text-xs' },
+    xs: { box: 24, text: 'text-sm', tagline: 'text-[8px]' },
+    sm: { box: 28, text: 'text-sm', tagline: 'text-[8px]' },
+    md: { box: 32, text: 'text-base', tagline: 'text-[9px]' },
+    lg: { box: 40, text: 'text-lg', tagline: 'text-[10px]' },
 };
 
-// RJ Store Logo Icon — Yellow Block Style
-export function LogoIcon({ size = 36 }: { size?: number }) {
+// Monochrome RJ Logo Icon
+export function LogoIcon({ size = 32 }: { size?: number }) {
     return (
         <svg width={size} height={size} viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
-            {/* Bright Yellow background */}
-            <rect x="0" y="0" width="120" height="120" rx="20" fill="#FFE500" />
-            {/* Bold Blue RJ Text */}
-            <text x="60" y="62" textAnchor="middle" fontFamily="'Arial Black', 'Impact', sans-serif" fontWeight="900" fontSize="56" fill="#2874F0" letterSpacing="-4">
+            <rect width="120" height="120" rx="24" className="fill-foreground" />
+            <text x="60" y="68" textAnchor="middle" fontFamily="'Inter', 'Arial', sans-serif" fontWeight="800" fontSize="52" className="fill-background" letterSpacing="-3">
                 RJ
-            </text>
-            {/* ESSENTIALS Text */}
-            <text x="60" y="94" textAnchor="middle" fontFamily="'Arial', 'Helvetica', sans-serif" fontWeight="800" fontSize="14" fill="#2874F0" letterSpacing="1">
-                ESSENTIALS
             </text>
         </svg>
     );
 }
 
-export default function Logo({ size = 'md', variant = 'full', className = '', showTagline = true, darkBg = false }: LogoProps) {
+export default function Logo({ size = 'md', variant = 'full', className = '', showTagline = true }: LogoProps) {
     const s = sizes[size];
 
     return (
-        <div className={`flex items-center gap-2.5 ${className}`}>
+        <div className={`flex items-center gap-2 ${className}`}>
             <LogoIcon size={s.box} />
             {variant === 'full' && (
-                <div>
-                    <h1 className={`${s.text} font-bold leading-tight tracking-tight ${darkBg ? 'text-white' : 'text-gray-900 dark:text-white'}`}>
+                <div className="flex flex-col">
+                    <span className={`${s.text} font-bold leading-none tracking-tight text-foreground`}>
                         RJ ESSENTIALS
-                    </h1>
+                    </span>
                     {showTagline && (
-                        <p className={`${s.tagline} ${darkBg ? 'text-blue-200' : 'text-gray-400'} italic -mt-0.5`}>
-                            Quality at Your Doorstep
-                        </p>
+                        <span className={`${s.tagline} text-muted-foreground font-medium leading-none mt-0.5 tracking-wide uppercase`}>
+                            Quality First
+                        </span>
                     )}
                 </div>
             )}
