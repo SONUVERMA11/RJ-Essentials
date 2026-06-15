@@ -1,0 +1,6 @@
+﻿image-processor.ts(187,22): error TS2503: Cannot find namespace 'puppeteer'.
+image-processor.ts(189,38): error TS2503: Cannot find namespace 'puppeteer'.
+inventory-pricing.ts(55,42): error TS2503: Cannot find namespace 'puppeteer'.
+product-research.ts(47,14): error TS2503: Cannot find namespace 'puppeteer'.
+product-research.ts(104,14): error TS2503: Cannot find namespace 'puppeteer'.
+product-research.ts(179,14): error TS2503: Cannot find namespace 'puppeteer'.
