@@ -55,7 +55,6 @@ export default function AdminCategoriesPage() {
     };
 
     return (
-    return (
         <div className="pb-8">
             <div className="flex items-center justify-between mb-6 md:mb-8">
                 <h1 className="text-3xl font-bold tracking-tight text-foreground">Categories</h1>
