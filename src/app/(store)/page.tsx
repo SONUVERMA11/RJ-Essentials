@@ -2,7 +2,7 @@ import HeroCarousel from '@/components/store/HeroCarousel';
 import CategoryRow from '@/components/store/CategoryRow';
 import ProductCard from '@/components/store/ProductCard';
 import Link from 'next/link';
-import { ChevronRight, Zap, TrendingUp, Clock, Star } from 'lucide-react';
+import { ChevronRight, Zap, TrendingUp, Star, Sparkles } from 'lucide-react';
 
 // Demo products for when database is not connected
 const DEMO_PRODUCTS = Array.from({ length: 12 }, (_, i) => ({
@@ -33,26 +33,29 @@ const DEMO_PRODUCTS = Array.from({ length: 12 }, (_, i) => ({
     category: ['Electronics', 'Fashion', 'Electronics', 'Fashion', 'Home & Kitchen', 'Fashion', 'Sports', 'Home & Kitchen', 'Electronics', 'Home & Kitchen', 'Electronics', 'Electronics'][i],
 }));
 
-function SectionHeader({ title, icon: Icon, link, color = '#0A0A0A' }: { title: string; icon: React.ElementType; link?: string; color?: string }) {
+interface SectionHeaderProps {
+    title: string;
+    subtitle?: string;
+    link?: string;
+    accentColor: string;
+}
+
+function SectionHeader({ title, subtitle, link, accentColor }: SectionHeaderProps) {
     return (
-        <div className="mb-5 md:mb-6">
-            <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-xl flex items-center justify-center shadow-sm" style={{ backgroundColor: `${color}12` }}>
-                        <Icon size={18} style={{ color }} strokeWidth={2.2} />
-                    </div>
-                    <h2 className="text-xl md:text-2xl font-bold tracking-tight text-foreground">{title}</h2>
-                </div>
-                {link && (
-                    <Link
-                        href={link}
-                        className="flex items-center gap-0.5 text-sm font-semibold text-[#2874F0] hover:underline transition-colors"
-                    >
-                        View All <ChevronRight size={14} strokeWidth={2.5} />
-                    </Link>
-                )}
+        <div className="flex items-center justify-between mb-4 md:mb-5">
+            <div>
+                <h2 className="text-lg md:text-xl font-bold tracking-tight text-foreground">{title}</h2>
+                {subtitle && <p className="text-xs text-muted-foreground mt-0.5">{subtitle}</p>}
             </div>
-            <div className="mt-3 h-px bg-border" />
+            {link && (
+                <Link
+                    href={link}
+                    className="flex items-center gap-0.5 text-xs md:text-sm font-semibold transition-colors hover:opacity-80"
+                    style={{ color: accentColor }}
+                >
+                    View All <ChevronRight size={14} strokeWidth={2.5} />
+                </Link>
+            )}
         </div>
     );
 }
@@ -60,7 +63,7 @@ function SectionHeader({ title, icon: Icon, link, color = '#0A0A0A' }: { title: 
 async function getProducts() {
     try {
         const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
-        const res = await fetch(`${baseUrl}/api/products?limit=20&status=active`, {
+        const res = await fetch(`${baseUrl}/api/products?limit=100&status=active`, {
             cache: 'no-store',
         });
         if (!res.ok) throw new Error('Failed');
@@ -77,7 +80,7 @@ export default async function HomePage() {
     const featured = products.filter((p: { isFeatured?: boolean }) => p.isFeatured).slice(0, 8);
     const deals = products.filter((p: { isDealOfDay?: boolean }) => p.isDealOfDay).slice(0, 8);
     const newArrivals = products.filter((p: { isNewArrival?: boolean }) => p.isNewArrival).slice(0, 8);
-    const bestSellers = [...products].sort((a: { soldCount?: number }, b: { soldCount?: number }) => (b.soldCount || 0) - (a.soldCount || 0)).slice(0, 8);
+    const bestSellers = products.filter((p: { isBestSeller?: boolean }) => p.isBestSeller).slice(0, 8);
 
     const displayFeatured = featured.length > 0 ? featured : products.slice(0, 4);
     const displayDeals = deals.length > 0 ? deals : products.slice(4, 8);
@@ -85,49 +88,97 @@ export default async function HomePage() {
     const displayBest = bestSellers.length > 0 ? bestSellers : products.slice(0, 4);
 
     return (
-        <div className="space-y-8 md:space-y-12 pb-8">
+        <div className="space-y-4 md:space-y-5 pb-8">
             {/* Hero Banner Slider */}
             <HeroCarousel />
 
             {/* Category Grid */}
             <CategoryRow />
 
-            {/* Deal of the Day */}
+            {/* ═══ Deal of the Day ═══ */}
             <section className="max-w-[1280px] mx-auto px-4">
-                <SectionHeader title="Deal of the Day" icon={Zap} link="/category/all?sort=popularity" color="#FB641B" />
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5">
-                    {displayDeals.map((product: typeof DEMO_PRODUCTS[0]) => (
-                        <ProductCard key={product._id} product={product} />
-                    ))}
+                <div className="section-card section-card-deals">
+                    <SectionHeader
+                        title="Deal of the Day"
+                        subtitle="Limited-time offers you don't want to miss"
+                        link="/category/all?sort=popularity"
+                        accentColor="#E65100"
+                    />
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+                        {displayDeals.map((product: typeof DEMO_PRODUCTS[0]) => (
+                            <ProductCard key={product._id} product={product} />
+                        ))}
+                    </div>
                 </div>
             </section>
 
-            {/* Featured Products */}
+            {/* ═══ Featured Products ═══ */}
             <section className="max-w-[1280px] mx-auto px-4">
-                <SectionHeader title="Featured Products" icon={Star} link="/category/all" color="#FFB300" />
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-5">
-                    {displayFeatured.map((product: typeof DEMO_PRODUCTS[0]) => (
-                        <ProductCard key={product._id} product={product} />
-                    ))}
+                <div className="section-card section-card-featured">
+                    <SectionHeader
+                        title="Featured Products"
+                        subtitle="Curated picks our customers love"
+                        link="/category/all"
+                        accentColor="#D97706"
+                    />
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4">
+                        {displayFeatured.map((product: typeof DEMO_PRODUCTS[0]) => (
+                            <ProductCard key={product._id} product={product} />
+                        ))}
+                    </div>
                 </div>
             </section>
 
-            {/* Best Sellers */}
+            {/* ═══ Best Sellers ═══ */}
             <section className="max-w-[1280px] mx-auto px-4">
-                <SectionHeader title="Best Sellers" icon={TrendingUp} link="/category/all?sort=popularity" color="#388E3C" />
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5">
-                    {displayBest.map((product: typeof DEMO_PRODUCTS[0]) => (
-                        <ProductCard key={product._id} product={product} />
-                    ))}
+                <div className="section-card section-card-bestsellers">
+                    <SectionHeader
+                        title="Best Sellers"
+                        subtitle="Top rated by thousands of customers"
+                        link="/category/all?sort=popularity"
+                        accentColor="#16A34A"
+                    />
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+                        {displayBest.map((product: typeof DEMO_PRODUCTS[0]) => (
+                            <ProductCard key={product._id} product={product} />
+                        ))}
+                    </div>
                 </div>
             </section>
 
-            {/* New Arrivals */}
+            {/* ═══ New Arrivals ═══ */}
             <section className="max-w-[1280px] mx-auto px-4">
-                <SectionHeader title="New Arrivals" icon={Clock} link="/category/all?sort=newest" color="#9C27B0" />
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5">
-                    {displayNew.map((product: typeof DEMO_PRODUCTS[0]) => (
-                        <ProductCard key={product._id} product={product} />
+                <div className="section-card section-card-new">
+                    <SectionHeader
+                        title="New Arrivals"
+                        subtitle="Fresh drops just added to the collection"
+                        link="/category/all?sort=newest"
+                        accentColor="#9333EA"
+                    />
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+                        {displayNew.map((product: typeof DEMO_PRODUCTS[0]) => (
+                            <ProductCard key={product._id} product={product} />
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* ═══ Trust Banner ═══ */}
+            <section className="max-w-[1280px] mx-auto px-4">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+                    {[
+                        { icon: '🚚', title: 'Free Delivery', desc: 'On orders above ₹499' },
+                        { icon: '🔄', title: 'Easy Returns', desc: '7-day return policy' },
+                        { icon: '💳', title: 'COD Available', desc: 'Pay on delivery' },
+                        { icon: '🛡️', title: 'Secure Shopping', desc: '100% genuine products' },
+                    ].map((item) => (
+                        <div key={item.title} className="flex items-center gap-3 bg-card rounded-xl p-3.5 border border-border/50 shadow-sm">
+                            <span className="text-2xl">{item.icon}</span>
+                            <div>
+                                <p className="text-sm font-semibold text-foreground">{item.title}</p>
+                                <p className="text-xs text-muted-foreground">{item.desc}</p>
+                            </div>
+                        </div>
                     ))}
                 </div>
             </section>

@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
         const { searchParams } = new URL(req.url);
 
         const page = parseInt(searchParams.get('page') || '1');
-        const limit = Math.min(parseInt(searchParams.get('limit') || '20'), 100);
+        const limit = Math.min(parseInt(searchParams.get('limit') || '20'), 200);
         const category = searchParams.get('category');
         const brand = searchParams.get('brand');
         const status = searchParams.get('status') || 'active';

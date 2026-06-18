@@ -56,19 +56,19 @@
 /* ─── Light Mode ─── */
 :root {
   --radius: 0.625rem;
-  --background: #FAFAF8;
+  --background: #F5F3EF;
   --foreground: #0A0A0A;
   --card: #FFFFFF;
   --card-foreground: #0A0A0A;
   --popover: #FFFFFF;
   --popover-foreground: #0A0A0A;
   --primary: #0A0A0A;
-  --primary-foreground: #FAFAF8;
-  --secondary: #F5F5F0;
+  --primary-foreground: #F5F3EF;
+  --secondary: #EEEAE4;
   --secondary-foreground: #0A0A0A;
-  --muted: #F5F5F0;
+  --muted: #EEEAE4;
   --muted-foreground: #6B6B6B;
-  --accent: #F5F5F0;
+  --accent: #EEEAE4;
   --accent-foreground: #0A0A0A;
   --destructive: #CF222E;
   --border: rgba(0, 0, 0, 0.08);
@@ -82,8 +82,8 @@
   --sidebar: #FFFFFF;
   --sidebar-foreground: #0A0A0A;
   --sidebar-primary: #0A0A0A;
-  --sidebar-primary-foreground: #FAFAF8;
-  --sidebar-accent: #F5F5F0;
+  --sidebar-primary-foreground: #F5F3EF;
+  --sidebar-accent: #EEEAE4;
   --sidebar-accent-foreground: #0A0A0A;
   --sidebar-border: rgba(0, 0, 0, 0.08);
   --sidebar-ring: rgba(0, 0, 0, 0.15);
@@ -155,12 +155,63 @@
 
 /* ─── Store page background ─── */
 .store-bg {
-  background-color: #FAFAF8;
+  background-color: #F5F3EF;
   min-height: 100vh;
 }
 
 .dark .store-bg {
   background-color: #0A0A0A;
+}
+
+/* ─── Section cards with colored borders ─── */
+.section-card {
+  border-radius: 1rem;
+  padding: 1.25rem 1.25rem 1.5rem;
+  border: 1.5px solid transparent;
+  transition: box-shadow 0.3s ease;
+}
+
+@media (min-width: 768px) {
+  .section-card {
+    border-radius: 1.25rem;
+    padding: 1.5rem 1.75rem 2rem;
+  }
+}
+
+.section-card-deals {
+  background: #FDEBD0;
+  border-color: #E67E22;
+}
+.dark .section-card-deals {
+  background: #2C1A0E;
+  border-color: #B35A1A;
+}
+
+.section-card-featured {
+  background: #FDF2C5;
+  border-color: #D4A017;
+}
+.dark .section-card-featured {
+  background: #2A2210;
+  border-color: #9A7412;
+}
+
+.section-card-bestsellers {
+  background: #D5F5E3;
+  border-color: #2E8B57;
+}
+.dark .section-card-bestsellers {
+  background: #0E2418;
+  border-color: #1E6B3A;
+}
+
+.section-card-new {
+  background: #E8DAEF;
+  border-color: #7C3AED;
+}
+.dark .section-card-new {
+  background: #1E1030;
+  border-color: #5B21B6;
 }
 
 /* ─── Premium Card Hover ─── */
