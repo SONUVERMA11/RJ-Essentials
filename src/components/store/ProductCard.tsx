@@ -47,9 +47,9 @@ export default function ProductCard({ product }: ProductCardProps) {
 
     return (
         <Link href={`/product/${product.slug}`} className="block group">
-            <div className="rounded-2xl overflow-hidden relative product-card h-full flex flex-col">
+            <div className="rounded-2xl overflow-hidden relative product-card h-full flex flex-col bg-card">
                 {/* Image */}
-                <div className="relative aspect-square overflow-hidden rounded-2xl">
+                <div className="relative aspect-square overflow-hidden">
                     <img
                         src={product.images?.[0]?.url || '/placeholder.png'}
                         alt={product.name}
@@ -79,7 +79,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                 </div>
 
                 {/* Info */}
-                <div className="p-3 md:p-4 space-y-1.5 flex-1 flex flex-col bg-card rounded-b-2xl">
+                <div className="p-3 md:p-4 space-y-1.5 flex-1 flex flex-col">
                     <h3 className="text-sm font-medium text-foreground truncate leading-snug" title={product.name}>
                         {product.name}
                     </h3>
