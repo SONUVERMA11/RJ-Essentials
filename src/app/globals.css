@@ -179,12 +179,12 @@
 }
 
 .section-card-deals {
-  background: #FDEBD0;
-  border-color: #E67E22;
+  background: #DBEAFE;
+  border-color: #2563EB;
 }
 .dark .section-card-deals {
-  background: #2C1A0E;
-  border-color: #B35A1A;
+  background: #0E1A2E;
+  border-color: #1D4ED8;
 }
 
 .section-card-featured {

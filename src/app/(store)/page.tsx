@@ -102,7 +102,7 @@ export default async function HomePage() {
                         title="Deal of the Day"
                         subtitle="Limited-time offers you don't want to miss"
                         link="/category/all?sort=popularity"
-                        accentColor="#E65100"
+                        accentColor="#2563EB"
                     />
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
                         {displayDeals.map((product: typeof DEMO_PRODUCTS[0]) => (
