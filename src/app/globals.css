@@ -179,9 +179,8 @@
 }
 
 .section-card-deals {
-  background: #1E3A5F;
+  background: #DBEAFE;
   border-color: #2563EB;
-  color: white;
 }
 .dark .section-card-deals {
   background: #0E1A2E;
@@ -189,9 +188,8 @@
 }
 
 .section-card-featured {
-  background: #5C3D0E;
+  background: #FDF2C5;
   border-color: #D4A017;
-  color: white;
 }
 .dark .section-card-featured {
   background: #2A2210;
@@ -199,9 +197,8 @@
 }
 
 .section-card-bestsellers {
-  background: #14532D;
-  border-color: #22C55E;
-  color: white;
+  background: #D5F5E3;
+  border-color: #2E8B57;
 }
 .dark .section-card-bestsellers {
   background: #0E2418;
@@ -209,9 +206,8 @@
 }
 
 .section-card-new {
-  background: #3B0764;
-  border-color: #A855F7;
-  color: white;
+  background: #E8DAEF;
+  border-color: #7C3AED;
 }
 .dark .section-card-new {
   background: #1E1030;

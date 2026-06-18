@@ -79,7 +79,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                 </div>
 
                 {/* Info */}
-                <div className="p-3 md:p-4 space-y-1.5 flex-1 flex flex-col">
+                <div className="p-3 md:p-4 space-y-1.5 flex-1 flex flex-col bg-card rounded-b-2xl">
                     <h3 className="text-sm font-medium text-foreground truncate leading-snug" title={product.name}>
                         {product.name}
                     </h3>
@@ -100,13 +100,13 @@ export default function ProductCard({ product }: ProductCardProps) {
                         {discount > 0 && (
                             <>
                                 <span className="text-xs text-muted-foreground line-through">{formatPrice(product.mrp)}</span>
-                                <span className="text-xs text-[#388E3C] font-semibold">{discount}% off</span>
+                                <span className="text-xs text-[#16A34A] font-semibold">{discount}% off</span>
                             </>
                         )}
                     </div>
 
                     {/* Free delivery badge */}
-                    <p className="text-[11px] text-[#388E3C] font-medium">Free Delivery</p>
+                    <p className="text-[11px] text-[#16A34A] font-medium">Free Delivery</p>
                 </div>
             </div>
         </Link>

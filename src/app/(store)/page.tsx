@@ -44,13 +44,14 @@ function SectionHeader({ title, subtitle, link, accentColor }: SectionHeaderProp
     return (
         <div className="flex items-center justify-between mb-4 md:mb-5">
             <div>
-                <h2 className="text-lg md:text-xl font-bold tracking-tight text-white">{title}</h2>
-                {subtitle && <p className="text-xs text-white/60 mt-0.5">{subtitle}</p>}
+                <h2 className="text-lg md:text-xl font-bold tracking-tight text-foreground">{title}</h2>
+                {subtitle && <p className="text-xs text-muted-foreground mt-0.5">{subtitle}</p>}
             </div>
             {link && (
                 <Link
                     href={link}
-                    className="flex items-center gap-0.5 text-xs md:text-sm font-semibold transition-colors hover:opacity-80 text-white/90"
+                    className="flex items-center gap-0.5 text-xs md:text-sm font-semibold transition-colors hover:opacity-80"
+                    style={{ color: accentColor }}
                 >
                     View All <ChevronRight size={14} strokeWidth={2.5} />
                 </Link>
