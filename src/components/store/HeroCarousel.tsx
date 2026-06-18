@@ -146,7 +146,7 @@ export default function HeroCarousel({ banners: initialBanners }: { banners?: Ba
                                                             {slide.title}
                                                         </h2>
                                                         <div className="mt-4 md:mt-6">
-                                                            <span className="inline-flex items-center gap-2 bg-white text-black text-sm font-semibold px-5 py-2.5 rounded-xl hover:opacity-90 transition-opacity">
+                                                            <span className="inline-flex items-center gap-2 bg-[#2874F0] text-white text-sm font-semibold px-6 py-3 rounded-xl hover:bg-[#1a5dc7] transition-colors shadow-lg">
                                                                 Shop Now
                                                                 <ChevronRight size={16} />
                                                             </span>
@@ -167,7 +167,7 @@ export default function HeroCarousel({ banners: initialBanners }: { banners?: Ba
                                                     {subtitle}
                                                 </p>
                                                 <div className="mt-5 md:mt-8">
-                                                    <span className="inline-flex items-center gap-2 bg-white text-black text-sm font-semibold px-5 py-2.5 rounded-xl hover:opacity-90 transition-opacity">
+                                                    <span className="inline-flex items-center gap-2 bg-[#2874F0] text-white text-sm font-semibold px-6 py-3 rounded-xl hover:bg-[#1a5dc7] transition-colors shadow-lg">
                                                         Shop Now
                                                         <ChevronRight size={16} />
                                                     </span>
