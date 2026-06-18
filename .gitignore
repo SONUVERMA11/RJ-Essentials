@@ -4,6 +4,10 @@
 /node_modules
 agents/node_modules
 agents/output
+n8n-automation/node_modules
+n8n-automation/n8n-data
+n8n-automation/output
+n8n-automation/logs
 /.pnp
 .pnp.*
 .yarn/*

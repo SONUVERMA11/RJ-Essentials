@@ -1,0 +1,37 @@
+{
+  "name": "rj-essentials-n8n-automation",
+  "version": "2.0.0",
+  "description": "Advanced n8n automation: scrape, enrich with AI + multi-platform images, and sync to RJ Essentials",
+  "main": "index.js",
+  "scripts": {
+    "n8n": "npx n8n start",
+    "n8n:dev": "N8N_PORT=5678 npx n8n start",
+    "scraper-api": "node scraper/scraper-api.js",
+    "start-all": "node scraper/scraper-api.js & npx n8n start",
+    "scrape": "node scraper/meesho-scraper.js",
+    "scrape:category": "node scraper/meesho-scraper.js --category",
+    "enrich": "node scraper/product-enricher.js",
+    "enrich:fast": "node scraper/product-enricher.js --skip-images",
+    "enrich:test": "node scraper/product-enricher.js --skip-images --limit 3",
+    "push": "node scraper/push-to-rj.js",
+    "pipeline": "node scraper/meesho-scraper.js && node scraper/product-enricher.js && node scraper/push-to-rj.js",
+    "pipeline:fast": "node scraper/meesho-scraper.js && node scraper/product-enricher.js --skip-images && node scraper/push-to-rj.js",
+    "telegram": "node scraper/telegram-bot.js",
+    "telegram:webhook": "node scraper/telegram-bot.js --webhook",
+    "import-workflow": "node scripts/import-workflow.js",
+    "setup": "node scripts/setup.js"
+  },
+  "dependencies": {
+    "cheerio": "^1.2.0",
+    "dotenv": "^16.6.1",
+    "n8n": "^2.25.7",
+    "node-fetch": "^3.3.2",
+    "puppeteer": "^24.43.1",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2",
+    "slugify": "^1.6.9"
+  },
+  "keywords": [],
+  "author": "RJ Essentials",
+  "license": "ISC"
+}

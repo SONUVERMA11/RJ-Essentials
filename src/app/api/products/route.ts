@@ -124,6 +124,11 @@ export async function POST(req: NextRequest) {
         return NextResponse.json(product, { status: 201 });
     } catch (error) {
         console.error('Products POST error:', error);
-        return NextResponse.json({ error: 'Failed to create product' }, { status: 500 });
+        const msg = error instanceof Error ? error.message : 'Failed to create product';
+        // Surface duplicate key errors for client-side slug collision handling
+        if (msg.includes('E11000') || msg.includes('duplicate')) {
+            return NextResponse.json({ error: msg }, { status: 409 });
+        }
+        return NextResponse.json({ error: msg }, { status: 500 });
     }
 }
