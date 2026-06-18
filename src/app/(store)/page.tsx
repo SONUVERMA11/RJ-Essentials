@@ -163,25 +163,6 @@ export default async function HomePage() {
                 </div>
             </section>
 
-            {/* ═══ Trust Banner ═══ */}
-            <section className="max-w-[1280px] mx-auto px-4">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-                    {[
-                        { icon: '🚚', title: 'Free Delivery', desc: 'On orders above ₹499' },
-                        { icon: '🔄', title: 'Easy Returns', desc: '7-day return policy' },
-                        { icon: '💳', title: 'COD Available', desc: 'Pay on delivery' },
-                        { icon: '🛡️', title: 'Secure Shopping', desc: '100% genuine products' },
-                    ].map((item) => (
-                        <div key={item.title} className="flex items-center gap-3 bg-card rounded-xl p-3.5 border border-border/50 shadow-sm">
-                            <span className="text-2xl">{item.icon}</span>
-                            <div>
-                                <p className="text-sm font-semibold text-foreground">{item.title}</p>
-                                <p className="text-xs text-muted-foreground">{item.desc}</p>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </section>
         </div>
     );
 }

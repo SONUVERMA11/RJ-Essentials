@@ -49,11 +49,11 @@ export default function ProductCard({ product }: ProductCardProps) {
         <Link href={`/product/${product.slug}`} className="block group">
             <div className="bg-card rounded-2xl overflow-hidden relative product-card h-full flex flex-col border border-border">
                 {/* Image */}
-                <div className="relative aspect-square bg-muted flex items-center justify-center overflow-hidden">
+                <div className="relative aspect-square overflow-hidden">
                     <img
                         src={product.images?.[0]?.url || '/placeholder.png'}
                         alt={product.name}
-                        className="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-[1.03] p-4"
+                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.05]"
                         loading="lazy"
                     />
                     {isOutOfStock && (
