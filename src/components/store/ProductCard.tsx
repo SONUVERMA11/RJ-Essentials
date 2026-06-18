@@ -47,9 +47,9 @@ export default function ProductCard({ product }: ProductCardProps) {
 
     return (
         <Link href={`/product/${product.slug}`} className="block group">
-            <div className="bg-card rounded-2xl overflow-hidden relative product-card h-full flex flex-col border border-border">
+            <div className="rounded-2xl overflow-hidden relative product-card h-full flex flex-col">
                 {/* Image */}
-                <div className="relative aspect-square overflow-hidden">
+                <div className="relative aspect-square overflow-hidden rounded-2xl">
                     <img
                         src={product.images?.[0]?.url || '/placeholder.png'}
                         alt={product.name}

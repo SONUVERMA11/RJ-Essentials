@@ -57,7 +57,7 @@ const CATEGORIES = [
         name: 'Watches',
         slug: 'watches',
         tagline: 'Time well spent',
-        image: 'https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=600&h=400&fit=crop&auto=format&q=80',
+        image: 'https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?w=600&h=400&fit=crop&auto=format&q=80',
         size: 'small',
     },
 ];
