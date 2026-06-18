@@ -41,7 +41,7 @@ const FALLBACK_BANNERS: BannerSlide[] = [
     {
         _id: 'fb-5',
         title: 'Watches — Timeless Elegance',
-        image: 'https://images.unsplash.com/photo-1509048191080-d2984bad6ae5?w=1400&h=600&fit=crop&auto=format&q=85',
+        image: 'https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?w=1400&h=600&fit=crop&auto=format&q=85',
         link: '/category/watches',
     },
     {
