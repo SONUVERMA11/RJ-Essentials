@@ -22,8 +22,30 @@ async function getProducts(category: string, searchParams: { sort?: string; minP
         const filter: any = { status: 'active' };
 
         if (category !== 'all') {
-            const categoryName = category.replace(/-/g, ' ');
-            filter.category = new RegExp(`^${categoryName}$`, 'i');
+            // Map URL slugs to actual DB category names
+            const SLUG_TO_CATEGORIES: Record<string, string[]> = {
+                'electronics': ['Electronics'],
+                'fashion': ['Men Clothing', 'Kurtis & Kurta Sets', 'Sarees'],
+                'home-kitchen': ['Home & Kitchen'],
+                'beauty': ['Beauty & Health'],
+                'toys': ['Kids & Toys'],
+                'sports': ['Bags & Footwear'],
+                'books': ['Jewellery'],
+                'watches': ['Watches'],
+            };
+
+            const mappedCategories = SLUG_TO_CATEGORIES[category.toLowerCase()];
+            if (mappedCategories && mappedCategories.length > 0) {
+                if (mappedCategories.length === 1) {
+                    filter.category = new RegExp(`^${mappedCategories[0]}$`, 'i');
+                } else {
+                    filter.category = { $in: mappedCategories.map(c => new RegExp(`^${c}$`, 'i')) };
+                }
+            } else {
+                // Fallback: try slug as category name
+                const categoryName = category.replace(/-/g, ' ');
+                filter.category = new RegExp(`^${categoryName}$`, 'i');
+            }
         }
 
         if (searchParams.minPrice || searchParams.maxPrice) {
