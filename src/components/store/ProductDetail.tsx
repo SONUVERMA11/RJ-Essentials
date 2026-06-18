@@ -25,9 +25,13 @@ interface ProductDetailProps {
         mrp: number; sellingPrice: number; ratings: { average: number; count: number }; stock: number;
     }>;
     reviews: Array<{ _id: string; name: string; rating: number; comment: string; createdAt: string }>;
+    bestSellerProducts?: Array<{
+        _id: string; name: string; slug: string; images: { url: string }[];
+        mrp: number; sellingPrice: number; ratings: { average: number; count: number }; stock: number;
+    }>;
 }
 
-export default function ProductDetailClient({ product, relatedProducts, reviews }: ProductDetailProps) {
+export default function ProductDetailClient({ product, relatedProducts, reviews, bestSellerProducts = [] }: ProductDetailProps) {
     const router = useRouter();
     const addItem = useCartStore((s) => s.addItem);
     const addRecentlyViewed = useRecentlyViewedStore((s) => s.addItem);
@@ -415,27 +419,7 @@ export default function ProductDetailClient({ product, relatedProducts, reviews 
                             </div>
                         </div>
 
-                        {/* Similar Products */}
-                        {relatedProducts.length > 0 && (
-                            <div className="py-3 border-t border-border">
-                                <h3 className="text-sm font-bold text-foreground px-4 mb-3">Similar Products</h3>
-                                <div className="flex gap-3 overflow-x-auto px-4 pb-2 scrollbar-hide">
-                                    {relatedProducts.slice(0, 8).map((p) => (
-                                        <Link key={p._id} href={`/product/${p.slug}`}
-                                            className="shrink-0 w-32 bg-muted/30 rounded-xl overflow-hidden border border-border hover:border-[#2874F0]/30 transition-colors">
-                                            <div className="aspect-square bg-muted/20 flex items-center justify-center p-2">
-                                                {p.images?.[0]?.url ? <img src={p.images[0].url} alt="" className="max-h-full max-w-full object-contain" /> : <span className="text-3xl">📦</span>}
-                                            </div>
-                                            <div className="p-2">
-                                                <p className="text-[11px] text-foreground/80 line-clamp-2 leading-tight">{p.name}</p>
-                                                <p className="text-xs font-bold text-foreground mt-1">{formatPrice(p.sellingPrice)}</p>
-                                                {p.mrp > p.sellingPrice && <p className="text-[10px] text-muted-foreground line-through">{formatPrice(p.mrp)}</p>}
-                                            </div>
-                                        </Link>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
+
 
                         {/* Product Highlights */}
                         {product.highlights?.length > 0 && (
@@ -558,6 +542,53 @@ export default function ProductDetailClient({ product, relatedProducts, reviews 
                             </button>
                         </div>
                     </div>
+                </div>
+
+                {/* --- Below Grid Sections (Similar & Best Sellers) --- */}
+                <div className="mt-8 px-4 md:px-0 space-y-6">
+                    {/* Similar Products */}
+                    {relatedProducts.length > 0 && (
+                        <div className="bg-card rounded-2xl border border-border p-4 md:p-6 shadow-sm">
+                            <h3 className="text-lg font-bold text-foreground mb-4">Similar Products</h3>
+                            <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
+                                {relatedProducts.map((p) => (
+                                    <Link key={p._id} href={`/product/${p.slug}`}
+                                        className="shrink-0 w-40 md:w-48 bg-muted/30 rounded-xl overflow-hidden border border-border hover:border-[#2874F0]/50 transition-colors group">
+                                        <div className="aspect-square bg-muted/20 flex items-center justify-center p-4">
+                                            {p.images?.[0]?.url ? <img src={p.images[0].url} alt="" className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300" /> : <span className="text-4xl">📦</span>}
+                                        </div>
+                                        <div className="p-3">
+                                            <p className="text-[13px] text-foreground/80 line-clamp-2 leading-tight group-hover:text-[#2874F0] transition-colors">{p.name}</p>
+                                            <p className="text-base font-bold text-foreground mt-2">{formatPrice(p.sellingPrice)}</p>
+                                            {p.mrp > p.sellingPrice && <p className="text-[11px] text-muted-foreground line-through">{formatPrice(p.mrp)}</p>}
+                                        </div>
+                                    </Link>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Best Sellers */}
+                    {bestSellerProducts.length > 0 && (
+                        <div className="bg-card rounded-2xl border border-border p-4 md:p-6 shadow-sm">
+                            <h3 className="text-lg font-bold text-foreground mb-4">Best Sellers</h3>
+                            <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
+                                {bestSellerProducts.map((p) => (
+                                    <Link key={p._id} href={`/product/${p.slug}`}
+                                        className="shrink-0 w-40 md:w-48 bg-muted/30 rounded-xl overflow-hidden border border-border hover:border-[#2874F0]/50 transition-colors group">
+                                        <div className="aspect-square bg-muted/20 flex items-center justify-center p-4">
+                                            {p.images?.[0]?.url ? <img src={p.images[0].url} alt="" className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300" /> : <span className="text-4xl">📦</span>}
+                                        </div>
+                                        <div className="p-3">
+                                            <p className="text-[13px] text-foreground/80 line-clamp-2 leading-tight group-hover:text-[#2874F0] transition-colors">{p.name}</p>
+                                            <p className="text-base font-bold text-foreground mt-2">{formatPrice(p.sellingPrice)}</p>
+                                            {p.mrp > p.sellingPrice && <p className="text-[11px] text-muted-foreground line-through">{formatPrice(p.mrp)}</p>}
+                                        </div>
+                                    </Link>
+                                ))}
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
 

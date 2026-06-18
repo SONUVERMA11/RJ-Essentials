@@ -66,6 +66,18 @@ async function getReviews(productId: string) {
     }
 }
 
+async function getBestSellerProducts(currentId: string) {
+    try {
+        const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
+        const res = await fetch(`${baseUrl}/api/products?limit=8&status=active`, { cache: 'no-store' });
+        if (!res.ok) return [];
+        const data = await res.json();
+        return (data.products || []).filter((p: { _id: string }) => p._id !== currentId);
+    } catch {
+        return [];
+    }
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { slug } = await params;
     const product = await getProduct(slug);
@@ -83,9 +95,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ProductPage({ params }: Props) {
     const { slug } = await params;
     const product = await getProduct(slug);
-    const [relatedProducts, reviews] = await Promise.all([
+    const [relatedProducts, reviews, bestSellerProducts] = await Promise.all([
         getRelatedProducts(product.category, product._id),
         getReviews(product._id),
+        getBestSellerProducts(product._id),
     ]);
 
     return (
@@ -110,7 +123,7 @@ export default async function ProductPage({ params }: Props) {
                     }),
                 }}
             />
-            <ProductDetailClient product={product} relatedProducts={relatedProducts} reviews={reviews} />
+            <ProductDetailClient product={product} relatedProducts={relatedProducts} reviews={reviews} bestSellerProducts={bestSellerProducts} />
         </>
     );
 }
